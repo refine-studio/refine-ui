@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { AnimationGallery, EasingDemo } from '../blocks/motion';
+
+<Meta title="Foundations/Motion" />
+
+# Motion
+
+Quick out, gentle landing. Most transitions are 150–300ms on `ease-out-expo`; `ease-spring` is reserved for a little joy.
+
+## Easing
+
+<EasingDemo />
+
+## Animations
+
+<AnimationGallery />
+
+<DocTable
+  head={["Class", "Duration", "Use"]}
+  rows={[
+    ["`animate-shimmer`", "1.8s", "Skeletons, with `skeleton-shimmer`"],
+    ["`animate-facet-spin`", "1.1s", "`Spinner`"],
+    ["`animate-twinkle`", "4s", "Starfields"],
+    ["`animate-hex-wave`", "6s", "Hex grid backgrounds"],
+    ["`animate-marquee`", "30s", "Logo strips; set `--marquee-duration`"],
+    ["`animate-rise`", "0.5s", "Section and card entrances"],
+  ]}
+/>
+
+Radix overlays (dialogs, menus, popovers) animate with `tw-animate-css` (`animate-in`, `fade-in`, `zoom-in-95`, …), which ships with the stylesheet.
+
+## Reduced motion
+
+The stylesheet collapses every animation and transition to near zero under `prefers-reduced-motion: reduce`. You do not have to opt in, but you must not fight it: never encode meaning only in motion.

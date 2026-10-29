@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+<Meta title="Foundations/Principles" />
+
+# Principles
+
+## 1. One brand: refine.studio
+
+Refine UI has one look, the website's: zinc neutrals, the refine teal accent, Geist, heavy display headlines, numbered sections and the diamond mark. There is no theme to pick. A tool built with it looks like it came from us.
+
+## 2. Tools first, then flair
+
+Internal tools are used daily by people who know what they are doing. Legibility, density and speed come first. Inside those limits, a tool author is free: compose, experiment, add a brand moment where it earns attention.
+
+## 3. Semantic tokens, always
+
+Surfaces use `bg-card`, `text-muted-foreground`, `bg-gem-soft`, never a raw `zinc-200` or `teal-500`. Mode and density are scopes you set on any element, never a one-off override.
+
+## 4. Accessible by default
+
+Focus rings, labelled controls, contrast and reduced motion are built into the components, so a tool author cannot forget them.
+
+## What gives it a voice
+
+Refine UI has one brand, so it can have a voice. These choices are deliberate:
+
+<DocTable
+  head={['Topic', 'Refine UI']}
+  rows={[
+    ['Gradients', '`bg-gem-gradient`, `bg-gem-radiance` and `text-gem-gradient` are tokens'],
+    ['Glass', '`glass` for headers and toolbars over scrolling content'],
+    ['Shadows', "`shadow-soft`, the website's wide, faint shadow, on resting cards"],
+    ['Display type', '`text-display-*` at weight 800–900 for headings'],
+    ['Spacing', "Tailwind's stock 4px scale"],
+    ['Icons', '`lucide-react`, imported directly'],
+  ]}
+/>
+
+## The craft every component keeps
+
+These are craft, not taste. Reviews hold you to them.
+
+- **`data-slot` on every component root**, so a parent can style its children without class soup.
+- **The shared `focus-ring` utility** on every focusable control.
+- **`cva` only with a real variant dimension**, base classes grouped with `// base`, `// hover`, `// disabled` labels.
+- **Icon-only buttons** get an `sr-only` label plus `title`, never `aria-label`.
+- **Full state coverage**: hover, focus, active and disabled on every control, and loading, empty and error on every data view.
+- **Constant status colours**: `success`, `warning`, `danger` and `info` never follow the accent.

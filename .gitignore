@@ -1,0 +1,8 @@
+node_modules
+dist
+storybook-static
+*.log
+.DS_Store
+.vite
+.claude/rules/refine/
+.claude/scheduled_tasks.lock

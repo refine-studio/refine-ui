@@ -1,0 +1,75 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Slash } from 'lucide-react';
+
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from './breadcrumb';
+
+const meta = {
+  component: Breadcrumb,
+  title: 'Components/Breadcrumb',
+} satisfies Meta<typeof Breadcrumb>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Playground: Story = {
+  render: (args) => {
+    return (
+      <Breadcrumb {...args}>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Atlas</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Customers</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Acme Austria</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    );
+  },
+};
+
+export const Collapsed: Story = {
+  render: (args) => {
+    return (
+      <Breadcrumb {...args}>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Atlas</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <Slash />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbEllipsis />
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <Slash />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Deploys</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <Slash />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbPage>#4821</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    );
+  },
+};

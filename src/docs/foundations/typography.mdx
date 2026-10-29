@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { EyebrowSpecimen, Families, TabularNumbers, TypeScale } from '../blocks/type-scale';
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+Geist and Geist Mono, shipped with the stylesheet. Headlines are heavy and tight, as on refine.studio; body text stays calm.
+
+<Families />
+
+## The scale
+
+Use the scale names. Each one sets size, line height, tracking and, for display and headline, weight in one class.
+
+<TypeScale />
+
+<DocTable
+  head={["Family", "Classes", "When"]}
+  rows={[
+    ["Display", "`text-display-2xl` … `text-display-sm`", "Hero headings, page titles, big numbers"],
+    ["Headline", "`text-headline-lg` … `text-headline-sm`", "Section and card titles"],
+    ["Body", "`text-body-lg`, `text-body`, `text-body-sm`", "Paragraphs, tables, controls"],
+    ["Caption", "`text-caption`", "Meta data, timestamps, footnotes"],
+  ]}
+/>
+
+Display sizes belong in headings. Keep them out of buttons, labels and data.
+
+## Eyebrow
+
+The numbered kicker from the website's sections. Mono, uppercase, tracked out.
+
+<EyebrowSpecimen />
+
+## Numbers
+
+Use `tabular-nums` wherever numbers line up in a column: tables, stats, timers.
+
+<TabularNumbers />

@@ -1,0 +1,7 @@
+{
+  "singleQuote": true,
+  "printWidth": 120,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/styles/refine-ui.css",
+  "tailwindFunctions": ["cn", "cva"]
+}

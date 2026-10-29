@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { RefineIconGallery, IconSampler, IconsInButtons, IconWeightMatch } from '../blocks/icons';
+
+<Meta title="Foundations/Icons" />
+
+# Icons
+
+Refine UI uses [lucide](https://lucide.dev/icons) — the same set as refine.studio. Import icons directly from `lucide-react`; it ships as a dependency, so there's nothing to install.
+
+```tsx
+import { Sparkles } from 'lucide-react';
+```
+
+<IconSampler />
+
+## Refine icons
+
+Refine UI also ships its own icon set. Each icon is a React component named `RefineIcon` plus the icon's name: `Search_Magnifying_Glass` is `RefineIconSearchMagnifyingGlass`.
+
+```tsx
+import { RefineIconBell } from '@refine-studio/ui';
+
+<RefineIconBell className="size-5" />;
+```
+
+The source icons are drawn at a 2px stroke, which reads heavier than lucide. Refine icons draw at 1.75px, which matches lucide's weight. Both sets take the same `className`, `size` and `strokeWidth` props.
+
+<IconWeightMatch />
+
+The set leaves out raster 3D illustrations and multi-colour flags, because they cannot take the text colour. Run `node scripts/generate-refine-icons.mjs <path to icons-sprite.svg>` to generate the set again from a new sprite.
+
+<RefineIconGallery />
+
+## Sizing
+
+Components size the icons inside them from their own font size (`[&_svg]:size-[1.15em]` in `Button`), so you rarely set a size yourself. Outside components, match the text: `size-4` next to `text-body-sm`, `size-5` next to `text-body`.
+
+<IconsInButtons />
+
+## Icon-only buttons
+
+Give them a visually hidden label and a `title` for the tooltip. Never `aria-label`.
+
+```tsx
+<Button size="icon" title="Search" variant="ghost">
+  <Search />
+  <span className="sr-only">Search</span>
+</Button>
+```
+
+Purely decorative icons need nothing: lucide and the Refine icons both render `aria-hidden` by default.

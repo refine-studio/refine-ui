@@ -1,0 +1,74 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { ModeScopes, NestedScopes } from '../blocks/modes';
+
+<Meta title="Foundations/Modes" />
+
+# Modes
+
+Three modes, each a class you can put on any element: `.light`, `.dark` and `.on-gem`. `on-gem` is for white ink on the teal gradient, the mode of a brand panel or a celebration banner.
+
+<ModeScopes />
+
+## Scopes
+
+`ThemeScope` re-themes one subtree without touching the page: a dark sidebar in a light app, or a compact pane next to a comfortable one.
+
+<NestedScopes />
+
+```tsx
+<ThemeScope mode="dark">…</ThemeScope>
+<ThemeScope mode="on-gem">…</ThemeScope>
+<ThemeScope density="compact">…</ThemeScope>
+```
+
+## App theme
+
+`ThemeProvider` applies mode and density to `<html>`, follows the operating system in `system` mode, and remembers the choice in `localStorage`. `ThemeSwitcher` is the ready-made light, dark and system toggle.
+
+```tsx
+import { ThemeProvider, ThemeSwitcher } from '@refine-studio/ui';
+
+export const App = () => {
+  return (
+    <ThemeProvider density="comfortable" mode="system">
+      <ThemeSwitcher />
+    </ThemeProvider>
+  );
+};
+```
+
+Use `useTheme()` to build your own control:
+
+```tsx
+const ModeToggle = () => {
+  const { resolvedMode, setTheme } = useTheme();
+
+  return (
+    <Button
+      onClick={() => {
+        setTheme({
+          mode: resolvedMode === 'dark' ? 'light' : 'dark',
+        });
+      }}
+      variant="ghost"
+    >
+      Toggle mode
+    </Button>
+  );
+};
+```
+
+<DocTable
+  head={["Export", "What it does"]}
+  rows={[
+    ["`ThemeProvider`", "Owns `mode` and `density` on `<html>`. Pass `storageKey={false}` to skip `localStorage`"],
+    ["`useTheme()`", "Returns `{ mode, resolvedMode, density, setTheme }`"],
+    ["`ThemeSwitcher`", "A light, dark and system toggle wired to `useTheme`"],
+    ["`ThemeScope`", "A `div` (or `asChild`) that sets `mode` and `density` on its subtree"],
+    ["`applyTheme()`", "The imperative core: `applyTheme(element, { mode, density })`"],
+    ["`MODES`, `DENSITIES`", "The allowed values"],
+  ]}
+/>

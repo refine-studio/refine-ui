@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from './blocks/doc-table';
+
+import { WelcomeHero } from './blocks/welcome-hero';
+
+<Meta title="Welcome" />
+
+<WelcomeHero />
+
+## What this is
+
+Refine UI is the design system for our **internal tools**: time trackers, voting bots, dashboards, admin panels, the experiment you build on a Friday. It has one brand, [refine.studio](https://refine.studio): zinc neutrals, the refine teal accent, Geist, heavy display type, numbered sections and the diamond mark.
+
+Refine UI is built for us, so it has a voice: gradients, glass, soft shadows and display type. [Principles](?path=/docs/foundations-principles--docs) lists the choices that give it that voice and the craft every component keeps.
+
+## Using this Storybook
+
+The **Mode** toggle in the toolbar switches every story and every specimen between light and dark. Check both: a component that looks right in only one mode is a bug.
+
+<DocTable
+  head={['Section', "What you'll find"]}
+  rows={[
+    ['Foundations', 'Principles, logo, colour, type, shape and spacing, elevation, motion, modes, icons'],
+    ['Components', 'Every building block in one flat list, with variants, states and a playground'],
+    ['Widgets', 'Complex composed pieces such as App Shell, Command Menu and Page Header, plus full example screens'],
+  ]}
+/>
+
+## Install
+
+Refine UI is published to GitHub Packages under the `refine-studio` organisation. Add the scope to your project's `.npmrc`, with a GitHub token that has `read:packages`:
+
+```ini
+@refine-studio:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+```sh
+pnpm add @refine-studio/ui
+```
+
+It expects React 19 and Tailwind CSS 4.
+
+## Wire up the styles
+
+Import the stylesheet after Tailwind. It brings the tokens, the Geist fonts and the animations, and tells Tailwind to scan the library's components.
+
+```css
+/* app.css */
+@import 'tailwindcss';
+@import '@refine-studio/ui/styles.css';
+```
+
+## Wrap the app
+
+`ThemeProvider` owns mode and density on `<html>` and remembers the choice in `localStorage`. See [Modes](?path=/docs/foundations-modes--docs).
+
+```tsx
+import { Button, ThemeProvider } from '@refine-studio/ui';
+
+export const App = () => {
+  return (
+    <ThemeProvider mode="system">
+      <Button variant="gem">Ship it</Button>
+    </ThemeProvider>
+  );
+};
+```

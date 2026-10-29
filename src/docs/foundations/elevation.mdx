@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { ElevationLevels, SurfaceUtilities } from '../blocks/elevation';
+
+<Meta title="Foundations/Elevation" />
+
+# Elevation
+
+Depth comes from three things: the surface ramp (`canvas` → `background` → `card` → `popover`), 1px borders, and three shadows. Shadows get four times stronger in dark mode, where faint ones would vanish.
+
+<ElevationLevels />
+
+<DocTable
+  head={["Token", "Use it for", "Don't"]}
+  rows={[
+    ["`shadow-soft`", "Resting cards and panels — refine.studio's wide, faint shadow", "Stack it inside another soft-shadow card"],
+    ["`shadow-float`", "Menus, popovers, dialogs, toasts", "Use it on resting content"],
+    ["`shadow-glow`", "Hover on gem buttons, a selected brand card", "Use it ambiently on every element"],
+  ]}
+/>
+
+## Surface utilities
+
+<SurfaceUtilities />
+
+- **`card-surface`** is the whole card recipe in one class: border, `rounded-card`, `bg-card` and `shadow-soft`.
+- **`glass`** is for sticky headers, toolbars and floating bars sitting over scrolling content. Not for cards at rest.

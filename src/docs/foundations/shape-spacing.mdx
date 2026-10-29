@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { ControlHeights, RadiusTokens } from '../blocks/shape-spacing';
+
+<Meta title="Foundations/Shape & Spacing" />
+
+# Shape & spacing
+
+## Radius
+
+Four fixed radii, taken from refine.studio. Pick by the size of the thing, not by taste.
+
+<RadiusTokens />
+
+## Spacing
+
+Refine UI keeps Tailwind's stock 4px scale: `p-4` is 16px and `gap-6` is 24px. Space with `gap-*` on flex and grid, not with margins.
+
+## Control heights
+
+Buttons, inputs and selects size themselves with `h-control-*`.
+
+<DocTable
+  head={["Token", "Comfortable", "Used by"]}
+  rows={[
+    ["`h-control-xs`", "24px", "Toggle segments, tiny icon buttons"],
+    ["`h-control-sm`", "32px", "Small buttons, dense tables"],
+    ["`h-control-md`", "40px", "Default buttons, inputs and selects"],
+    ["`h-control-lg`", "48px", "Large buttons"],
+    ["`h-control-xl`", "56px", "Hero calls to action"],
+  ]}
+/>
+
+## Density
+
+Density is the one size knob. Set `data-density` on any element, or `density` on `ThemeScope`, and every control height inside it scales.
+
+<ControlHeights />
+
+<DocTable
+  head={["`data-density`", "Scale", "Use"]}
+  rows={[
+    ["`compact`", "0.85", "Data-heavy tables, admin screens"],
+    ["`comfortable`", "1", "The default"],
+    ["`spacious`", "1.15", "Touch, kiosks, calm settings"],
+  ]}
+/>

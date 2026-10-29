@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { GemRamp, GemRoles, NeutralSwatches, OverlaySwatches, StatusSwatches } from '../blocks/swatches';
+
+<Meta title="Foundations/Colors" />
+
+# Colours
+
+Every colour is OKLCH and every surface uses a semantic token. Switch **Mode** in the toolbar and the swatches follow.
+
+## Neutrals
+
+Zinc, exactly as on refine.studio. `canvas` sits behind everything, and `background`, `card` and `popover` stack on top.
+
+<NeutralSwatches />
+
+<DocTable
+  head={["Token", "Use"]}
+  rows={[
+    ["`canvas`", "App background behind cards and panels"],
+    ["`background`", "Page and input backgrounds"],
+    ["`card` / `popover`", "Raised and floating surfaces"],
+    ["`muted` / `secondary`", "Quiet fills, secondary buttons, table headers"],
+    ["`border` / `input`", "Hairlines, and the stronger edge of form controls"],
+    ["`foreground` / `muted-foreground`", "Primary and secondary text"],
+    ["`subtle`", "Placeholders and hints. Check contrast where it sits"],
+    ["`primary`", "The ink button: black in light, white in dark"],
+  ]}
+/>
+
+## Accent: refine teal
+
+The accent is the refine teal. Its utilities carry the name **gem**: `bg-gem`, `text-gem-ink`, `bg-gem-soft`, the gradients and the `gem-50` to `gem-950` ramp.
+
+<GemRoles />
+
+<GemRamp />
+
+## Status
+
+Status colours are constant and never follow the accent. Each family has a base for fills and icons, a soft for backgrounds, and an ink for text.
+
+<StatusSwatches />
+
+## Interaction overlays
+
+Hover and pressed states are translucent layers of the current foreground, so they work on any surface. `scrim` sits behind dialogs and sheets.
+
+<OverlaySwatches />
