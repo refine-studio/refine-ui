@@ -181,7 +181,7 @@ export const DataTable = <T,>({
       stickyHeader={stickyHeader}
     >
       <TableHeader>
-        <TableRow className="hover:bg-transparent">
+        <TableRow hoverable={false}>
           {isExpandable ? (
             <TableHead className="w-0 pr-0">
               <span className="sr-only">Details</span>
@@ -213,7 +213,7 @@ export const DataTable = <T,>({
       </TableHeader>
       <TableBody>
         {sorted.length === 0 ? (
-          <TableRow className="hover:bg-transparent">
+          <TableRow hoverable={false}>
             <TableCell className="h-24 text-center whitespace-normal text-muted-foreground" colSpan={columnCount}>
               {empty}
             </TableCell>
@@ -257,7 +257,7 @@ export const DataTable = <T,>({
                 })}
               </TableRow>
               {isOpen ? (
-                <TableRow className="bg-gem/5 hover:bg-gem/5" data-slot="data-table-detail" id={detailId}>
+                <TableRow className="[&>td]:bg-gem/5" data-slot="data-table-detail" hoverable={false} id={detailId}>
                   <TableCell className="px-3 py-4 h-auto whitespace-normal" colSpan={columnCount}>
                     {renderDetail(row)}
                   </TableCell>

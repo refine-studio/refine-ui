@@ -9,6 +9,9 @@ interface TableProps extends ComponentProps<'table'> {
 
 /**
  * A dense data table inside a scroll container; `stickyHeader` pins the header row while the body scrolls.
+ * Rows carry no rule between them: a hairline sits under the header and over the totals, and a
+ * row shows itself on hover with a rounded fill. Borders and corners live on the cells, because
+ * a separated table is the only one whose cells take a radius.
  */
 export const Table = ({ className, containerClassName, stickyHeader = false, ...props }: TableProps) => {
   return (
@@ -18,7 +21,7 @@ export const Table = ({ className, containerClassName, stickyHeader = false, ...
       data-sticky={stickyHeader || undefined}
     >
       <table
-        className={cn('group/table w-full caption-bottom border-collapse text-body-sm', className)}
+        className={cn('group/table w-full caption-bottom border-separate border-spacing-0 text-body-sm', className)}
         data-slot="table"
         data-sticky={stickyHeader || undefined}
         {...props}
@@ -34,7 +37,7 @@ export const TableHeader = ({ className, ...props }: ComponentProps<'thead'>) =>
   return (
     <thead
       className={cn(
-        '[&_tr]:border-b group-data-sticky/table:sticky group-data-sticky/table:top-0 group-data-sticky/table:z-10 group-data-sticky/table:bg-background/90 group-data-sticky/table:backdrop-blur',
+        '[&_th]:border-b group-data-sticky/table:sticky group-data-sticky/table:top-0 group-data-sticky/table:z-10 group-data-sticky/table:bg-background/90 group-data-sticky/table:backdrop-blur',
         className,
       )}
       data-slot="table-header"
@@ -47,7 +50,7 @@ export const TableHeader = ({ className, ...props }: ComponentProps<'thead'>) =>
  * The body row group.
  */
 export const TableBody = ({ className, ...props }: ComponentProps<'tbody'>) => {
-  return <tbody className={cn('[&_tr:last-child]:border-0', className)} data-slot="table-body" {...props} />;
+  return <tbody className={className} data-slot="table-body" {...props} />;
 };
 
 /**
@@ -56,21 +59,29 @@ export const TableBody = ({ className, ...props }: ComponentProps<'tbody'>) => {
 export const TableFooter = ({ className, ...props }: ComponentProps<'tfoot'>) => {
   return (
     <tfoot
-      className={cn('border-t bg-muted/60 font-medium [&>tr]:last:border-b-0', className)}
+      className={cn('bg-muted/60 font-medium [&>tr:first-child>td]:border-t', className)}
       data-slot="table-footer"
       {...props}
     />
   );
 };
 
+interface TableRowProps extends ComponentProps<'tr'> {
+  /** `false` for a row that is not a record, such as a group heading or an empty state: it never lights up */
+  hoverable?: boolean;
+}
+
 /**
- * A row that highlights on hover and when `data-state="selected"`.
+ * A row that fills on hover and when `data-state="selected"`, with rounded ends. The fill sits on
+ * its cells, so a header row of `TableHead` cells never takes it.
  */
-export const TableRow = ({ className, ...props }: ComponentProps<'tr'>) => {
+export const TableRow = ({ className, hoverable = true, ...props }: TableRowProps) => {
   return (
     <tr
       className={cn(
-        'border-b transition-colors hover:bg-hover data-[state=selected]:bg-gem/10 data-[state=selected]:hover:bg-gem/15',
+        '[&>td]:transition-colors [&>td:first-child]:rounded-l-control [&>td:last-child]:rounded-r-control',
+        hoverable &&
+          '[&:hover>td]:bg-hover data-[state=selected]:[&>td]:bg-gem/10 data-[state=selected]:[&:hover>td]:bg-gem/15',
         className,
       )}
       data-slot="table-row"
