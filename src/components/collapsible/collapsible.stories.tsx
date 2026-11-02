@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ChevronRight } from 'lucide-react';
 
+import { Button } from '../button/button';
 import { ThemeScope } from '../../theme/theme-scope';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible';
 
@@ -57,6 +59,33 @@ export const LightAndDark: Story = {
           );
         })}
       </div>
+    );
+  },
+};
+
+/**
+ * With `asChild` the trigger renders your own element alone: here an icon-only caret beside a link.
+ */
+export const CustomTrigger: Story = {
+  args: {
+    defaultOpen: true,
+  },
+  render: (args) => {
+    return (
+      <Collapsible {...args} className="w-[32rem]">
+        <div className="flex items-center gap-2">
+          <CollapsibleTrigger asChild>
+            <Button className="group/caret" size="icon-sm" title="Toggle Capabilities" variant="ghost">
+              <ChevronRight className="transition-transform duration-200 ease-out-expo group-data-[state=open]/caret:rotate-90" />
+              <span className="sr-only">Toggle Capabilities</span>
+            </Button>
+          </CollapsibleTrigger>
+          <a className="text-body font-medium hover:text-gem-ink" href="#capabilities">
+            Capabilities
+          </a>
+        </div>
+        <CollapsibleContent className="pl-9">Search, filter and export.</CollapsibleContent>
+      </Collapsible>
     );
   },
 };
