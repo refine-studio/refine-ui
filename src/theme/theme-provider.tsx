@@ -2,7 +2,7 @@
 
 import { createContext, type ReactNode, use, useEffect, useState, useSyncExternalStore } from 'react';
 
-import { applyTheme, DEFAULT_THEME, type ThemeSettings } from './theme';
+import { applyTheme, DEFAULT_THEME, DENSITIES, MODES, type ThemeSettings } from './theme';
 
 interface ThemeContextValue extends ThemeSettings {
   resolvedMode: 'dark' | 'light';
@@ -11,26 +11,65 @@ interface ThemeContextValue extends ThemeSettings {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
+const DEFAULT_STORAGE_KEY = 'refine-ui-theme';
+const DARK_QUERY = '(prefers-color-scheme: dark)';
+
 interface ThemeProviderProps extends Partial<ThemeSettings> {
   children: ReactNode;
   storageKey?: string | false;
 }
 
 /**
- * Reads the stored theme once on mount.
+ * Reads the stored theme once on mount, keeping only the values `MODES` and `DENSITIES` allow.
  */
 const readStoredTheme = (storageKey: string | false) => {
   if (!storageKey || typeof window === 'undefined') return {};
 
   try {
-    return JSON.parse(window.localStorage.getItem(storageKey) ?? '{}') as Partial<ThemeSettings>;
+    const stored = JSON.parse(window.localStorage.getItem(storageKey) ?? '{}') as Record<string, unknown> | null;
+    const settings: Partial<ThemeSettings> = {};
+    const storedMode = MODES.find((value) => {
+      return value === stored?.mode;
+    });
+    const storedDensity = DENSITIES.find((value) => {
+      return value === stored?.density;
+    });
+    if (storedMode) settings.mode = storedMode;
+    if (storedDensity) settings.density = storedDensity;
+
+    return settings;
   } catch {
     // A corrupted entry falls back to the defaults rather than breaking the app.
     return {};
   }
 };
 
-const DARK_QUERY = '(prefers-color-scheme: dark)';
+interface ThemeScriptOptions extends Partial<ThemeSettings> {
+  /**
+   * A key that holds `true` for dark or `false` for light. Its choice moves to `storageKey` once, then the key is removed.
+   */
+  legacyStorageKey?: string;
+  storageKey?: string | false;
+}
+
+/**
+ * Returns an inline `<script>` body for the page head that applies the stored or the system theme before the first paint.
+ * Pass the same `storageKey`, `mode` and `density` as to `ThemeProvider`.
+ */
+export const themeScript = ({
+  density = DEFAULT_THEME.density,
+  legacyStorageKey,
+  mode = DEFAULT_THEME.mode,
+  storageKey = DEFAULT_STORAGE_KEY,
+}: ThemeScriptOptions = {}) => {
+  const args = [storageKey, legacyStorageKey ?? null, mode, density, MODES, DENSITIES, DARK_QUERY]
+    .map((value) => {
+      return JSON.stringify(value).replace(/</g, '\\u003c');
+    })
+    .join(',');
+
+  return `(function(key,legacyKey,mode,density,modes,densities,darkQuery){var stored={};try{var storage=window.localStorage;if(key){var legacy=legacyKey&&storage.getItem(key)===null?storage.getItem(legacyKey):null;if(legacy==='true'||legacy==='false')storage.setItem(key,JSON.stringify({mode:legacy==='true'?'dark':'light'}));if(legacyKey)storage.removeItem(legacyKey);stored=JSON.parse(storage.getItem(key)||'{}')||{};}}catch(error){}if(modes.indexOf(stored.mode)>-1)mode=stored.mode;if(densities.indexOf(stored.density)>-1)density=stored.density;if(mode==='system')mode=window.matchMedia(darkQuery).matches?'dark':'light';var root=document.documentElement;root.classList.toggle('dark',mode==='dark');root.classList.toggle('light',mode==='light');root.dataset.density=density;})(${args});`;
+};
 
 /**
  * Subscribes to changes of the operating system's colour preference.
@@ -47,11 +86,16 @@ const subscribeToSystemMode = (onChange: () => void) => {
 /**
  * Owns the document theme: applies mode and density to `<html>`, follows the OS in `system` mode, and persists changes under `storageKey`.
  */
-export const ThemeProvider = ({ children, storageKey = 'refine-ui-theme', ...initialSettings }: ThemeProviderProps) => {
+export const ThemeProvider = ({
+  children,
+  density = DEFAULT_THEME.density,
+  mode = DEFAULT_THEME.mode,
+  storageKey = DEFAULT_STORAGE_KEY,
+}: ThemeProviderProps) => {
   const [settings, setSettings] = useState<ThemeSettings>(() => {
     return {
-      ...DEFAULT_THEME,
-      ...initialSettings,
+      density,
+      mode,
       ...readStoredTheme(storageKey),
     };
   });

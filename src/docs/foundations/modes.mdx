@@ -40,6 +40,28 @@ export const App = () => {
 };
 ```
 
+### No light flash on load
+
+`ThemeProvider` runs after the page starts, so a dark reader would see one light frame. `themeScript()` returns a small inline script for the page head. It applies the stored or the system theme before the first paint, and reads the same `localStorage` entry `ThemeProvider` and `ThemeSwitcher` write. Pass it the same `storageKey`, `mode` and `density` as the provider.
+
+```ts
+import { themeScript } from '@refine-studio/ui';
+
+const head = `<script>${themeScript()}</script>`;
+```
+
+```tsx
+<head>
+  <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
+</head>
+```
+
+An app that stored a dark flag of its own passes `legacyStorageKey`. The script moves a `true` or `false` there to the new entry once, then deletes the old key:
+
+```ts
+themeScript({ legacyStorageKey: 'atlas:dark' });
+```
+
 Use `useTheme()` to build your own control:
 
 ```tsx
@@ -65,6 +87,7 @@ const ModeToggle = () => {
   head={["Export", "What it does"]}
   rows={[
     ["`ThemeProvider`", "Owns `mode` and `density` on `<html>`. Pass `storageKey={false}` to skip `localStorage`"],
+    ["`themeScript()`", "The page-head script that applies the stored or the system theme before the first paint"],
     ["`useTheme()`", "Returns `{ mode, resolvedMode, density, setTheme }`"],
     ["`ThemeSwitcher`", "A light, dark and system toggle wired to `useTheme`"],
     ["`ThemeScope`", "A `div` (or `asChild`) that sets `mode` and `density` on its subtree"],
