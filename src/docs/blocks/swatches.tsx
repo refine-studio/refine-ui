@@ -141,15 +141,22 @@ const STATUS = [
     name: 'info',
     soft: 'bg-info-soft',
   },
+  {
+    base: 'bg-violet',
+    foreground: 'text-violet-foreground',
+    ink: 'text-violet-ink',
+    name: 'violet',
+    soft: 'bg-violet-soft',
+  },
 ] as const;
 
 /**
- * The five status families: text on the solid fill, then ink on soft.
+ * The six status families: text on the solid fill, then ink on soft.
  */
 export const StatusSwatches = () => {
   return (
     <Specimen caption="Status colours never follow the accent. Red means trouble in every mode.">
-      <div className="grid gap-4 sm:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {STATUS.map(({ base, foreground, ink, name, soft }) => {
           return (
             <div className="flex flex-col gap-2" key={name}>

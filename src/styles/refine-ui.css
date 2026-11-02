@@ -89,6 +89,10 @@
   --info-soft: oklch(0.962 0.025 240);
   --info-ink: oklch(0.47 0.16 255);
   --info-foreground: oklch(0.18 0.05 250);
+  --violet: oklch(0.56 0.2 295);
+  --violet-soft: oklch(0.962 0.03 300);
+  --violet-ink: oklch(0.48 0.18 295);
+  --violet-foreground: oklch(0.985 0.01 295);
 
   --shadow-color: oklch(0.141 0.005 286);
   --shadow-strength: 1;
@@ -142,6 +146,10 @@
   --info-soft: oklch(0.27 0.05 245);
   --info-ink: oklch(0.82 0.1 240);
   --info-foreground: oklch(0.18 0.05 250);
+  --violet: oklch(0.72 0.15 295);
+  --violet-soft: oklch(0.27 0.06 295);
+  --violet-ink: oklch(0.83 0.1 300);
+  --violet-foreground: oklch(0.18 0.05 295);
 
   --shadow-color: oklch(0 0 0);
   --shadow-strength: 4;
@@ -228,6 +236,10 @@
   --color-info-soft: var(--info-soft);
   --color-info-ink: var(--info-ink);
   --color-info-foreground: var(--info-foreground);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-violet-ink: var(--violet-ink);
+  --color-violet-foreground: var(--violet-foreground);
 
   --radius-inner: 0.3125rem;
   --radius-control: 0.5rem;

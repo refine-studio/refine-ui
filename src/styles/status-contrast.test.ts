@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 const CSS = readFileSync(join(import.meta.dirname, 'refine-ui.css'), 'utf8');
 
-const STATUSES = ['success', 'warning', 'orange', 'danger', 'info'] as const;
+const STATUSES = ['success', 'warning', 'orange', 'danger', 'info', 'violet'] as const;
 
 const STEPS = ['', '-soft', '-ink', '-foreground'] as const;
 
@@ -76,7 +76,7 @@ describe.each(Object.entries(MODES))('status colours in %s mode', (_mode, tokens
     expect(contrast(tokens.get(`${status}-foreground`), tokens.get(status))).toBeGreaterThanOrEqual(4.5);
   });
 
-  it('orange-ink passes 4.5:1 on orange-soft', () => {
-    expect(contrast(tokens.get('orange-ink'), tokens.get('orange-soft'))).toBeGreaterThanOrEqual(4.5);
+  it.each(['orange', 'violet'])('%s-ink passes 4.5:1 on its soft', (status) => {
+    expect(contrast(tokens.get(`${status}-ink`), tokens.get(`${status}-soft`))).toBeGreaterThanOrEqual(4.5);
   });
 });
