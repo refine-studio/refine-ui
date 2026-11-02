@@ -14,13 +14,22 @@ export const Collapsible = ({ className, ...props }: ComponentProps<typeof Colla
 };
 
 /**
- * Toggles its section and turns the chevron to show the state.
+ * Toggles its section and turns the chevron to show the state. With `asChild` it renders the child alone, with no chevron and no styles.
  */
 export const CollapsibleTrigger = ({
+  asChild = false,
   children,
   className,
   ...props
 }: ComponentProps<typeof CollapsiblePrimitive.Trigger>) => {
+  if (asChild) {
+    return (
+      <CollapsiblePrimitive.Trigger asChild className={className} data-slot="collapsible-trigger" {...props}>
+        {children}
+      </CollapsiblePrimitive.Trigger>
+    );
+  }
+
   return (
     <CollapsiblePrimitive.Trigger
       className={cn(

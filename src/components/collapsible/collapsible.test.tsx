@@ -51,4 +51,28 @@ describe('Collapsible', () => {
     await user.keyboard(' ');
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
   });
+
+  it('renders only the child with asChild, and still opens and shuts', async () => {
+    const user = userEvent.setup();
+    const { container, getByRole } = render(
+      <Collapsible>
+        <CollapsibleTrigger asChild>
+          <button className="caret" type="button">
+            Toggle
+          </button>
+        </CollapsibleTrigger>
+        <CollapsibleContent>Search and export</CollapsibleContent>
+      </Collapsible>,
+    );
+    const trigger = getByRole('button', { name: 'Toggle' });
+
+    expect(trigger.className).toBe('caret');
+    expect(container.querySelector('svg')).toBeNull();
+
+    await user.click(trigger);
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+
+    await user.keyboard('{Enter}');
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+  });
 });
