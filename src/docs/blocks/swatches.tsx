@@ -108,24 +108,35 @@ export const GemRoles = () => {
 const STATUS = [
   {
     base: 'bg-success',
+    foreground: 'text-success-foreground',
     ink: 'text-success-ink',
     name: 'success',
     soft: 'bg-success-soft',
   },
   {
     base: 'bg-warning',
+    foreground: 'text-warning-foreground',
     ink: 'text-warning-ink',
     name: 'warning',
     soft: 'bg-warning-soft',
   },
   {
+    base: 'bg-orange',
+    foreground: 'text-orange-foreground',
+    ink: 'text-orange-ink',
+    name: 'orange',
+    soft: 'bg-orange-soft',
+  },
+  {
     base: 'bg-danger',
+    foreground: 'text-danger-foreground',
     ink: 'text-danger-ink',
     name: 'danger',
     soft: 'bg-danger-soft',
   },
   {
     base: 'bg-info',
+    foreground: 'text-info-foreground',
     ink: 'text-info-ink',
     name: 'info',
     soft: 'bg-info-soft',
@@ -133,21 +144,23 @@ const STATUS = [
 ] as const;
 
 /**
- * The four status families in base, soft and ink.
+ * The five status families: text on the solid fill, then ink on soft.
  */
 export const StatusSwatches = () => {
   return (
     <Specimen caption="Status colours never follow the accent. Red means trouble in every mode.">
-      <div className="grid gap-4 sm:grid-cols-4">
-        {STATUS.map(({ base, ink, name, soft }) => {
+      <div className="grid gap-4 sm:grid-cols-5">
+        {STATUS.map(({ base, foreground, ink, name, soft }) => {
           return (
             <div className="flex flex-col gap-2" key={name}>
-              <div className={`h-10 rounded-control ${base}`} />
+              <div className={`flex h-10 items-center rounded-control px-3 text-body-sm font-medium ${base} ${foreground}`}>
+                {name} on fill
+              </div>
               <div className={`flex h-10 items-center rounded-control px-3 text-body-sm font-medium ${soft} ${ink}`}>
                 {name} on soft
               </div>
               <Token>
-                {name} · {name}-soft · {name}-ink
+                {name} · {name}-foreground · {name}-soft · {name}-ink
               </Token>
             </div>
           );
