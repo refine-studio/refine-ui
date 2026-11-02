@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
+import { ChartSample, ChartSwatches } from '../blocks/charts';
 import { DocTable } from '../blocks/doc-table';
 
 import { GemRamp, GemRoles, NeutralSwatches, OverlaySwatches, StatusSwatches } from '../blocks/swatches';
@@ -48,6 +49,16 @@ Orange sits between warning and danger, for a severity that is worse than a warn
 Violet carries no severity. Use it for a state that is neither good nor bad, such as an early stage, where teal would read as the brand accent.
 
 <StatusSwatches />
+
+## Charts
+
+Eight colours for the series of one chart, from Tailwind's 500 step. They are the same in light and dark mode. Take them in order from `chart-1`, so a chart with three series uses the first three. Neighbours in the order stay apart for readers with protanopia, deuteranopia and tritanopia. Beyond eight series, group the smallest into **Other** in `muted-foreground`.
+
+**Every chart carries a legend or direct labels, plus a tooltip.** The fills reach 2:1 on white, not 3:1. WCAG 1.4.11 allows that only when the colour is not the sole way to read the data.
+
+<ChartSwatches />
+
+<ChartSample />
 
 ## Interaction overlays
 

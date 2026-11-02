@@ -405,6 +405,35 @@
   }
 }
 
+/*
+ * Chart colours: categorical series, used in order from chart-1.
+ * Tailwind's 500 step, the same in light and dark. Neighbours in the order
+ * stay apart under protanopia, deuteranopia and tritanopia. The fills reach
+ * 2:1 on white, not 3:1, so every chart carries a legend or direct labels.
+ */
+
+:root {
+  --chart-1: oklch(0.704 0.14 182.503);
+  --chart-2: oklch(0.667 0.295 322.15);
+  --chart-3: oklch(0.723 0.219 149.579);
+  --chart-4: oklch(0.606 0.25 292.717);
+  --chart-5: oklch(0.637 0.237 25.331);
+  --chart-6: oklch(0.685 0.169 237.323);
+  --chart-7: oklch(0.656 0.241 354.308);
+  --chart-8: oklch(0.769 0.188 70.08);
+}
+
+@theme inline {
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+}
+
 /* Utilities that carry the brand. */
 
 @utility focus-ring {
