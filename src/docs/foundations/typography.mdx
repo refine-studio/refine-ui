@@ -2,7 +2,15 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 import { DocTable } from '../blocks/doc-table';
 
-import { EyebrowSpecimen, Families, TabularNumbers, TypeScale } from '../blocks/type-scale';
+import {
+  EyebrowSpecimen,
+  Families,
+  HeadingWeight,
+  MicroSpecimen,
+  TabularNumbers,
+  TextColours,
+  TypeScale,
+} from '../blocks/type-scale';
 
 <Meta title="Foundations/Typography" />
 
@@ -25,10 +33,35 @@ Use the scale names. Each one sets size, line height, tracking and, for display 
     ["Headline", "`text-headline-lg` … `text-headline-sm`", "Section and card titles"],
     ["Body", "`text-body-lg`, `text-body`, `text-body-sm`", "Paragraphs, tables, controls"],
     ["Caption", "`text-caption`", "Meta data, timestamps, footnotes"],
+    ["Micro", "`text-micro`", "Dense tables and chart labels. Never running text"],
   ]}
 />
 
 Display sizes belong in headings. Keep them out of buttons, labels and data.
+
+## Heading weight
+
+Every display and headline step takes its weight from one variable, `--heading-weight`. Refine UI sets 700. An app sets its own weight once:
+
+```css
+:root {
+  --heading-weight: 900;
+}
+```
+
+<HeadingWeight />
+
+## Micro
+
+The 10 px step, for dense tables and chart labels. It has its own 14 px line, so wrapped lines never touch.
+
+<MicroSpecimen />
+
+## Text colours
+
+`disabled` marks rows and labels that cannot be used. It sits clearly below `subtle` in both modes, and is not meant to be read at length.
+
+<TextColours />
 
 ## Eyebrow
 

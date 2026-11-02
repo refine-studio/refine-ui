@@ -1,18 +1,19 @@
 import { Specimen, Token } from './specimen';
 
 const TYPE_SCALE = [
-  ['text-display-2xl', '96 / 1 · 900', 'Diamonds'],
-  ['text-display-xl', '72 / 1 · 900', 'Where Diamonds'],
-  ['text-display-lg', '56 / 1.05 · 900', 'craft Diamonds.'],
-  ['text-display-md', '44 / 1.1 · 900', 'Internal tools, unboxed'],
-  ['text-display-sm', '36 / 1.15 · 800', 'Quarterly delivery review'],
-  ['text-headline-lg', '28 / 1.2 · 700', 'Project overview'],
-  ['text-headline-md', '22 / 1.3 · 700', 'Open pull requests'],
-  ['text-headline-sm', '18 / 1.4 · 600', 'Card and section titles'],
+  ['text-display-2xl', '96 / 1 · heading', 'Diamonds'],
+  ['text-display-xl', '72 / 1 · heading', 'Where Diamonds'],
+  ['text-display-lg', '56 / 1.05 · heading', 'craft Diamonds.'],
+  ['text-display-md', '44 / 1.1 · heading', 'Internal tools, unboxed'],
+  ['text-display-sm', '36 / 1.15 · heading', 'Quarterly delivery review'],
+  ['text-headline-lg', '28 / 1.2 · heading', 'Project overview'],
+  ['text-headline-md', '22 / 1.3 · heading', 'Open pull requests'],
+  ['text-headline-sm', '18 / 1.4 · heading', 'Card and section titles'],
   ['text-body-lg', '18 / 1.65', 'Lead paragraphs that introduce a page or a long form.'],
   ['text-body', '15 / 1.6', 'Running text. The default for paragraphs, table cells and descriptions.'],
   ['text-body-sm', '13 / 1.5', 'Controls, dense tables, secondary copy and form hints.'],
   ['text-caption', '12 / 1.4', 'Timestamps, meta data and footnotes.'],
+  ['text-micro', '10 / 1.4', 'Dense table cells and chart axis labels.'],
 ] as const;
 
 /**
@@ -102,6 +103,71 @@ export const TabularNumbers = () => {
                   );
                 })}
               </div>
+            </div>
+          );
+        })}
+      </div>
+    </Specimen>
+  );
+};
+
+/**
+ * Sets the same headings at the default heading weight and again with `--heading-weight` raised to 900.
+ */
+export const HeadingWeight = () => {
+  return (
+    <Specimen>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          <Token className="text-foreground">--heading-weight: 700 · default</Token>
+          <span className="text-display-sm">Quarterly review</span>
+          <span className="text-headline-sm">Card and section titles</span>
+        </div>
+        <div className="flex flex-col gap-2 [--heading-weight:900]">
+          <Token className="text-foreground">--heading-weight: 900</Token>
+          <span className="text-display-sm">Quarterly review</span>
+          <span className="text-headline-sm">Card and section titles</span>
+        </div>
+      </div>
+    </Specimen>
+  );
+};
+
+/**
+ * Wraps the micro step over several lines so its line height shows.
+ */
+export const MicroSpecimen = () => {
+  return (
+    <Specimen>
+      <div className="flex flex-col gap-3">
+        <p className="max-w-40 text-micro">
+          Chart axis labels and dense table cells wrap onto a second line without the lines touching.
+        </p>
+        <Token>text-micro · 10 px on a 14 px line</Token>
+      </div>
+    </Specimen>
+  );
+};
+
+const TEXT_COLOURS = [
+  ['text-foreground', 'Billable hours'],
+  ['text-muted-foreground', 'Secondary text'],
+  ['text-subtle', 'Placeholder or hint'],
+  ['text-disabled', 'Archived project'],
+] as const;
+
+/**
+ * Lists the text colours from strongest to the disabled one, so disabled reads against subtle.
+ */
+export const TextColours = () => {
+  return (
+    <Specimen className="p-0">
+      <div className="divide-y">
+        {TEXT_COLOURS.map(([className, sample]) => {
+          return (
+            <div className="grid items-baseline gap-2 px-6 py-3 sm:grid-cols-[11rem_1fr]" key={className}>
+              <Token className="text-foreground">{className}</Token>
+              <span className={`${className} text-body`}>{sample}</span>
             </div>
           );
         })}
