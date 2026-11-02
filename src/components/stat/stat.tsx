@@ -4,9 +4,9 @@ import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../lib/cn';
 
 const TREND_CLASS_BY_TREND = {
-  down: 'text-danger-ink',
-  flat: 'text-muted-foreground',
-  up: 'text-success-ink',
+  down: 'bg-danger-soft text-danger-ink',
+  flat: 'bg-muted text-muted-foreground',
+  up: 'bg-success-soft text-success-ink',
 } satisfies Record<string, string>;
 
 const TREND_ICON_BY_TREND = {
@@ -19,7 +19,7 @@ interface StatProps extends Omit<ComponentProps<'div'>, 'children'> {
   delta?: ReactNode;
   index?: string;
   label: ReactNode;
-  size?: 'lg' | 'md' | 'sm';
+  size?: 'lg' | 'md' | 'sm' | 'xs';
   sparkline?: ReactNode;
   trend?: keyof typeof TREND_CLASS_BY_TREND;
   unit?: ReactNode;
@@ -30,10 +30,11 @@ const VALUE_CLASS_BY_SIZE = {
   lg: 'text-display-md',
   md: 'text-display-sm',
   sm: 'text-headline-lg',
+  xs: 'text-headline-md',
 } satisfies Record<NonNullable<StatProps['size']>, string>;
 
 /**
- * An editorial figure: a mono index and label above a heavy tabular number, with an optional trend delta and sparkline.
+ * An editorial figure: a mono index and label above a heavy tabular number, with an optional trend delta on a tinted pill and sparkline.
  */
 export const Stat = ({
   className,
@@ -50,20 +51,25 @@ export const Stat = ({
   const TrendIcon = TREND_ICON_BY_TREND[trend];
 
   return (
-    <div className={cn('flex min-w-0 flex-col gap-3', className)} data-slot="stat" {...props}>
-      <div className="flex items-baseline gap-2 text-muted-foreground">
+    <div className={cn('min-w-0 gap-3 flex flex-col', className)} data-slot="stat" {...props}>
+      <div className="gap-2 flex items-baseline text-muted-foreground">
         {index && <span className="eyebrow text-gem-ink">{index}</span>}
-        <span className="eyebrow truncate">{label}</span>
+        <span className="truncate eyebrow">{label}</span>
       </div>
-      <div className="flex items-end justify-between gap-4">
-        <p className={cn('font-display font-black tracking-tight tabular-nums', VALUE_CLASS_BY_SIZE[size])}>
+      <div className="gap-4 flex items-end justify-between">
+        <p className={cn('font-black tracking-tight font-display tabular-nums', VALUE_CLASS_BY_SIZE[size])}>
           {value}
-          {unit && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">{unit}</span>}
+          {unit && <span className="ml-1 font-semibold tracking-normal text-body text-muted-foreground">{unit}</span>}
         </p>
         {sparkline && <div className="h-10 w-24 shrink-0 text-gem">{sparkline}</div>}
       </div>
       {delta && (
-        <p className={cn('flex items-center gap-1 text-body-sm font-medium tabular-nums', TREND_CLASS_BY_TREND[trend])}>
+        <p
+          className={cn(
+            'gap-1 ps-1.5 pe-2 font-semibold flex w-fit items-center rounded-full text-body-sm tabular-nums',
+            TREND_CLASS_BY_TREND[trend],
+          )}
+        >
           <TrendIcon aria-hidden className="size-4" role="presentation" />
           {delta}
         </p>

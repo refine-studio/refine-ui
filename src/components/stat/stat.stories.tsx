@@ -16,7 +16,7 @@ const meta = {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg'],
     },
     trend: {
       control: 'inline-radio',
@@ -40,7 +40,7 @@ export const Row: Story = {
   render: () => {
     return (
       <Card className="max-w-5xl">
-        <CardContent className="grid grid-cols-1 gap-8 p-8 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
+        <CardContent className="gap-8 p-8 md:grid-cols-[1fr_auto_1fr_auto_1fr] grid grid-cols-1">
           <Stat
             delta="+18 since Monday"
             index="01"
@@ -78,11 +78,40 @@ export const Row: Story = {
 export const Sizes: Story = {
   render: (args) => {
     return (
-      <div className="flex items-end gap-12">
-        {(['sm', 'md', 'lg'] as const).map((size) => {
+      <div className="gap-12 flex items-end">
+        {(['xs', 'sm', 'md', 'lg'] as const).map((size) => {
           return <Stat {...args} key={size} size={size} />;
         })}
       </div>
+    );
+  },
+};
+
+export const Trends: Story = {
+  render: (args) => {
+    return (
+      <div className="gap-12 flex items-end">
+        {(['up', 'down', 'flat'] as const).map((trend) => {
+          return <Stat {...args} delta={`${trend} vs last sprint`} key={trend} trend={trend} />;
+        })}
+      </div>
+    );
+  },
+};
+
+export const TileInCard: Story = {
+  render: () => {
+    return (
+      <Card className="w-96">
+        <CardContent className="gap-3 grid grid-cols-2">
+          <Card className="gap-1 p-3.5" variant="sunken">
+            <Stat delta="+4.1%" label="Billable hours" size="xs" trend="up" value="1,284" />
+          </Card>
+          <Card className="gap-1 p-3.5" variant="sunken">
+            <Stat delta="−2.3%" label="Utilisation" size="xs" trend="down" unit="%" value="78" />
+          </Card>
+        </CardContent>
+      </Card>
     );
   },
 };
