@@ -26,6 +26,7 @@ const NEUTRALS = [
   ['bg-secondary', 'secondary'],
   ['bg-border', 'border'],
   ['bg-input', 'input'],
+  ['bg-disabled', 'disabled'],
   ['bg-subtle', 'subtle'],
   ['bg-muted-foreground', 'muted-foreground'],
   ['bg-foreground', 'foreground'],
