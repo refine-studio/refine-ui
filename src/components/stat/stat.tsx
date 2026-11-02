@@ -51,22 +51,22 @@ export const Stat = ({
   const TrendIcon = TREND_ICON_BY_TREND[trend];
 
   return (
-    <div className={cn('min-w-0 gap-3 flex flex-col', className)} data-slot="stat" {...props}>
-      <div className="gap-2 flex items-baseline text-muted-foreground">
+    <div className={cn('flex min-w-0 flex-col gap-3', className)} data-slot="stat" {...props}>
+      <div className="flex items-baseline gap-2 text-muted-foreground">
         {index && <span className="eyebrow text-gem-ink">{index}</span>}
-        <span className="truncate eyebrow">{label}</span>
+        <span className="eyebrow truncate">{label}</span>
       </div>
-      <div className="gap-4 flex items-end justify-between">
-        <p className={cn('font-black tracking-tight font-display tabular-nums', VALUE_CLASS_BY_SIZE[size])}>
+      <div className="flex items-end justify-between gap-4">
+        <p className={cn('font-display font-black tracking-tight tabular-nums', VALUE_CLASS_BY_SIZE[size])}>
           {value}
-          {unit && <span className="ml-1 font-semibold tracking-normal text-body text-muted-foreground">{unit}</span>}
+          {unit && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">{unit}</span>}
         </p>
         {sparkline && <div className="h-10 w-24 shrink-0 text-gem">{sparkline}</div>}
       </div>
       {delta && (
         <p
           className={cn(
-            'gap-1 ps-1.5 pe-2 font-semibold flex w-fit items-center rounded-full text-body-sm tabular-nums',
+            'flex w-fit items-center gap-1 rounded-full ps-1.5 pe-2 text-body-sm font-semibold tabular-nums',
             TREND_CLASS_BY_TREND[trend],
           )}
         >

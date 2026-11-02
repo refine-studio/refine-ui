@@ -40,7 +40,7 @@ export const Row: Story = {
   render: () => {
     return (
       <Card className="max-w-5xl">
-        <CardContent className="gap-8 p-8 md:grid-cols-[1fr_auto_1fr_auto_1fr] grid grid-cols-1">
+        <CardContent className="grid grid-cols-1 gap-8 p-8 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
           <Stat
             delta="+18 since Monday"
             index="01"
@@ -78,7 +78,7 @@ export const Row: Story = {
 export const Sizes: Story = {
   render: (args) => {
     return (
-      <div className="gap-12 flex items-end">
+      <div className="flex items-end gap-12">
         {(['xs', 'sm', 'md', 'lg'] as const).map((size) => {
           return <Stat {...args} key={size} size={size} />;
         })}
@@ -90,7 +90,7 @@ export const Sizes: Story = {
 export const Trends: Story = {
   render: (args) => {
     return (
-      <div className="gap-12 flex items-end">
+      <div className="flex items-end gap-12">
         {(['up', 'down', 'flat'] as const).map((trend) => {
           return <Stat {...args} delta={`${trend} vs last sprint`} key={trend} trend={trend} />;
         })}
@@ -103,7 +103,7 @@ export const TileInCard: Story = {
   render: () => {
     return (
       <Card className="w-96">
-        <CardContent className="gap-3 grid grid-cols-2">
+        <CardContent className="grid grid-cols-2 gap-3">
           <Card className="gap-1 p-3.5" variant="sunken">
             <Stat delta="+4.1%" label="Billable hours" size="xs" trend="up" value="1,284" />
           </Card>
