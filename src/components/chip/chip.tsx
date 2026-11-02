@@ -21,7 +21,7 @@ export const chipVariants = cva('', {
         // hover
         'hover:not-aria-pressed:border-current/35',
         // active
-        'active:scale-[0.97] active:not-aria-pressed:border-current/60',
+        'active:scale-[0.98] active:not-aria-pressed:border-current/60',
         // pressed: a filter pill that is on
         'aria-pressed:border-current',
         // disabled
@@ -34,12 +34,14 @@ export const chipVariants = cva('', {
   },
 });
 
-type ChipProps = Omit<ComponentProps<'button'>, 'type'> &
-  Pick<VariantProps<typeof badgeVariants>, 'size' | 'variant'> & {
-    asChild?: boolean;
-    /** a mark before the label · an icon or an emoji */
-    icon?: ReactNode;
-  };
+interface ChipProps
+  extends Omit<ComponentProps<'button'>, 'type'>, Pick<VariantProps<typeof badgeVariants>, 'size' | 'variant'> {
+  asChild?: boolean;
+  /**
+   * A mark before the label, such as an icon or an emoji.
+   */
+  icon?: ReactNode;
+}
 
 /**
  * A status, tone or filter pill. It wears the badge's tones and adds an `icon` before its label.
@@ -69,7 +71,7 @@ export const Chip = ({
       className={cn(badgeVariants({ size, variant }), chipVariants({ interactive }), className)}
       data-slot="chip"
       onClick={onClick}
-      {...(Component === 'button' ? { type: 'button' as const } : {})}
+      type={Component === 'button' ? 'button' : undefined}
       {...props}
     >
       {mark}

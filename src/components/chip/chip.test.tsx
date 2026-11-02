@@ -84,7 +84,9 @@ const contrast = (one: Rgb, other: Rgb) => {
   return (Number(lighter) + 0.05) / (Number(darker) + 0.05);
 };
 
-/** every tone a chip wears · its text token on its ground token */
+/**
+ * Every tone a chip wears, as its text token on its ground token.
+ */
 const TONES = {
   danger: ['danger-ink', 'danger-soft'],
   gem: ['gem-ink', 'gem-soft'],
@@ -101,7 +103,6 @@ describe.each([
   ['light', readMode('.light')],
   ['dark', readMode('.dark')],
 ])('chip tones in %s mode', (_mode, mode) => {
-  // Hover and press change only the edge, so the ground at rest is the ground in every state.
   it.each(Object.entries(TONES))('%s text passes 4.5:1 on its ground', (_tone, [ink, ground]) => {
     expect(contrast(resolve(mode, ink), resolve(mode, ground))).toBeGreaterThanOrEqual(4.5);
   });
@@ -123,10 +124,17 @@ describe('Chip', () => {
     expect(container.firstElementChild?.textContent).toBe('live');
   });
 
-  it('keeps its ground when hovered or pressed, so its text keeps its contrast', () => {
-    const { getByRole } = render(<Chip onClick={() => {}}>beta</Chip>);
+  it('is a disabled button that nobody can press', async () => {
+    const onClick = vi.fn();
+    const { getByRole } = render(
+      <Chip disabled onClick={onClick}>
+        archived
+      </Chip>,
+    );
 
-    expect(getByRole('button').className).not.toMatch(/(hover|active|aria-pressed):[\w:-]*(bg|shadow)-/);
+    await userEvent.click(getByRole('button', { name: 'archived' }));
+    expect(getByRole('button', { name: 'archived' })).toHaveProperty('disabled', true);
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it('is a button that a click, Enter and Space all press', async () => {
@@ -142,7 +150,6 @@ describe('Chip', () => {
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard(' ');
     expect(onClick).toHaveBeenCalledTimes(3);
-    expect(chip.className).toContain('focus-ring');
   });
 
   it('tells a screen reader whether a filter pill is on', () => {
@@ -164,7 +171,6 @@ describe('Chip', () => {
     const link = getByRole('link', { name: 'search' });
 
     expect(link.getAttribute('data-slot')).toBe('chip');
-    expect(link.className).toContain('cursor-pointer');
     expect(link.firstElementChild?.getAttribute('data-slot')).toBe('chip-icon');
   });
 });

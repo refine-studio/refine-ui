@@ -116,10 +116,22 @@ export const Links: Story = {
 };
 
 const FILTERS = [
-  { label: 'live', variant: 'success' },
-  { label: 'beta', variant: 'violet' },
-  { label: 'at-risk', variant: 'orange' },
-  { label: 'churned', variant: 'danger' },
+  {
+    label: 'live',
+    variant: 'success',
+  },
+  {
+    label: 'beta',
+    variant: 'violet',
+  },
+  {
+    label: 'at-risk',
+    variant: 'orange',
+  },
+  {
+    label: 'churned',
+    variant: 'danger',
+  },
 ] as const;
 
 /**
