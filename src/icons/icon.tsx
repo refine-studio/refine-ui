@@ -1,7 +1,7 @@
 import type { RefineIconProps } from './create-refine-icon';
 import { type IconName, REFINE_ICON_NAMES } from './refine-icon-names';
 
-export interface IconProps extends Omit<RefineIconProps, 'name'> {
+interface IconProps extends Omit<RefineIconProps, 'name'> {
   name: IconName;
 }
 

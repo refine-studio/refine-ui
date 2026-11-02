@@ -35,7 +35,12 @@ When the icon is data — a menu, a setting, a content field — pass its sprite
 ```tsx
 import { Icon, type IconName } from '@refine-studio/ui';
 
-const items: { icon: IconName; label: string }[] = [{ icon: 'House_01', label: 'Home' }];
+const items: { icon: IconName; label: string }[] = [
+  {
+    icon: 'House_01',
+    label: 'Home',
+  },
+];
 
 <Icon className="size-4" name={items[0].icon} />;
 ```

@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react';
+import type { ComponentProps } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Icon, type IconProps } from './icon';
+import { Icon } from './icon';
 import { RefineIconBell } from './refine-icons';
 
 describe('Icon', () => {
@@ -25,7 +26,7 @@ describe('Icon', () => {
   });
 
   it('fails the type check on a name the set lacks', () => {
-    const props: IconProps = {
+    const props: ComponentProps<typeof Icon> = {
       // @ts-expect-error Not_An_Icon is not a Refine icon name.
       name: 'Not_An_Icon',
     };

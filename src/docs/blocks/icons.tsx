@@ -128,10 +128,22 @@ export const IconWeightMatch = () => {
 };
 
 const MENU_ITEMS: { icon: IconName; label: string }[] = [
-  { icon: 'House_01', label: 'Home' },
-  { icon: 'Bell', label: 'Notifications' },
-  { icon: 'Calendar', label: 'Calendar' },
-  { icon: 'Settings', label: 'Settings' },
+  {
+    icon: 'House_01',
+    label: 'Home',
+  },
+  {
+    icon: 'Bell',
+    label: 'Notifications',
+  },
+  {
+    icon: 'Calendar',
+    label: 'Calendar',
+  },
+  {
+    icon: 'Settings',
+    label: 'Settings',
+  },
 ];
 
 /**
