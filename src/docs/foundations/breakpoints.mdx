@@ -1,0 +1,33 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { DocTable } from '../blocks/doc-table';
+
+import { BreakpointAnswers } from '../blocks/breakpoints';
+
+<Meta title="Foundations/Breakpoints" />
+
+# Breakpoints
+
+Refine UI lays itself out at Tailwind's default breakpoints. `useBreakpoint` gives an app the same answer in code: whether the screen is at least that wide, the way `md:` reads it. It answers again on each resize, and `false` on the server.
+
+<BreakpointAnswers />
+
+<DocTable
+  head={['Name', 'Min width', 'Use']}
+  rows={[
+    ['`sm`', '40rem', 'Large phones in landscape'],
+    ['`md`', '48rem', 'Tablets; `AppShell` swaps the drawer for the sidebar here'],
+    ['`lg`', '64rem', 'Laptops'],
+    ['`xl`', '80rem', 'Desktops'],
+    ['`2xl`', '96rem', 'Wide screens'],
+  ]}
+/>
+
+```tsx
+import { useAppShell, useBreakpoint } from '@refine-studio/ui';
+
+const isWide = useBreakpoint('lg');
+
+// Inside an AppShell: true while the shell shows its phone layout, below `md`.
+const { isMobile } = useAppShell();
+```
