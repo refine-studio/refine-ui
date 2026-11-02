@@ -34,6 +34,16 @@ export const Playground: Story = {
   },
 };
 
+/**
+ * The same tooltip in dark mode: it sits on the dark popover surface, as menus do.
+ */
+export const DarkMode: Story = {
+  globals: {
+    mode: 'dark',
+  },
+  render: Playground.render,
+};
+
 export const WithShortcut: Story = {
   render: (args) => {
     return (

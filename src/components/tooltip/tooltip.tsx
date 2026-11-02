@@ -32,7 +32,7 @@ interface TooltipContentProps extends ComponentProps<typeof TooltipPrimitive.Con
 }
 
 /**
- * Portals a compact ink label beside the trigger; nested `<kbd>` elements render as inverted key caps.
+ * Portals a compact label on the popover surface, so it follows the colour mode; `<kbd>` renders as a muted key cap.
  */
 export const TooltipContent = ({
   children,
@@ -46,8 +46,8 @@ export const TooltipContent = ({
       <TooltipPrimitive.Content
         className={cn(
           // base
-          'z-50 inline-flex max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-2 rounded-control bg-primary px-2.5 py-1.5 text-caption font-medium text-balance text-primary-foreground',
-          '[&_kbd]:rounded-sm [&_kbd]:bg-primary-foreground/15 [&_kbd]:px-1 [&_kbd]:font-mono [&_kbd]:text-caption',
+          'z-50 inline-flex max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-2 rounded-control border bg-popover px-2.5 py-1.5 text-caption font-medium text-balance text-popover-foreground shadow-float',
+          '[&_kbd]:rounded-sm [&_kbd]:bg-muted [&_kbd]:px-1 [&_kbd]:font-mono [&_kbd]:text-caption',
           // animation
           'animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
@@ -58,7 +58,7 @@ export const TooltipContent = ({
         {...props}
       >
         {children}
-        {showArrow && <TooltipPrimitive.Arrow className="fill-primary" height={5} width={10} />}
+        {showArrow && <TooltipPrimitive.Arrow className="fill-popover" height={5} width={10} />}
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
