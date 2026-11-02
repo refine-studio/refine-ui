@@ -34,6 +34,16 @@ export const Playground: Story = {
   },
 };
 
+/**
+ * The same tooltip in dark mode: it sits on the dark popover surface, as menus do.
+ */
+export const DarkMode: Story = {
+  globals: {
+    mode: 'dark',
+  },
+  render: Playground.render,
+};
+
 export const WithShortcut: Story = {
   render: (args) => {
     return (
@@ -82,7 +92,7 @@ export const Toolbar: Story = {
   render: () => {
     return (
       <TooltipProvider delayDuration={150}>
-        <div className="flex gap-1 rounded-card border bg-card p-1">
+        <div className="gap-1 p-1 flex rounded-card border bg-card">
           {TOOLBAR_ACTIONS.map(({ icon: Icon, label, shortcut }) => {
             return (
               <Tooltip key={label}>
