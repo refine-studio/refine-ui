@@ -18,8 +18,10 @@ export const badgeVariants = cva(
         outline: 'border-border bg-background text-foreground',
         success: 'border-transparent bg-success-soft text-success-ink',
         warning: 'border-transparent bg-warning-soft text-warning-ink',
+        orange: 'border-transparent bg-orange-soft text-orange-ink',
         danger: 'border-transparent bg-danger-soft text-danger-ink',
         info: 'border-transparent bg-info-soft text-info-ink',
+        violet: 'border-transparent bg-violet-soft text-violet-ink',
       },
       size: {
         sm: 'h-5 px-2 text-caption',

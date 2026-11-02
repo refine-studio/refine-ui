@@ -8,6 +8,7 @@ export * from './components/breadcrumb/breadcrumb';
 export * from './components/button/button';
 export * from './components/card/card';
 export * from './components/checkbox/checkbox';
+export * from './components/chip/chip';
 export * from './components/code/code';
 export * from './components/collapsible/collapsible';
 export * from './components/combobox/combobox';
