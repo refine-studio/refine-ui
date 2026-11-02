@@ -2,10 +2,12 @@ import { Badge } from '../../components/badge/badge';
 import { type Breakpoint, BREAKPOINTS, useBreakpoint } from '../../lib/use-breakpoint';
 import { Specimen, Token } from './specimen';
 
+const BREAKPOINT_NAMES = ['sm', 'md', 'lg', 'xl', '2xl'] as const satisfies readonly Breakpoint[];
+
 /**
  * One row per breakpoint with the hook's live answer for this window.
  */
-const BreakpointRow = ({ breakpoint }: { breakpoint: Breakpoint }) => {
+const BreakpointAnswersRow = ({ breakpoint }: { breakpoint: Breakpoint }) => {
   const matches = useBreakpoint(breakpoint);
 
   return (
@@ -26,8 +28,8 @@ export const BreakpointAnswers = () => {
   return (
     <Specimen caption="Resize the window to watch the answers change.">
       <ul className="divide-y divide-border">
-        {Object.keys(BREAKPOINTS).map((breakpoint) => {
-          return <BreakpointRow breakpoint={breakpoint as Breakpoint} key={breakpoint} />;
+        {BREAKPOINT_NAMES.map((breakpoint) => {
+          return <BreakpointAnswersRow breakpoint={breakpoint} key={breakpoint} />;
         })}
       </ul>
     </Specimen>
