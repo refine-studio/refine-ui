@@ -28,19 +28,14 @@ const readStoredTheme = (storageKey: string | false) => {
   try {
     const stored = JSON.parse(window.localStorage.getItem(storageKey) ?? '{}') as Record<string, unknown> | null;
     const settings: Partial<ThemeSettings> = {};
-    if (
-      MODES.some((mode) => {
-        return mode === stored?.mode;
-      })
-    )
-      settings.mode = stored?.mode as ThemeSettings['mode'];
-    if (
-      DENSITIES.some((density) => {
-        return density === stored?.density;
-      })
-    ) {
-      settings.density = stored?.density as ThemeSettings['density'];
-    }
+    const storedMode = MODES.find((value) => {
+      return value === stored?.mode;
+    });
+    const storedDensity = DENSITIES.find((value) => {
+      return value === stored?.density;
+    });
+    if (storedMode) settings.mode = storedMode;
+    if (storedDensity) settings.density = storedDensity;
 
     return settings;
   } catch {
@@ -50,7 +45,9 @@ const readStoredTheme = (storageKey: string | false) => {
 };
 
 interface ThemeScriptOptions extends Partial<ThemeSettings> {
-  /** A key that holds `true` for dark or `false` for light. Its choice moves to `storageKey` once, then the key is removed. */
+  /**
+   * A key that holds `true` for dark or `false` for light. Its choice moves to `storageKey` once, then the key is removed.
+   */
   legacyStorageKey?: string;
   storageKey?: string | false;
 }

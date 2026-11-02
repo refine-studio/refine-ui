@@ -75,7 +75,11 @@ describe('themeScript', () => {
   it('carries a legacy dark choice over to the new key once', () => {
     window.localStorage.setItem('atlas:dark', 'true');
 
-    runThemeScript(themeScript({ legacyStorageKey: 'atlas:dark' }));
+    runThemeScript(
+      themeScript({
+        legacyStorageKey: 'atlas:dark',
+      }),
+    );
 
     expect(root.classList.contains('dark')).toBe(true);
     expect(window.localStorage.getItem('refine-ui-theme')).toBe('{"mode":"dark"}');
@@ -86,7 +90,11 @@ describe('themeScript', () => {
     window.localStorage.setItem('refine-ui-theme', '{"mode":"light"}');
     window.localStorage.setItem('atlas:dark', 'true');
 
-    runThemeScript(themeScript({ legacyStorageKey: 'atlas:dark' }));
+    runThemeScript(
+      themeScript({
+        legacyStorageKey: 'atlas:dark',
+      }),
+    );
 
     expect(root.classList.contains('light')).toBe(true);
     expect(window.localStorage.getItem('atlas:dark')).toBeNull();
@@ -108,7 +116,11 @@ describe('ThemeProvider', () => {
 
   it('keeps the choice the script migrated', () => {
     window.localStorage.setItem('atlas:dark', 'true');
-    runThemeScript(themeScript({ legacyStorageKey: 'atlas:dark' }));
+    runThemeScript(
+      themeScript({
+        legacyStorageKey: 'atlas:dark',
+      }),
+    );
 
     const { getByRole } = render(
       <ThemeProvider>
