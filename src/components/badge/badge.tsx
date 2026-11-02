@@ -7,7 +7,7 @@ import { cn } from '../../lib/cn';
 export const badgeVariants = cva(
   [
     // base
-    'inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border font-medium whitespace-nowrap',
+    'gap-1.5 font-medium inline-flex w-fit shrink-0 items-center rounded-full border whitespace-nowrap',
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.1em]",
   ],
   {
@@ -18,8 +18,10 @@ export const badgeVariants = cva(
         outline: 'border-border bg-background text-foreground',
         success: 'border-transparent bg-success-soft text-success-ink',
         warning: 'border-transparent bg-warning-soft text-warning-ink',
+        orange: 'border-transparent bg-orange-soft text-orange-ink',
         danger: 'border-transparent bg-danger-soft text-danger-ink',
         info: 'border-transparent bg-info-soft text-info-ink',
+        violet: 'border-transparent bg-violet-soft text-violet-ink',
       },
       size: {
         sm: 'h-5 px-2 text-caption',

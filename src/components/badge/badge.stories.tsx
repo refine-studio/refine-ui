@@ -3,7 +3,7 @@ import { GitBranch, Rocket } from 'lucide-react';
 
 import { Badge } from './badge';
 
-const VARIANTS = ['neutral', 'gem', 'outline', 'success', 'warning', 'danger', 'info'] as const;
+const VARIANTS = ['neutral', 'gem', 'outline', 'success', 'warning', 'orange', 'danger', 'info', 'violet'] as const;
 
 const meta = {
   args: {
