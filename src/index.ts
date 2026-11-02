@@ -9,6 +9,7 @@ export * from './components/button/button';
 export * from './components/card/card';
 export * from './components/checkbox/checkbox';
 export * from './components/code/code';
+export * from './components/collapsible/collapsible';
 export * from './components/combobox/combobox';
 export * from './components/command-menu/command-menu';
 export * from './components/context-menu/context-menu';
