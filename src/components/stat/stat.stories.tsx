@@ -16,7 +16,7 @@ const meta = {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg'],
     },
     trend: {
       control: 'inline-radio',
@@ -79,10 +79,39 @@ export const Sizes: Story = {
   render: (args) => {
     return (
       <div className="flex items-end gap-12">
-        {(['sm', 'md', 'lg'] as const).map((size) => {
+        {(['xs', 'sm', 'md', 'lg'] as const).map((size) => {
           return <Stat {...args} key={size} size={size} />;
         })}
       </div>
+    );
+  },
+};
+
+export const Trends: Story = {
+  render: (args) => {
+    return (
+      <div className="flex items-end gap-12">
+        {(['up', 'down', 'flat'] as const).map((trend) => {
+          return <Stat {...args} delta={`${trend} vs last sprint`} key={trend} trend={trend} />;
+        })}
+      </div>
+    );
+  },
+};
+
+export const TileInCard: Story = {
+  render: () => {
+    return (
+      <Card className="w-96">
+        <CardContent className="grid grid-cols-2 gap-3">
+          <Card className="gap-1 p-3.5" variant="sunken">
+            <Stat delta="+4.1%" label="Billable hours" size="xs" trend="up" value="1,284" />
+          </Card>
+          <Card className="gap-1 p-3.5" variant="sunken">
+            <Stat delta="−2.3%" label="Utilisation" size="xs" trend="down" unit="%" value="78" />
+          </Card>
+        </CardContent>
+      </Card>
     );
   },
 };
