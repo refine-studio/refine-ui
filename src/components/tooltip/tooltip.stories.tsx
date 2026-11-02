@@ -92,7 +92,7 @@ export const Toolbar: Story = {
   render: () => {
     return (
       <TooltipProvider delayDuration={150}>
-        <div className="gap-1 p-1 flex rounded-card border bg-card">
+        <div className="flex gap-1 rounded-card border bg-card p-1">
           {TOOLBAR_ACTIONS.map(({ icon: Icon, label, shortcut }) => {
             return (
               <Tooltip key={label}>

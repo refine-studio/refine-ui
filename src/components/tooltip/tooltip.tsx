@@ -8,10 +8,7 @@ import { cn } from '../../lib/cn';
 /**
  * Shares the hover delay between tooltips, so moving across a toolbar opens the next one instantly.
  */
-export const TooltipProvider = ({
-  delayDuration = 300,
-  ...props
-}: ComponentProps<typeof TooltipPrimitive.Provider>) => {
+export const TooltipProvider = ({ delayDuration = 300, ...props }: ComponentProps<typeof TooltipPrimitive.Provider>) => {
   return <TooltipPrimitive.Provider data-slot="tooltip-provider" delayDuration={delayDuration} {...props} />;
 };
 
@@ -35,7 +32,7 @@ interface TooltipContentProps extends ComponentProps<typeof TooltipPrimitive.Con
 }
 
 /**
- * Portals a compact label beside the trigger on the popover surface, so it follows the colour mode; nested `<kbd>` elements render as muted key caps.
+ * Portals a compact label on the popover surface, so it follows the colour mode; `<kbd>` renders as a muted key cap.
  */
 export const TooltipContent = ({
   children,
@@ -49,8 +46,8 @@ export const TooltipContent = ({
       <TooltipPrimitive.Content
         className={cn(
           // base
-          'max-w-xs gap-2 px-2.5 py-1.5 font-medium z-50 inline-flex origin-(--radix-tooltip-content-transform-origin) items-center rounded-control border bg-popover text-caption text-balance text-popover-foreground shadow-float',
-          '[&_kbd]:rounded-sm [&_kbd]:px-1 [&_kbd]:bg-muted [&_kbd]:font-mono [&_kbd]:text-caption',
+          'z-50 inline-flex max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-2 rounded-control border bg-popover px-2.5 py-1.5 text-caption font-medium text-balance text-popover-foreground shadow-float',
+          '[&_kbd]:rounded-sm [&_kbd]:bg-muted [&_kbd]:px-1 [&_kbd]:font-mono [&_kbd]:text-caption',
           // animation
           'animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',

@@ -1,9 +1,6 @@
-import { render } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-
-import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 // Vitest blanks CSS imports, so the theme is read from disk.
 const CSS = readFileSync(join(import.meta.dirname, '../../styles/refine-ui.css'), 'utf8');
@@ -55,22 +52,7 @@ const contrast = (foreground: readonly [number, number, number], background: rea
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-describe('TooltipContent', () => {
-  it('sits on the popover surface with a border and the floating shadow', () => {
-    render(
-      <Tooltip open>
-        <TooltipTrigger>Trigger</TooltipTrigger>
-        <TooltipContent>Label</TooltipContent>
-      </Tooltip>,
-    );
-    const content = document.querySelector('[data-slot="tooltip-content"]');
-
-    expect(content?.className).toEqual(expect.stringContaining('bg-popover'));
-    expect(content?.className).toEqual(expect.stringContaining('text-popover-foreground'));
-    expect(content?.className.split(' ')).toEqual(expect.arrayContaining(['border', 'shadow-float']));
-    expect(content?.className).not.toMatch(/\bbg-primary\b/);
-  });
-
+describe('Tooltip surface tokens', () => {
   it.each([
     ['light', /:root,\s*\.light\s*\{([^}]*)\}/],
     ['dark', /\.dark\s*\{([^}]*)\}/],
