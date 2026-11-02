@@ -9,6 +9,7 @@
  *
  *   .light / .dark / .on-gem           colour mode
  *   data-density="compact|comfortable|spacious"
+ *   --heading-weight                   weight of every display and headline step
  */
 
 @import "tw-animate-css";
