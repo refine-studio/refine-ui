@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { contrast, CSS, MODES } from './css.test-utils';
 
+const INLINE_THEME = CSS.slice(CSS.indexOf('@theme inline {'), CSS.indexOf('\n}\n', CSS.indexOf('@theme inline {')));
+
 const HEADING_STEPS = [
   'display-2xl',
   'display-xl',
@@ -18,8 +20,9 @@ describe('heading weight', () => {
     expect(CSS).toMatch(/:root \{\s*--heading-weight: 700;\s*\}/);
   });
 
-  it.each(HEADING_STEPS)('text-%s reads its weight from --heading-weight', (step) => {
-    expect(CSS).toContain(`--text-${step}--font-weight: var(--heading-weight);`);
+  // Only the inline theme keeps the var() inside each utility, so a subtree can override the weight.
+  it.each(HEADING_STEPS)('text-%s reads its weight from --heading-weight inside each utility', (step) => {
+    expect(INLINE_THEME).toContain(`--text-${step}--font-weight: var(--heading-weight);`);
   });
 
   it('no type step sets a weight of its own', () => {
