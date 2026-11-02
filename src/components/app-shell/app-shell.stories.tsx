@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { BarChart3, Bell, CalendarDays, Clock, FolderKanban, Plus, Search, Settings, Timer, Users } from 'lucide-react';
 import { useState } from 'react';
 
+import { Badge } from '../badge/badge';
 import { Button } from '../button/button';
 import { LogoMark } from '../logo/logo';
 import { PageHeader } from '../page-header/page-header';
@@ -17,6 +18,7 @@ import {
   SidebarHeader,
   SidebarItem,
   SidebarSection,
+  useAppShell,
 } from './app-shell';
 
 const PRIMARY_NAVIGATION = [
@@ -73,6 +75,19 @@ const ENTRIES = [
     task: 'Compass onboarding flow',
   },
 ];
+
+/**
+ * Shows whether the shell is in its phone layout, read from `useAppShell().isMobile`.
+ */
+const LayoutBadge = () => {
+  const { isMobile } = useAppShell();
+
+  return (
+    <Badge size="sm" variant={isMobile ? 'gem' : 'outline'}>
+      {isMobile ? 'Phone layout' : 'Sidebar layout'}
+    </Badge>
+  );
+};
 
 /**
  * Renders a Tick time-tracker shell to exercise every AppShell part together.
@@ -146,6 +161,7 @@ const TickShell = ({ defaultCollapsed = false }: { defaultCollapsed?: boolean })
             <kbd className="rounded px-1.5 ml-auto border border-border font-mono text-caption">⌘K</kbd>
           </div>
           <div className="gap-1 ml-auto flex items-center">
+            <LayoutBadge />
             <Button size="icon-sm" title="Notifications" variant="ghost">
               <Bell />
               <span className="sr-only">Notifications</span>

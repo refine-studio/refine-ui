@@ -5,9 +5,12 @@ import { Dialog as DialogPrimitive, Slot } from 'radix-ui';
 import { type ComponentProps, createContext, type ReactNode, use, useState } from 'react';
 
 import { cn } from '../../lib/cn';
+import { useBreakpoint } from '../../lib/use-breakpoint';
 
 interface AppShellContextValue {
   collapsed: boolean;
+  /** Whether the shell shows its phone layout: the sidebar as a drawer, below `md`. `true` on the server. */
+  isMobile: boolean;
   mobileOpen: boolean;
   setCollapsed: (collapsed: boolean) => void;
   setMobileOpen: (mobileOpen: boolean) => void;
@@ -16,7 +19,7 @@ interface AppShellContextValue {
 const AppShellContext = createContext<AppShellContextValue | null>(null);
 
 /**
- * Returns the shell's sidebar state; throws outside an `AppShell`.
+ * Returns the shell's sidebar state and whether it shows the phone layout; throws outside an `AppShell`.
  */
 export const useAppShell = () => {
   const context = use(AppShellContext);
@@ -44,6 +47,7 @@ export const AppShell = ({
   const [uncontrolledCollapsed, setUncontrolledCollapsed] = useState(defaultCollapsed);
   const [mobileOpen, setMobileOpen] = useState(false);
   const collapsed = controlledCollapsed ?? uncontrolledCollapsed;
+  const isMobile = !useBreakpoint('md');
 
   /**
    * Updates the collapsed state and reports it to a controlling parent.
@@ -54,7 +58,7 @@ export const AppShell = ({
   };
 
   return (
-    <AppShellContext value={{ collapsed, mobileOpen, setCollapsed, setMobileOpen }}>
+    <AppShellContext value={{ collapsed, isMobile, mobileOpen, setCollapsed, setMobileOpen }}>
       <div className={cn('flex min-h-dvh bg-canvas text-foreground', className)} data-slot="app-shell" {...props} />
     </AppShellContext>
   );
@@ -264,7 +268,7 @@ export const SidebarFooter = ({ className, ...props }: ComponentProps<'div'>) =>
  * Toggles the sidebar: collapses it to a rail from `md` up and opens the drawer below it.
  */
 export const AppShellSidebarTrigger = ({ className, onClick, ...props }: ComponentProps<'button'>) => {
-  const { collapsed, mobileOpen, setCollapsed, setMobileOpen } = useAppShell();
+  const { collapsed, isMobile, mobileOpen, setCollapsed, setMobileOpen } = useAppShell();
 
   return (
     <button
@@ -281,8 +285,8 @@ export const AppShellSidebarTrigger = ({ className, onClick, ...props }: Compone
       title="Toggle sidebar"
       type="button"
       onClick={(event) => {
-        if (window.matchMedia('(min-width: 48rem)').matches) setCollapsed(!collapsed);
-        else setMobileOpen(!mobileOpen);
+        if (isMobile) setMobileOpen(!mobileOpen);
+        else setCollapsed(!collapsed);
         onClick?.(event);
       }}
       {...props}

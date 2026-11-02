@@ -52,6 +52,7 @@ export * from './components/tooltip/tooltip';
 export type { RefineIconProps } from './icons/create-refine-icon';
 export * from './icons/refine-icons';
 export * from './lib/cn';
+export * from './lib/use-breakpoint';
 export * from './theme/theme';
 export * from './theme/theme-provider';
 export * from './theme/theme-scope';
