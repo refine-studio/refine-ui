@@ -50,6 +50,8 @@ export * from './components/toaster/toaster';
 export * from './components/toggle-group/toggle-group';
 export * from './components/tooltip/tooltip';
 export type { RefineIconProps } from './icons/create-refine-icon';
+export * from './icons/icon';
+export * from './icons/refine-icon-names';
 export * from './icons/refine-icons';
 export * from './lib/cn';
 export * from './lib/use-breakpoint';

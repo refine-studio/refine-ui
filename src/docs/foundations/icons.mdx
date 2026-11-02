@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-import { RefineIconGallery, IconSampler, IconsInButtons, IconWeightMatch } from '../blocks/icons';
+import { IconByName, RefineIconGallery, IconSampler, IconsInButtons, IconWeightMatch } from '../blocks/icons';
 
 <Meta title="Foundations/Icons" />
 
@@ -27,6 +27,25 @@ import { RefineIconBell } from '@refine-studio/ui';
 The source icons are drawn at a 2px stroke, which reads heavier than lucide. Refine icons draw at 1.75px, which matches lucide's weight. Both sets take the same `className`, `size` and `strokeWidth` props.
 
 <IconWeightMatch />
+
+### By name
+
+When the icon is data — a menu, a setting, a content field — pass its sprite name to `Icon`. `IconName` lists every name, so a name the set lacks fails the type check.
+
+```tsx
+import { Icon, type IconName } from '@refine-studio/ui';
+
+const items: { icon: IconName; label: string }[] = [
+  {
+    icon: 'House_01',
+    label: 'Home',
+  },
+];
+
+<Icon className="size-4" name={items[0].icon} />;
+```
+
+<IconByName />
 
 The set leaves out raster 3D illustrations and multi-colour flags, because they cannot take the text colour. Run `node scripts/generate-refine-icons.mjs <path to icons-sprite.svg>` to generate the set again from a new sprite.
 

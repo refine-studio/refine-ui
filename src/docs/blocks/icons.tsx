@@ -17,6 +17,8 @@ import { useState } from 'react';
 
 import { Button } from '../../components/button/button';
 import { Input } from '../../components/input/input';
+import { Icon } from '../../icons/icon';
+import type { IconName } from '../../icons/refine-icon-names';
 import * as RefineIcons from '../../icons/refine-icons';
 import { Specimen, Token } from './specimen';
 
@@ -120,6 +122,46 @@ export const IconWeightMatch = () => {
             return <RefineIcon className="size-5" key={RefineIcon.displayName} />;
           })}
         </div>
+      </div>
+    </Specimen>
+  );
+};
+
+const MENU_ITEMS: { icon: IconName; label: string }[] = [
+  {
+    icon: 'House_01',
+    label: 'Home',
+  },
+  {
+    icon: 'Bell',
+    label: 'Notifications',
+  },
+  {
+    icon: 'Calendar',
+    label: 'Calendar',
+  },
+  {
+    icon: 'Settings',
+    label: 'Settings',
+  },
+];
+
+/**
+ * Draws a menu whose icons come from data, by their sprite names.
+ */
+export const IconByName = () => {
+  return (
+    <Specimen>
+      <div className="gap-1 flex flex-col">
+        {MENU_ITEMS.map(({ icon, label }) => {
+          return (
+            <div className="gap-3 px-3 py-2 flex items-center rounded-control text-body-sm hover:bg-hover" key={label}>
+              <Icon className="size-4" name={icon} />
+              {label}
+              <Token className="ml-auto">{icon}</Token>
+            </div>
+          );
+        })}
       </div>
     </Specimen>
   );
