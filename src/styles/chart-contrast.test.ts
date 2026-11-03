@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { contrast, CSS, MODES } from './css.test-utils';
+import { contrast, CSS, MODES, toUnclippedLinearRgb } from './css.test-utils';
 import { distance, VISIONS } from './vision.test-utils';
 
 const CHARTS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5', 'chart-6', 'chart-7', 'chart-8'] as const;
@@ -50,6 +50,16 @@ const PAIR_DISTANCE = {
   typical: 10,
 } as const;
 
+/**
+ * The slots most charts use. They keep a wider distance than the rest.
+ */
+const LEADERS = CHARTS.slice(0, 3);
+
+/**
+ * How far an sRGB channel may stray from 0–1 before the value counts as out of gamut, to absorb rounding.
+ */
+const GAMUT_TOLERANCE = 0.002;
+
 const NEIGHBOURS = CHARTS.slice(1).map((chart, index) => {
   return [`chart-${index + 1}`, chart] as const;
 });
@@ -71,6 +81,21 @@ describe('chart colours', () => {
       expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} ↔ ${other}`).toBeGreaterThanOrEqual(
         PAIR_DISTANCE[vision],
       );
+    }
+  });
+
+  it.each(VISIONS)('the first three stay 13 OKLab units apart under %s vision', (vision) => {
+    for (const [one, other] of PAIRS.filter(([first, second]) => {
+      return LEADERS.includes(first) && LEADERS.includes(second);
+    })) {
+      expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} ↔ ${other}`).toBeGreaterThanOrEqual(13);
+    }
+  });
+
+  it.each(CHARTS)('%s sits inside sRGB', (chart) => {
+    for (const channel of toUnclippedLinearRgb(VALUES.get(chart) ?? '')) {
+      expect(channel).toBeGreaterThanOrEqual(-GAMUT_TOLERANCE);
+      expect(channel).toBeLessThanOrEqual(1 + GAMUT_TOLERANCE);
     }
   });
 

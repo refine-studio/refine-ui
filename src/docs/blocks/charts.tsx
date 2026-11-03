@@ -16,7 +16,7 @@ const CHARTS = [
  */
 export const ChartSwatches = () => {
   return (
-    <Specimen caption="bg-chart-1 … bg-chart-8, also as fill-, stroke- and text-. Take them in order from chart-1.">
+    <Specimen caption="bg-chart-1 … bg-chart-8, also as fill-, stroke- and text-. Take them in order from chart-1: violet, raspberry and olive lead, because most charts stop at three.">
       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
         {CHARTS.map(({ label, swatch }) => {
           return (
