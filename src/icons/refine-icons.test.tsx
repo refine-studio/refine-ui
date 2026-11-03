@@ -6,9 +6,6 @@ import { describe, expect, it } from 'vitest';
 import * as RefineIcons from './refine-icons';
 import { RefineIconBell, RefineIconHeartSolid, RefineIconRocket, RefineIconTestTube } from './refine-icons';
 
-/**
- * Renders an icon and answers the name it draws.
- */
 const drawnIconName = (icon: ReactElement) => {
   return render(icon).container.querySelector('svg')?.getAttribute('data-icon');
 };

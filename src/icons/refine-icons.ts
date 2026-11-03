@@ -1,5 +1,5 @@
 // Refine UI's icons: the shared package's drawings at Refine UI's 1.75px line.
-// One pure line per icon keeps every icon tree-shakable. `refine-icons.test.tsx` fails when the package gains or loses an icon.
+// One pure line per icon keeps every icon tree-shakable. A test fails when the package gains an icon this list lacks, or loses one it holds.
 import * as PackageIcons from '@refine-studio/refine-icons';
 
 import { withRefineWeight } from './with-refine-weight';
