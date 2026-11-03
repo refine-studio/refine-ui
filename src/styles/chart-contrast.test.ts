@@ -40,10 +40,15 @@ const PAIRS = CHARTS.flatMap((one, index) => {
 });
 
 /**
- * The least OKLab distance any two chart colours keep. Red-green readers get the full 10;
- * tritanopia, rare and far from the status colours' red-green axis, gets 7.
+ * The least OKLab distance any two chart colours keep. The five hues left after the status
+ * and gem gaps share the blue-yellow axis that tritanopia loses, so it gets 7 instead of 10.
  */
-const PAIR_DISTANCE = { deuteranopia: 10, protanopia: 10, tritanopia: 7, typical: 10 } as const;
+const PAIR_DISTANCE = {
+  deuteranopia: 10,
+  protanopia: 10,
+  tritanopia: 7,
+  typical: 10,
+} as const;
 
 const NEIGHBOURS = CHARTS.slice(1).map((chart, index) => {
   return [`chart-${index + 1}`, chart] as const;
