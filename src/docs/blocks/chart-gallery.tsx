@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { CHARTS } from './charts';
+import { CHART_OTHER, ChartBar, CHARTS } from './charts';
 import { Specimen } from './specimen';
 
 interface LegendItem {
@@ -11,44 +11,41 @@ interface LegendItem {
 interface ChartFrameProps {
   caption: string;
   children: ReactNode;
-  legend: readonly LegendItem[];
+  legend?: readonly LegendItem[];
   title: string;
 }
 
 /**
- * One chart example: a titled figure, the chart itself, and a legend that names every colour.
+ * One chart example: a titled figure, the chart itself, and a legend when the chart carries no direct labels.
  */
-const ChartFrame = ({ caption, children, legend, title }: ChartFrameProps) => {
+const ChartFrame = ({ caption, children, legend = [], title }: ChartFrameProps) => {
   return (
     <Specimen caption={caption}>
       <figure className="flex flex-col gap-4">
         <figcaption className="text-body-sm font-medium">{title}</figcaption>
         {children}
-        <ul className="flex flex-wrap gap-x-4 gap-y-2">
-          {legend.map(({ label, swatch }) => {
-            return (
-              <li className="flex items-center gap-1.5 text-body-sm text-muted-foreground" key={label}>
-                <span className={`size-2.5 rounded-full ${swatch}`} />
-                {label}
-              </li>
-            );
-          })}
-        </ul>
+        {legend.length > 0 && (
+          <ul className="flex flex-wrap gap-x-4 gap-y-2">
+            {legend.map(({ label, swatch }) => {
+              return (
+                <li className="flex items-center gap-1.5 text-body-sm text-muted-foreground" key={label}>
+                  <span className={`size-2.5 rounded-full ${swatch}`} />
+                  {label}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </figure>
     </Specimen>
   );
 };
 
 /**
- * The legend for a chart whose series take the chart colours in order.
+ * The ramp step for a series position, or chart-other once the four steps are used.
  */
-const legendFor = (labels: readonly string[]) => {
-  return labels.map((label, index) => {
-    return {
-      label,
-      swatch: CHARTS[index]?.swatch ?? '',
-    };
-  });
+const colourAt = (index: number) => {
+  return CHARTS[index] ?? CHART_OTHER;
 };
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'] as const;
@@ -63,18 +60,17 @@ const LINES = [
 const LINE_MAX = 35;
 
 /**
- * The SVG points of one series on a 100 × 40 plot, the first value at the left edge.
+ * The plot position of one value: x across 0–100, y down a 40-unit plot.
  */
-const linePoints = (values: readonly number[]) => {
-  return values
-    .map((value, index) => {
-      return `${(index / (values.length - 1)) * 100},${40 - (value / LINE_MAX) * 40}`;
-    })
-    .join(' ');
+const linePoint = (index: number, value: number) => {
+  return {
+    x: (index / (MONTHS.length - 1)) * 100,
+    y: 40 - (value / LINE_MAX) * 40,
+  };
 };
 
 /**
- * Four series as lines over eight months.
+ * One series in chart-1 and every other series in chart-other, each named at its line end.
  */
 export const LineChartSample = () => {
   const summary = LINES.map(({ name, values }) => {
@@ -83,21 +79,10 @@ export const LineChartSample = () => {
 
   return (
     <ChartFrame
-      caption="Lines take chart-1 to chart-4. A 2px stroke is thin, so the legend and a tooltip carry the names."
-      legend={legendFor(
-        LINES.map(({ name }) => {
-          return name;
-        }),
-      )}
+      caption="A line chart puts the one series it is about in chart-1 and every other line in chart-other. Each line carries its name at its end, so it needs no legend."
       title="Active projects per client, January to August"
     >
-      <svg
-        aria-label={`Active projects per month: ${summary}`}
-        className="h-48 w-full overflow-visible"
-        preserveAspectRatio="none"
-        role="img"
-        viewBox="0 0 100 40"
-      >
+      <svg aria-label={`Active projects per month: ${summary}`} className="h-auto w-full" role="img" viewBox="-2 -2 116 47">
         {[10, 20, 30].map((y) => {
           return (
             <line
@@ -113,26 +98,55 @@ export const LineChartSample = () => {
           );
         })}
         {LINES.map(({ name, values }, index) => {
+          const isFocus = index === 0;
+          const points = values
+            .map((value, step) => {
+              const { x, y } = linePoint(step, value);
+
+              return `${x},${y}`;
+            })
+            .join(' ');
+          const end = linePoint(values.length - 1, values.at(-1) ?? 0);
+
           return (
-            <polyline
-              className={CHARTS[index]?.stroke ?? ''}
-              fill="none"
-              key={name}
-              points={linePoints(values)}
-              strokeLinejoin="round"
-              strokeWidth={2}
-              vectorEffect="non-scaling-stroke"
+            <g key={name}>
+              <polyline
+                className={isFocus ? CHARTS[0].stroke : CHART_OTHER.stroke}
+                fill="none"
+                points={points}
+                strokeLinejoin="round"
+                strokeWidth={isFocus ? 2.5 : 1.5}
+                vectorEffect="non-scaling-stroke"
+              >
+                <title>{`${name}: ${values.join(', ')}`}</title>
+              </polyline>
+              <text
+                className={isFocus ? 'fill-foreground font-medium' : 'fill-muted-foreground'}
+                dominantBaseline="middle"
+                fontSize={1.7}
+                x={end.x + 2}
+                y={end.y}
+              >
+                {name}
+              </text>
+            </g>
+          );
+        })}
+        {MONTHS.map((month, index) => {
+          return (
+            <text
+              className="fill-muted-foreground font-mono"
+              fontSize={1.5}
+              key={month}
+              textAnchor="middle"
+              x={linePoint(index, 0).x}
+              y={44}
             >
-              <title>{`${name}: ${values.join(', ')}`}</title>
-            </polyline>
+              {month}
+            </text>
           );
         })}
       </svg>
-      <div className="flex justify-between font-mono text-caption text-muted-foreground">
-        {MONTHS.map((month) => {
-          return <span key={month}>{month}</span>;
-        })}
-      </div>
     </ChartFrame>
   );
 };
@@ -143,54 +157,48 @@ const GROUPS = [
   { name: 'Q1', values: [14, 22, 30] },
   { name: 'Q2', values: [18, 20, 34] },
   { name: 'Q3', values: [16, 26, 28] },
-  { name: 'Q4', values: [20, 24, 36] },
 ] as const;
 
 const GROUP_MAX = 40;
 
 /**
- * Three series side by side in each of four quarters.
+ * Three series side by side in each quarter, every bar named and valued in place.
  */
 export const GroupedBarSample = () => {
-  const summary = GROUPS.map(({ name, values }) => {
-    return `${name}: ${values.join(', ')}`;
-  }).join('; ');
-
   return (
     <ChartFrame
-      caption="Grouped bars take chart-1 to chart-3, the slots most charts use."
-      legend={legendFor(GROUP_SERIES)}
+      caption="Grouped bars take chart-1 to chart-3. Every bar carries its name and value, so the colour only groups."
       title="Hours booked per discipline, per quarter"
     >
-      <svg
-        aria-label={`Hours per discipline: ${summary}`}
-        className="h-48 w-full"
-        preserveAspectRatio="none"
-        role="img"
-        viewBox="0 0 100 40"
-      >
-        {GROUPS.map(({ name, values }, group) => {
-          return values.map((value, index) => {
-            const height = (value / GROUP_MAX) * 40;
+      <div className="flex flex-col gap-4">
+        {GROUPS.map(({ name, values }) => {
+          return (
+            <div className="flex gap-3" key={name}>
+              <span className="w-6 shrink-0 font-mono text-caption text-muted-foreground">{name}</span>
+              <div className="flex w-full flex-col gap-1">
+                {values.map((value, index) => {
+                  const series = GROUP_SERIES[index] ?? '';
 
-            return (
-              <rect
-                className={CHARTS[index]?.fill ?? ''}
-                height={height}
-                key={`${name}-${GROUP_SERIES[index] ?? ''}`}
-                width={6}
-                x={group * 25 + 3.5 + index * 6.5}
-                y={40 - height}
-              >
-                <title>{`${GROUP_SERIES[index] ?? ''} · ${name} · ${value} h`}</title>
-              </rect>
-            );
-          });
-        })}
-      </svg>
-      <div className="grid grid-cols-4 text-center font-mono text-caption text-muted-foreground">
-        {GROUPS.map(({ name }) => {
-          return <span key={name}>{name}</span>;
+                  return (
+                    <div className="flex items-center gap-3" key={series}>
+                      <span className="w-24 shrink-0 text-body-sm text-muted-foreground">{series}</span>
+                      <div className="flex h-4 w-full">
+                        <ChartBar
+                          ends="both"
+                          label={`${series} · ${name} · ${value} h`}
+                          percent={(value / GROUP_MAX) * 100}
+                          tone={colourAt(index).swatch}
+                        />
+                      </div>
+                      <span className="w-10 shrink-0 text-right font-mono text-caption text-muted-foreground">
+                        {value} h
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
         })}
       </div>
     </ChartFrame>
@@ -202,12 +210,11 @@ const SLICES = [
   { name: 'Banking', share: 22 },
   { name: 'Automotive', share: 18 },
   { name: 'Energy', share: 14 },
-  { name: 'Industry', share: 11 },
-  { name: 'Public', share: 7 },
+  { name: 'Others', share: 18 },
 ] as const;
 
 /**
- * Six slices of one whole, drawn as dashes on a circle whose circumference is 100.
+ * Four slices in ramp order and Others in chart-other, drawn as dashes on a circle whose circumference is 100.
  */
 export const DonutSample = () => {
   const starts = SLICES.map((_slice, index) => {
@@ -221,11 +228,11 @@ export const DonutSample = () => {
 
   return (
     <ChartFrame
-      caption="A donut takes all six colours. Past six slices, group the smallest into Other in muted-foreground."
+      caption="A donut takes at most four steps, largest slice first, then Others in chart-other."
       legend={SLICES.map(({ name, share }, index) => {
         return {
           label: `${name} ${share}%`,
-          swatch: CHARTS[index]?.swatch ?? '',
+          swatch: colourAt(index).swatch,
         };
       })}
       title="Revenue by industry"
@@ -234,7 +241,7 @@ export const DonutSample = () => {
         {SLICES.map(({ name, share }, index) => {
           return (
             <circle
-              className={CHARTS[index]?.stroke ?? ''}
+              className={colourAt(index).stroke}
               cx={21}
               cy={21}
               fill="none"
@@ -253,12 +260,13 @@ export const DonutSample = () => {
   );
 };
 
-const AREA_SERIES = ['Retainers', 'Projects', 'Workshops'] as const;
+const AREA_SERIES = ['Retainers', 'Projects', 'Workshops', 'Others'] as const;
 
 const AREAS = [
   [10, 12, 13, 15, 16, 18, 19, 21],
   [8, 9, 12, 11, 13, 14, 16, 15],
   [3, 4, 3, 5, 6, 5, 7, 8],
+  [2, 3, 2, 3, 3, 4, 3, 4],
 ] as const;
 
 const AREA_MAX = 50;
@@ -286,7 +294,7 @@ const bandPoints = (series: number) => {
 };
 
 /**
- * Three series stacked as areas over eight months.
+ * Three series and Others stacked as areas over eight months, the strongest step at the base.
  */
 export const StackedAreaSample = () => {
   const summary = AREA_SERIES.map((name, index) => {
@@ -295,8 +303,13 @@ export const StackedAreaSample = () => {
 
   return (
     <ChartFrame
-      caption="Stacked areas take chart-1 to chart-3. A hairline in the background colour separates the bands."
-      legend={legendFor(AREA_SERIES)}
+      caption="Stacked areas take the steps from the base up, strongest first, with Others on top in chart-other. A hairline in the background colour separates the bands."
+      legend={AREA_SERIES.map((label, index) => {
+        return {
+          label,
+          swatch: colourAt(index === AREA_SERIES.length - 1 ? CHARTS.length : index).swatch,
+        };
+      })}
       title="Revenue by contract type, January to August (k€)"
     >
       <svg
@@ -309,7 +322,7 @@ export const StackedAreaSample = () => {
         {AREA_SERIES.map((name, index) => {
           return (
             <polygon
-              className={`${CHARTS[index]?.fill ?? ''} stroke-background`}
+              className={`${colourAt(index === AREA_SERIES.length - 1 ? CHARTS.length : index).fill} stroke-background`}
               key={name}
               points={bandPoints(index)}
               strokeWidth={1}
@@ -331,6 +344,7 @@ export const StackedAreaSample = () => {
 
 const SCATTER_GROUPS = [
   {
+    label: { x: 6, y: 18 },
     name: 'Small',
     points: [
       [12, 30],
@@ -342,6 +356,7 @@ const SCATTER_GROUPS = [
     ],
   },
   {
+    label: { x: 38, y: 7 },
     name: 'Mid-size',
     points: [
       [38, 20],
@@ -353,6 +368,7 @@ const SCATTER_GROUPS = [
     ],
   },
   {
+    label: { x: 72, y: 21 },
     name: 'Enterprise',
     points: [
       [68, 10],
@@ -366,7 +382,7 @@ const SCATTER_GROUPS = [
 ] as const;
 
 /**
- * Three groups of points on one plane.
+ * Three groups of points on one plane, each group named beside its cluster.
  */
 export const ScatterSample = () => {
   const summary = SCATTER_GROUPS.map(({ name, points }) => {
@@ -375,25 +391,27 @@ export const ScatterSample = () => {
 
   return (
     <ChartFrame
-      caption="Scatter groups take chart-1 to chart-3. Points overlap, so each group also has its own region."
-      legend={legendFor(
-        SCATTER_GROUPS.map(({ name }) => {
-          return name;
-        }),
-      )}
+      caption="Scatter groups take chart-1 to chart-3, and each cluster carries its name, so the colour only groups."
       title="Project size against margin, by client size"
     >
       <svg aria-label={`Clients by size: ${summary}`} className="h-48 w-full" role="img" viewBox="0 0 100 40">
         <line className="stroke-border" strokeWidth={0.3} x1={0} x2={100} y1={40} y2={40} />
         <line className="stroke-border" strokeWidth={0.3} x1={0} x2={0} y1={0} y2={40} />
-        {SCATTER_GROUPS.map(({ name, points }, index) => {
-          return points.map(([x, y]) => {
-            return (
-              <circle className={CHARTS[index]?.fill ?? ''} cx={x} cy={y} key={`${name}-${x}-${y}`} r={1.6}>
-                <title>{`${name} · size ${x} · margin ${40 - y}`}</title>
-              </circle>
-            );
-          });
+        {SCATTER_GROUPS.map(({ label, name, points }, index) => {
+          return (
+            <g key={name}>
+              {points.map(([x, y]) => {
+                return (
+                  <circle className={colourAt(index).fill} cx={x} cy={y} key={`${x}-${y}`} r={1.6}>
+                    <title>{`${name} · size ${x} · margin ${40 - y}`}</title>
+                  </circle>
+                );
+              })}
+              <text className="fill-muted-foreground" fontSize={2.8} x={label.x} y={label.y}>
+                {name}
+              </text>
+            </g>
+          );
         })}
       </svg>
     </ChartFrame>
@@ -498,36 +516,21 @@ export const DeltaBarSample = () => {
     >
       <div className="flex flex-col gap-2">
         {DELTAS.map(({ delta, name }) => {
-          const width = (Math.abs(delta) / DELTA_MAX) * 50;
+          const percent = (Math.abs(delta) / DELTA_MAX) * 100;
           const isGain = delta > 0;
+          const label = `${name}: ${isGain ? '+' : ''}${delta}%`;
 
           return (
             <div className="flex items-center gap-3" key={name}>
               <span className="w-28 shrink-0 text-body-sm text-muted-foreground">{name}</span>
-              <svg
-                aria-label={`${name}: ${isGain ? '+' : ''}${delta}%`}
-                className="h-5 w-full"
-                preserveAspectRatio="none"
-                role="img"
-                viewBox="0 0 100 1"
-              >
-                <rect
-                  className={isGain ? 'fill-success' : 'fill-danger'}
-                  height={1}
-                  width={width}
-                  x={isGain ? 50 : 50 - width}
-                  y={0}
-                />
-                <line
-                  className="stroke-foreground"
-                  strokeWidth={1}
-                  vectorEffect="non-scaling-stroke"
-                  x1={50}
-                  x2={50}
-                  y1={0}
-                  y2={1}
-                />
-              </svg>
+              <div className="flex h-5 w-full">
+                <div className="flex w-1/2 justify-end">
+                  {!isGain && <ChartBar ends="start" label={label} percent={percent} tone="bg-danger" />}
+                </div>
+                <div className="flex w-1/2 border-l border-foreground">
+                  {isGain && <ChartBar ends="end" label={label} percent={percent} tone="bg-success" />}
+                </div>
+              </div>
               <span
                 className={`w-10 shrink-0 text-right font-mono text-caption ${isGain ? 'text-success-ink' : 'text-danger-ink'}`}
               >

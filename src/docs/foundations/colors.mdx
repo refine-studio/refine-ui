@@ -79,11 +79,13 @@ Each family has the same four steps as a status: base, `-foreground`, `-soft` an
 
 ## Charts
 
-Six colours for the series of one chart: Tailwind v4's 500 step of violet, pink, cyan, lime, fuchsia and indigo. They are the same in light and dark mode. Take them in order from `chart-1`, so a chart with three series uses the first three. Beyond six series, group the smallest into **Other** in `muted-foreground`.
+**Categories use the primary ramp.** `chart-1` to `chart-4` are one ramp of the gem hue, strongest first, the same in light and dark mode. A single series takes `chart-1`. Beyond four categories, group the rest into **Others** in `chart-other`.
 
-**A chart colour never looks like a status or like the brand.** Every chart hue keeps at least 20° in OKLCH from success, warning, danger, info and the gem teal, in both modes. To colour by status, use the status or lifecycle tokens, not a chart colour.
+**Lifecycle uses the `status-*` tokens.** To do, in progress, done and ended never take a chart colour.
 
-**Every chart carries a legend or direct labels, plus a tooltip.** The fills aim for 2:1 on white, not 3:1. WCAG 1.4.11 allows that only when the colour is not the sole way to read the data.
+**Good and bad use `success` and `danger`.** A gain or a loss is a status, not a category.
+
+Every chart carries a legend or direct labels, plus a tooltip. Every step keeps 2:1 on card and canvas, which WCAG 1.4.11 allows only when the colour is not the sole way to read the data.
 
 <ChartSwatches />
 
@@ -91,7 +93,7 @@ Six colours for the series of one chart: Tailwind v4's 500 step of violet, pink,
 
 ### Chart examples
 
-Every example takes the colours in order from `chart-1` and carries a legend. Hover a mark for its tooltip.
+Every example takes the steps in order from `chart-1` and names every series in a legend or in place. Hover a mark for its tooltip.
 
 <ChartSample />
 

@@ -1,22 +1,52 @@
 import { Specimen, Token } from './specimen';
 
+const ROUNDING_BY_ENDS = {
+  both: 'rounded-control',
+  end: 'rounded-r-control',
+  none: '',
+  start: 'rounded-l-control',
+} as const;
+
+interface ChartBarProps {
+  ends: keyof typeof ROUNDING_BY_ENDS;
+  label: string;
+  percent: number;
+  tone: string;
+}
+
+/**
+ * One bar or bar segment, as wide as its percentage of the track, rounded at the ends that face outward.
+ */
+export const ChartBar = ({ ends, label, percent, tone }: ChartBarProps) => {
+  return (
+    <svg aria-label={label} className={`h-full ${ROUNDING_BY_ENDS[ends]} ${tone}`} role="img" width={`${percent}%`}>
+      <title>{label}</title>
+    </svg>
+  );
+};
+
 export const CHARTS = [
   { fill: 'fill-chart-1', label: 'chart-1', stroke: 'stroke-chart-1', swatch: 'bg-chart-1' },
   { fill: 'fill-chart-2', label: 'chart-2', stroke: 'stroke-chart-2', swatch: 'bg-chart-2' },
   { fill: 'fill-chart-3', label: 'chart-3', stroke: 'stroke-chart-3', swatch: 'bg-chart-3' },
   { fill: 'fill-chart-4', label: 'chart-4', stroke: 'stroke-chart-4', swatch: 'bg-chart-4' },
-  { fill: 'fill-chart-5', label: 'chart-5', stroke: 'stroke-chart-5', swatch: 'bg-chart-5' },
-  { fill: 'fill-chart-6', label: 'chart-6', stroke: 'stroke-chart-6', swatch: 'bg-chart-6' },
 ] as const;
 
+export const CHART_OTHER = {
+  fill: 'fill-chart-other',
+  label: 'chart-other',
+  stroke: 'stroke-chart-other',
+  swatch: 'bg-chart-other',
+} as const;
+
 /**
- * The six chart colours in the order a chart takes them.
+ * The four chart steps in the order a chart takes them, then the neutral for Others.
  */
 export const ChartSwatches = () => {
   return (
-    <Specimen caption="bg-chart-1 … bg-chart-6, also as fill-, stroke- and text-. Tailwind 500 violet, pink, cyan, lime, fuchsia and indigo. Take them in order from chart-1.">
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
-        {CHARTS.map(({ label, swatch }) => {
+    <Specimen caption="bg-chart-1 … bg-chart-4 and bg-chart-other, also as fill-, stroke- and text-. One ramp of the gem hue, strongest first. chart-1 is the default for a single series.">
+      <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
+        {[...CHARTS, CHART_OTHER].map(({ label, swatch }) => {
           return (
             <div className="flex min-w-0 flex-col gap-1.5" key={label}>
               <div className={`h-14 rounded-control ${swatch}`} />
@@ -34,18 +64,17 @@ const REFERENCES = [
   { label: 'warning', swatch: 'bg-warning' },
   { label: 'danger', swatch: 'bg-danger' },
   { label: 'info', swatch: 'bg-info' },
-  { label: 'gem', swatch: 'bg-gem' },
 ] as const;
 
 /**
- * The chart colours in one strip beside the status colours and the gem, so no chart colour can pass for one of them.
+ * The chart ramp in one strip beside the status colours, so no chart step can pass for a status.
  */
 export const ChartStatusStrip = () => {
   return (
-    <Specimen caption="Chart colours on the left, status colours and the gem on the right. Every chart hue keeps at least 20° from every colour on the right.">
+    <Specimen caption="Chart colours on the left, status colours on the right. The ramp is one hue, so a category never reads as good, bad or in progress.">
       <div className="flex flex-wrap items-end gap-6">
         <div className="flex gap-1">
-          {CHARTS.map(({ label, swatch }) => {
+          {[...CHARTS, CHART_OTHER].map(({ label, swatch }) => {
             return (
               <div className="flex w-12 flex-col gap-1.5" key={label}>
                 <div className={`h-10 rounded-control ${swatch}`} />
@@ -69,46 +98,35 @@ export const ChartStatusStrip = () => {
   );
 };
 
-const SERIES = ['Atlas', 'Beacon', 'Cobalt', 'Delta', 'Ember', 'Fjord'] as const;
+const SERIES = ['Atlas', 'Beacon', 'Cobalt', 'Delta', 'Others'] as const;
+
+const SERIES_COLOURS = [...CHARTS, CHART_OTHER] as const;
 
 const QUARTERS = [
-  { name: 'Q1', shares: [26, 20, 17, 15, 12, 10] },
-  { name: 'Q2', shares: [22, 24, 15, 16, 11, 12] },
-  { name: 'Q3', shares: [20, 18, 21, 13, 16, 12] },
-  { name: 'Q4', shares: [18, 16, 19, 20, 13, 14] },
+  { name: 'Q1', shares: [32, 24, 18, 12, 14] },
+  { name: 'Q2', shares: [30, 26, 17, 13, 14] },
+  { name: 'Q3', shares: [34, 22, 19, 11, 14] },
+  { name: 'Q4', shares: [31, 25, 16, 14, 14] },
 ] as const;
 
 /**
- * The left edge of each segment in a row of percentage shares.
- */
-const offsets = (shares: readonly number[]) => {
-  return shares.map((_share, index) => {
-    return shares.slice(0, index).reduce((sum, share) => {
-      return sum + share;
-    }, 0);
-  });
-};
-
-/**
- * A stacked bar chart of revenue mix, so every neighbouring pair of chart colours touches.
+ * A stacked bar chart of revenue mix: four ramp steps, strongest first, then Others.
  */
 export const ChartSample = () => {
   return (
-    <Specimen caption="Stacked bars put every neighbouring pair side by side, the hardest case for the order. The legend carries the names, never the colour alone.">
+    <Specimen caption="Stacked bars take at most four steps, strongest first, then Others in chart-other. The legend carries the names, never the colour alone.">
       <figure className="flex flex-col gap-4">
         <figcaption className="text-body-sm font-medium">Revenue mix by client, per quarter</figcaption>
         <div className="flex flex-col gap-3">
           {QUARTERS.map(({ name, shares }) => {
-            const lefts = offsets(shares);
-
-            return <ChartSampleRow key={name} lefts={lefts} name={name} shares={shares} />;
+            return <ChartSampleRow key={name} name={name} shares={shares} />;
           })}
         </div>
         <ul className="flex flex-wrap gap-x-4 gap-y-2">
           {SERIES.map((series, index) => {
             return (
               <li className="flex items-center gap-1.5 text-body-sm text-muted-foreground" key={series}>
-                <span className={`size-2.5 rounded-full ${CHARTS[index]?.swatch ?? ''}`} />
+                <span className={`size-2.5 rounded-full ${SERIES_COLOURS[index]?.swatch ?? ''}`} />
                 {series}
               </li>
             );
@@ -120,48 +138,30 @@ export const ChartSample = () => {
 };
 
 interface ChartSampleRowProps {
-  lefts: readonly number[];
   name: string;
   shares: readonly number[];
 }
 
 /**
- * One quarter's label and its stacked bar of shares, drawn on a 0–100 axis.
+ * One quarter's label and its stacked bar of shares, rounded only at the outer edges like the lifecycle bars.
  */
-const ChartSampleRow = ({ lefts, name, shares }: ChartSampleRowProps) => {
-  const summary = shares
-    .map((share, index) => {
-      return `${SERIES[index] ?? ''} ${share}%`;
-    })
-    .join(', ');
-
+const ChartSampleRow = ({ name, shares }: ChartSampleRowProps) => {
   return (
     <div className="flex items-center gap-3">
       <span className="w-6 shrink-0 font-mono text-caption text-muted-foreground">{name}</span>
-      <svg
-        aria-label={`${name} revenue share by client: ${summary}`}
-        className="h-7 w-full"
-        preserveAspectRatio="none"
-        role="img"
-        viewBox="0 0 100 1"
-      >
+      <div className="flex h-7 w-full gap-px overflow-hidden rounded-control">
         {shares.map((share, index) => {
           return (
-            <rect
-              className={`${CHARTS[index]?.fill ?? ''} stroke-background`}
-              height={1}
+            <ChartBar
+              ends="none"
               key={SERIES[index]}
-              strokeWidth={1}
-              vectorEffect="non-scaling-stroke"
-              width={share}
-              x={lefts[index] ?? 0}
-              y={0}
-            >
-              <title>{`${SERIES[index] ?? ''} · ${name} · ${share}%`}</title>
-            </rect>
+              label={`${SERIES[index] ?? ''} · ${name} · ${share}%`}
+              percent={share}
+              tone={SERIES_COLOURS[index]?.swatch ?? ''}
+            />
           );
         })}
-      </svg>
+      </div>
     </div>
   );
 };

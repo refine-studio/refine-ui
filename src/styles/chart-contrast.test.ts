@@ -1,27 +1,46 @@
 import { describe, expect, it } from 'vitest';
 
 import { contrast, CSS, MODES, toUnclippedLinearRgb } from './css.test-utils';
-import { distance, VISIONS } from './vision.test-utils';
 
-const CHARTS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5', 'chart-6'] as const;
+const STEPS = ['chart-1', 'chart-2', 'chart-3', 'chart-4'] as const;
 
-const SURFACES = ['canvas', 'background', 'card', 'popover'] as const;
+const CHARTS = [...STEPS, 'chart-other'] as const;
 
-const VALUES = new Map(
-  [...CSS.matchAll(/--(chart-\d+):\s*([^;]+);/g)].map((match) => {
-    return [String(match[1]), String(match[2]).trim()] as const;
-  }),
-);
-
-const STATUSES = ['success', 'warning', 'danger', 'info'] as const;
+const SURFACES = ['canvas', 'card'] as const;
 
 const GEM_HUE = Number(/--gem-h:\s*([\d.]+);/.exec(CSS)?.[1]);
 
 /**
- * The OKLCH hue of an `oklch()` literal.
+ * How far a step's hue may stray from the gem hue, in OKLCH degrees.
  */
-const hue = (oklch = '') => {
-  return Number(/^oklch\([\d.]+ [\d.]+ ([\d.]+)\)$/.exec(oklch)?.[1]);
+const HUE_TOLERANCE = 5;
+
+/**
+ * The least OKLab lightness gap between neighbouring steps.
+ */
+const LIGHTNESS_GAP = 0.08;
+
+/**
+ * How far an sRGB channel may stray from 0–1 before the value counts as out of gamut, to absorb rounding.
+ */
+const GAMUT_TOLERANCE = 0.002;
+
+/**
+ * The least contrast chart-other keeps on the card, so the quietest band still shows.
+ */
+const OTHER_MIN_CONTRAST = 1.3;
+
+/**
+ * The lightness, chroma and hue of an `oklch()` literal. OKLCH lightness is OKLab lightness.
+ */
+const channels = (oklch = '') => {
+  const match = /^oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)$/.exec(oklch);
+
+  return {
+    chroma: Number(match?.[2]),
+    hue: Number(match?.[3]),
+    lightness: Number(match?.[1]),
+  };
 };
 
 /**
@@ -33,77 +52,56 @@ const hueGap = (one: number, other: number) => {
   return Math.min(gap, 360 - gap);
 };
 
-const PAIRS = CHARTS.flatMap((one, index) => {
-  return CHARTS.slice(index + 1).map((other) => {
-    return [one, other] as const;
-  });
-});
-
-/**
- * The least hue gap, in OKLCH degrees, between a chart colour and a status colour or the gem.
- */
-const HUE_GAP = 20;
-
-/**
- * The slots most charts use. They keep a wider distance than the rest.
- */
-const LEADERS = CHARTS.slice(0, 3);
-
-/**
- * How far an sRGB channel may stray from 0–1 before the value counts as out of gamut, to absorb rounding.
- */
-const GAMUT_TOLERANCE = 0.002;
-
-const NEIGHBOURS = CHARTS.slice(1).map((chart, index) => {
-  return [`chart-${index + 1}`, chart] as const;
+const NEIGHBOURS = STEPS.slice(1).map((step, index) => {
+  return [STEPS[index] ?? '', step] as const;
 });
 
 describe('chart colours', () => {
-  it('ships exactly six colours', () => {
-    expect([...VALUES.keys()]).toEqual([...CHARTS]);
+  it.each(Object.entries(MODES))('%s mode ships exactly four steps and chart-other', (_mode, tokens) => {
+    expect(
+      [...tokens.keys()].filter((name) => {
+        return name.startsWith('chart-');
+      }),
+    ).toEqual([...CHARTS]);
   });
 
-  it.each(CHARTS)('%s ships a value and a utility', (chart) => {
-    expect(VALUES.get(chart), `--${chart}`).toMatch(/^oklch\(/);
+  it.each(CHARTS)('%s ships a utility', (chart) => {
     expect(CSS, `--color-${chart}`).toContain(`--color-${chart}: var(--${chart});`);
   });
 
-  it.each(VISIONS)('neighbours stay 10 OKLab units apart under %s vision', (vision) => {
-    for (const [one, other] of NEIGHBOURS) {
-      expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} → ${other}`).toBeGreaterThanOrEqual(10);
-    }
-  });
+  describe.each(Object.entries(MODES))('in %s mode', (mode, tokens) => {
+    it.each(STEPS)(`%s keeps the gem hue within ${HUE_TOLERANCE}°`, (step) => {
+      expect(hueGap(channels(tokens.get(step)).hue, GEM_HUE)).toBeLessThanOrEqual(HUE_TOLERANCE);
+    });
 
-  it.each(VISIONS)('the first three stay 13 OKLab units apart under %s vision', (vision) => {
-    for (const [one, other] of PAIRS.filter(([first, second]) => {
-      return LEADERS.includes(first) && LEADERS.includes(second);
-    })) {
-      expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} ↔ ${other}`).toBeGreaterThanOrEqual(13);
-    }
-  });
+    it.each(NEIGHBOURS)(`%s and %s stay ${LIGHTNESS_GAP} apart in lightness`, (one, other) => {
+      const gap = Math.abs(channels(tokens.get(one)).lightness - channels(tokens.get(other)).lightness);
 
-  it.each(CHARTS)('%s sits inside sRGB', (chart) => {
-    for (const channel of toUnclippedLinearRgb(VALUES.get(chart) ?? '')) {
-      expect(channel).toBeGreaterThanOrEqual(-GAMUT_TOLERANCE);
-      expect(channel).toBeLessThanOrEqual(1 + GAMUT_TOLERANCE);
-    }
-  });
+      expect(gap).toBeGreaterThanOrEqual(LIGHTNESS_GAP - 1e-9);
+    });
 
-  it.each(CHARTS)(`%s keeps ${HUE_GAP}° of hue from the gem teal`, (chart) => {
-    expect(hueGap(hue(VALUES.get(chart)), GEM_HUE)).toBeGreaterThanOrEqual(HUE_GAP);
-  });
+    it.each(NEIGHBOURS)('%s is more saturated than %s', (one, other) => {
+      expect(channels(tokens.get(one)).chroma).toBeGreaterThan(channels(tokens.get(other)).chroma);
+    });
 
-  describe.each(Object.entries(MODES))('in %s mode', (_mode, tokens) => {
-    it.each(CHARTS)(`%s keeps ${HUE_GAP}° of hue from every status colour`, (chart) => {
-      for (const status of STATUSES) {
-        expect(hueGap(hue(VALUES.get(chart)), hue(tokens.get(status))), status).toBeGreaterThanOrEqual(HUE_GAP);
+    it.each(STEPS)('%s passes 2:1 on card and canvas', (step) => {
+      for (const surface of SURFACES) {
+        expect(contrast(tokens.get(step), tokens.get(surface)), `on ${surface}`).toBeGreaterThanOrEqual(2);
       }
     });
 
-    it.each(CHARTS)('%s passes 2:1 on every surface', (chart) => {
-      for (const surface of SURFACES) {
-        expect(contrast(VALUES.get(chart), tokens.get(surface)), `on ${surface}`).toBeGreaterThanOrEqual(2);
+    it.each(CHARTS)('%s sits inside sRGB', (chart) => {
+      for (const channel of toUnclippedLinearRgb(tokens.get(chart) ?? '')) {
+        expect(channel).toBeGreaterThanOrEqual(-GAMUT_TOLERANCE);
+        expect(channel).toBeLessThanOrEqual(1 + GAMUT_TOLERANCE);
       }
+    });
+
+    it('chart-other is the quietest band but still shows on the card', () => {
+      const other = contrast(tokens.get('chart-other'), tokens.get('card'));
+
+      expect(other).toBeLessThan(contrast(tokens.get('chart-4'), tokens.get('card')));
+      expect(other, mode).toBeGreaterThanOrEqual(OTHER_MIN_CONTRAST);
     });
   });
 });
