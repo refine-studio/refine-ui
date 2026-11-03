@@ -114,7 +114,7 @@ export const DropdownMenuRadioItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <DropdownMenuPrimitive.ItemIndicator>
-          <RefineIconCircleFilled className="size-2 fill-current text-gem-ink" />
+          <RefineIconCircleFilled className="size-2 text-gem-ink" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}

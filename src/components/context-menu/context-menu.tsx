@@ -109,7 +109,7 @@ export const ContextMenuRadioItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <ContextMenuPrimitive.ItemIndicator>
-          <RefineIconCircleFilled className="size-2 fill-current text-gem-ink" />
+          <RefineIconCircleFilled className="size-2 text-gem-ink" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
       {children}
