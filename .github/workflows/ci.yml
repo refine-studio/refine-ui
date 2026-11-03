@@ -24,4 +24,11 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm build
+      # pnpm builds a git dependency inside its store, under a node_modules folder, where tsc once failed with TS2742.
+      - name: Build the types from inside a node_modules folder
+        run: |
+          mkdir -p "$RUNNER_TEMP/node_modules"
+          cp -R . "$RUNNER_TEMP/node_modules/refine-ui"
+          cd "$RUNNER_TEMP/node_modules/refine-ui"
+          pnpm exec tsc -p tsconfig.build.json --outDir "$RUNNER_TEMP/types"
       - run: pnpm build-storybook --quiet

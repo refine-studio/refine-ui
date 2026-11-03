@@ -6,7 +6,14 @@
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    // A checkout inside a node_modules folder makes tsc name these packages by a path it calls not portable (TS2742).
+    // Mapping them here makes it write the bare package name instead.
+    "paths": {
+      "react": ["./node_modules/@types/react"],
+      "class-variance-authority": ["./node_modules/class-variance-authority"],
+      "class-variance-authority/types": ["./node_modules/class-variance-authority/dist/types.d.ts"]
+    }
   },
   "include": ["src"],
   "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts", "src/**/*.test-utils.ts", "src/docs", "src/widgets"]

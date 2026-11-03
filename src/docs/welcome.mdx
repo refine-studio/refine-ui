@@ -29,12 +29,7 @@ The **Mode** toggle in the toolbar switches every story and every specimen betwe
 
 ## Install
 
-Refine UI is published to GitHub Packages under the `refine-studio` organisation. Add the scope to your project's `.npmrc`, with a GitHub token that has `read:packages`:
-
-```ini
-@refine-studio:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
+Refine UI is published to the public npm registry as `@refine-studio/ui`. The install needs no token, and every version arrives already built:
 
 ```sh
 pnpm add @refine-studio/ui
@@ -50,6 +45,12 @@ Import the stylesheet after Tailwind. It brings the tokens, the Geist fonts and 
 /* app.css */
 @import 'tailwindcss';
 @import '@refine-studio/ui/styles.css';
+```
+
+The stylesheet loads Geist and Geist Mono from `./fonts/`, next to itself, and a bundler such as Vite resolves them. When your build writes the CSS out by hand, copy one folder next to it:
+
+```sh
+cp -R node_modules/@refine-studio/ui/dist/fonts <your-css-folder>/fonts
 ```
 
 ## Wrap the app
