@@ -50,6 +50,7 @@
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
+    "@refine-studio/refine-icons": "0.2.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",

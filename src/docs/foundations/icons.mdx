@@ -16,7 +16,7 @@ import { Sparkles } from 'lucide-react';
 
 ## Refine icons
 
-Refine UI also ships its own icon set. Each icon is a React component named `RefineIcon` plus the icon's name: `Search_Magnifying_Glass` is `RefineIconSearchMagnifyingGlass`.
+Refine UI also ships the Refine icon set, drawn in the shared [`@refine-studio/refine-icons`](https://www.npmjs.com/package/@refine-studio/refine-icons) package. Each icon is a React component named `RefineIcon` plus the icon's name: `Search_Magnifying_Glass` is `RefineIconSearchMagnifyingGlass`.
 
 ```tsx
 import { RefineIconBell } from '@refine-studio/ui';
@@ -24,13 +24,13 @@ import { RefineIconBell } from '@refine-studio/ui';
 <RefineIconBell className="size-5" />;
 ```
 
-The source icons are drawn at a 2px stroke, which reads heavier than lucide. Refine icons draw at 1.75px, which matches lucide's weight. Both sets take the same `className`, `size` and `strokeWidth` props.
+The package draws its icons at a 2px stroke, which reads heavier than lucide. Refine UI draws them at 1.75px, which matches lucide's weight. Both sets take the same `className`, `size` and `strokeWidth` props.
 
 <IconWeightMatch />
 
 ### By name
 
-When the icon is data — a menu, a setting, a content field — pass its sprite name to `Icon`. `IconName` lists every name, so a name the set lacks fails the type check.
+When the icon is data — a menu, a setting, a content field — pass its name to `Icon`. `IconName` lists every name, so a name the set lacks fails the type check.
 
 ```tsx
 import { Icon, type IconName } from '@refine-studio/ui';
@@ -47,7 +47,7 @@ const items: { icon: IconName; label: string }[] = [
 
 <IconByName />
 
-The set leaves out raster 3D illustrations and multi-colour flags, because they cannot take the text colour. Run `node scripts/generate-refine-icons.mjs <path to icons-sprite.svg>` to generate the set again from a new sprite.
+The set leaves out raster 3D illustrations and multi-colour flags, because they cannot take the text colour. A new or fixed icon is drawn in the package ([refine-icons](https://github.com/refine-studio/refine-icons)), not here. Bump the package in `package.json`, add the new icon's line to `src/icons/refine-icons.ts`, and `pnpm test` fails until every package icon has one.
 
 <RefineIconGallery />
 

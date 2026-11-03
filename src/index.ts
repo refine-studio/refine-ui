@@ -50,7 +50,7 @@ export * from './components/theme-switcher/theme-switcher';
 export * from './components/toaster/toaster';
 export * from './components/toggle-group/toggle-group';
 export * from './components/tooltip/tooltip';
-export type { RefineIconProps } from './icons/create-refine-icon';
+export type { RefineIconProps } from '@refine-studio/refine-icons';
 export * from './icons/icon';
 export * from './icons/refine-icon-names';
 export * from './icons/refine-icons';

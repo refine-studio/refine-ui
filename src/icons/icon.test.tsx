@@ -1,12 +1,16 @@
 import { render } from '@testing-library/react';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import { Icon } from './icon';
 import { RefineIconBell } from './refine-icons';
 
+const drawnIconName = (icon: ReactElement) => {
+  return render(icon).container.querySelector('svg')?.getAttribute('data-icon');
+};
+
 describe('Icon', () => {
-  it('draws the Refine icon with that sprite name', () => {
+  it('draws the Refine icon with that name', () => {
     const { container } = render(<Icon name="Add_Column" />);
 
     expect(container.querySelector('svg')?.getAttribute('data-icon')).toBe('Add_Column');
@@ -17,6 +21,11 @@ describe('Icon', () => {
     const byComponent = render(<RefineIconBell className="size-5" strokeWidth={1} />).container.innerHTML;
 
     expect(byName).toBe(byComponent);
+  });
+
+  it('draws the rocket and the test tube by name', () => {
+    expect(drawnIconName(<Icon name="Rocket" />)).toBe('Rocket');
+    expect(drawnIconName(<Icon name="Test_Tube" />)).toBe('Test_Tube');
   });
 
   it('takes the size of every Refine icon', () => {
