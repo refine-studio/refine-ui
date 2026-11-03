@@ -26,29 +26,9 @@ Refine UI is built for us first, so it is free to experiment. It has one brand a
 
 ## 🚀 Install it in another repo
 
-Refine UI is published to GitHub Packages as `@refine-studio/ui`. Only members of the `refine-studio` organisation can install it.
+Refine UI is published to the public npm registry as [`@refine-studio/ui`](https://www.npmjs.com/package/@refine-studio/ui). The install needs no token and no `.npmrc`, and the version arrives already built.
 
-### 1. Create a token
-
-1. Open [GitHub → Settings → Developer settings → Personal access tokens (classic)](https://github.com/settings/tokens).
-2. Create a token with the `read:packages` scope.
-3. If the organisation uses single sign-on, select **Configure SSO** next to the token and authorise `refine-studio`.
-4. Export the token in your shell profile:
-
-   ```sh
-   export GITHUB_TOKEN=ghp_your_token
-   ```
-
-### 2. Point the scope at GitHub Packages
-
-Add an `.npmrc` next to your `package.json`. Commit it, because it holds no secret, only the variable name:
-
-```ini
-@refine-studio:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-### 3. Install the package
+### 1. Install the package
 
 ```sh
 pnpm add @refine-studio/ui
@@ -56,7 +36,7 @@ pnpm add @refine-studio/ui
 
 Your app needs React 19 and Tailwind CSS 4.
 
-### 4. Import the styles
+### 2. Import the styles
 
 Import the stylesheet after Tailwind in your global stylesheet. It brings the tokens, the Geist fonts and the animations. It also registers the library's components as a Tailwind source, so you need no extra `@source` line.
 
@@ -65,7 +45,7 @@ Import the stylesheet after Tailwind in your global stylesheet. It brings the to
 @import '@refine-studio/ui/styles.css';
 ```
 
-### 5. Wrap the app and build
+### 3. Wrap the app and build
 
 `ThemeProvider` sets light or dark mode on `<html>` and remembers the choice.
 
@@ -81,30 +61,15 @@ export const App = () => {
 };
 ```
 
-### 6. Install in CI
+### 🔤 Fonts in a build of your own
 
-In GitHub Actions, the built-in token can read the package. Give the job `packages: read`, and pass the token to the install step:
-
-```yaml
-permissions:
-  contents: read
-  packages: read
-
-steps:
-  - run: pnpm install --frozen-lockfile
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Grant your repo access to the package once. Open the package's settings under **Manage Actions access** and add your repository.
-
-### Without the registry
-
-You can also install straight from the repository with a pinned tag. The `prepack` script builds `dist` during the install:
+The stylesheet loads Geist and Geist Mono from `./fonts/`, next to itself. A bundler such as Vite resolves them for you. When your build writes the CSS out by hand, copy one folder next to it:
 
 ```sh
-pnpm add github:refine-studio/refine-ui#v0.1.0
+cp -R node_modules/@refine-studio/ui/dist/fonts <your-css-folder>/fonts
 ```
+
+The folder holds the `.woff2` files and their licences (SIL Open Font License).
 
 ## Theming in one breath
 
@@ -135,4 +100,4 @@ Every component lives in `src/components/<name>/` next to its stories. The token
 1. Bump `version` in `package.json`.
 2. Tag the commit with `vX.Y.Z` and push the tag.
 
-The `Release` workflow publishes the package to GitHub Packages and creates a GitHub release. Pushing to `main` redeploys Storybook to [ui.refine.studio](https://ui.refine.studio) through GitHub Pages.
+The `Release` workflow publishes that version to npm with provenance and creates a GitHub release. It publishes through npm's trusted publishing, so no npm token exists anywhere. The tag must match `version`, or the workflow stops. Pushing to `main` redeploys Storybook to [ui.refine.studio](https://ui.refine.studio) through GitHub Pages.

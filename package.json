@@ -2,7 +2,7 @@
   "name": "@refine-studio/ui",
   "version": "0.1.0",
   "description": "Refine UI: the design system the Diamonds use to build internal tools.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "homepage": "https://ui.refine.studio",
   "repository": {
     "type": "git",
@@ -13,7 +13,9 @@
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -27,7 +29,9 @@
     "./package.json": "./package.json"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
@@ -46,8 +50,6 @@
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
-    "@fontsource-variable/geist": "5.3.0",
-    "@fontsource-variable/geist-mono": "5.3.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
@@ -59,6 +61,8 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
     "@storybook/addon-a11y": "10.6.4",
     "@storybook/addon-docs": "10.6.4",
     "@storybook/react-vite": "10.6.4",
