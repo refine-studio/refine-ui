@@ -481,9 +481,10 @@
 
 /*
  * Chart colours: one ramp of the gem hue, ordered by emphasis. chart-1 is
- * vivid and the default for a single series. Each later step loses lightness
- * contrast and chroma. Light mode steps get darker. Dark mode has its own,
- * brighter steps, so the tail stays apart from the near-black card.
+ * vivid and the default for a single series. Each later step moves at
+ * least 0.08 in lightness and loses chroma. Light mode steps get darker.
+ * Dark mode has its own, brighter steps, so the tail stays apart from the
+ * near-black card.
  * chart-other is the quietest band, a neutral for "Others": lighter than
  * chart-4 in light mode and dimmer in dark mode.
  * chart-other-line is a step stronger, for the context lines of a line

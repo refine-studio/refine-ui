@@ -294,6 +294,13 @@ const bandPoints = (series: number) => {
 };
 
 /**
+ * The colour of one stacked band: a ramp step, or chart-other for the Others band on top.
+ */
+const areaColour = (index: number) => {
+  return index === AREA_SERIES.length - 1 ? CHART_OTHER : colourAt(index);
+};
+
+/**
  * Three series and Others stacked as areas over eight months, the strongest step at the base.
  */
 export const StackedAreaSample = () => {
@@ -307,7 +314,7 @@ export const StackedAreaSample = () => {
       legend={AREA_SERIES.map((label, index) => {
         return {
           label,
-          swatch: colourAt(index === AREA_SERIES.length - 1 ? CHARTS.length : index).swatch,
+          swatch: areaColour(index).swatch,
         };
       })}
       title="Revenue by contract type, January to August (k€)"
@@ -322,7 +329,7 @@ export const StackedAreaSample = () => {
         {AREA_SERIES.map((name, index) => {
           return (
             <polygon
-              className={`${colourAt(index === AREA_SERIES.length - 1 ? CHARTS.length : index).fill} stroke-background`}
+              className={`${areaColour(index).fill} stroke-background`}
               key={name}
               points={bandPoints(index)}
               strokeWidth={1}

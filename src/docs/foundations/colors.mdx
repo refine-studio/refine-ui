@@ -79,13 +79,13 @@ Each family has the same four steps as a status: base, `-foreground`, `-soft` an
 
 ## Charts
 
-**Categories use the primary ramp.** `chart-1` to `chart-4` are one ramp of the gem hue, strongest first, the same in light and dark mode. A single series takes `chart-1`. Beyond four categories, group the rest into **Others** in `chart-other`. Context lines in a line chart take `chart-other-line`, a step stronger, because a thin stroke needs more contrast than a band.
+**Categories use the primary ramp.** `chart-1` to `chart-4` are one ramp of the gem hue, strongest first. Dark mode has its own brighter steps, so the tail stays apart from the dark card. A single series takes `chart-1`. Beyond four categories, group the rest into **Others** in `chart-other`. Context lines in a line chart take `chart-other-line`, a step stronger, because a thin stroke needs more contrast than a band.
 
 **Lifecycle uses the `status-*` tokens.** To do, in progress, done and ended never take a chart colour.
 
 **Good and bad use `success` and `danger`.** A gain or a loss is a status, not a category.
 
-Every chart carries a legend or direct labels, plus a tooltip. Every step keeps 2:1 on card and canvas, which WCAG 1.4.11 allows only when the colour is not the sole way to read the data. The two neutrals are quieter on purpose and keep at least 1.3:1 on the card.
+Every chart carries a legend or direct labels, plus a tooltip. Every step keeps 2:1 on card and canvas, which WCAG 1.4.11 allows only when the colour is not the sole way to read the data. The two neutrals are quieter on purpose and keep at least 1.3:1 on card and canvas.
 
 <ChartSwatches />
 
