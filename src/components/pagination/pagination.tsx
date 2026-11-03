@@ -1,8 +1,8 @@
-import { ChevronLeft, ChevronRight, Ellipsis } from 'lucide-react';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import { Button } from '../button/button';
+import { RefineIconChevronLeft, RefineIconChevronRight, RefineIconMoreHorizontal } from '../../icons/refine-icons';
 
 /**
  * Marks up the page links as a navigation landmark.
@@ -53,7 +53,7 @@ export const PaginationLink = ({ className, isActive = false, size = 'icon', ...
 export const PaginationPrevious = ({ children = 'Previous', className, ...props }: ComponentProps<'a'>) => {
   return (
     <PaginationLink className={cn('gap-1 pl-2.5 font-sans', className)} size="md" {...props}>
-      <ChevronLeft />
+      <RefineIconChevronLeft />
       <span className="hidden sm:inline">{children}</span>
     </PaginationLink>
   );
@@ -66,7 +66,7 @@ export const PaginationNext = ({ children = 'Next', className, ...props }: Compo
   return (
     <PaginationLink className={cn('gap-1 pr-2.5 font-sans', className)} size="md" {...props}>
       <span className="hidden sm:inline">{children}</span>
-      <ChevronRight />
+      <RefineIconChevronRight />
     </PaginationLink>
   );
 };
@@ -81,7 +81,7 @@ export const PaginationEllipsis = ({ className, ...props }: ComponentProps<'span
       data-slot="pagination-ellipsis"
       {...props}
     >
-      <Ellipsis aria-hidden className="size-4" role="presentation" />
+      <RefineIconMoreHorizontal aria-hidden className="size-4" role="presentation" />
       <span className="sr-only">More pages</span>
     </span>
   );

@@ -1,10 +1,10 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
 import { Accordion as AccordionPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
+import { RefineIconChevronDown } from '../../icons/refine-icons';
 
 /**
  * Stacks collapsible sections; `type="single"` keeps one open, `type="multiple"` lets several open.
@@ -43,7 +43,7 @@ export const AccordionTrigger = ({ children, className, ...props }: ComponentPro
         {...props}
       >
         {children}
-        <ChevronDown
+        <RefineIconChevronDown
           aria-hidden
           className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 ease-out-expo group-data-[state=open]/accordion:rotate-180"
           role="presentation"

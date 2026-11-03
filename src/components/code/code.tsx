@@ -1,10 +1,10 @@
 'use client';
 
-import { Check, Copy } from 'lucide-react';
 import { type ComponentProps, useState } from 'react';
 
 import { cn } from '../../lib/cn';
 import { Button } from '../button/button';
+import { RefineIconCheck, RefineIconCopy } from '../../icons/refine-icons';
 
 /**
  * Inline code in Geist Mono on a muted chip.
@@ -69,7 +69,7 @@ export const CodeBlock = ({ className, code, copyable = true, title, ...props }:
           variant="outline"
           onClick={handleCopy}
         >
-          {isCopied ? <Check className="text-success-ink" /> : <Copy />}
+          {isCopied ? <RefineIconCheck className="text-success-ink" /> : <RefineIconCopy />}
           <span className="sr-only">{copyLabel}</span>
         </Button>
       )}

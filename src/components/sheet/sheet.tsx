@@ -1,12 +1,12 @@
 'use client';
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { X } from 'lucide-react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import { DIALOG_CLOSE_CLASS_NAME, DIALOG_OVERLAY_CLASS_NAME } from '../dialog/dialog';
+import { RefineIconCloseMD } from '../../icons/refine-icons';
 
 const sheetContentVariants = cva(
   [
@@ -91,7 +91,7 @@ export const SheetContent = ({ children, className, showClose = true, side, size
         {children}
         {showClose && (
           <SheetPrimitive.Close className={DIALOG_CLOSE_CLASS_NAME} title="Close">
-            <X className="size-4" />
+            <RefineIconCloseMD className="size-4" />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}

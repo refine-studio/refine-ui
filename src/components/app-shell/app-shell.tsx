@@ -1,11 +1,11 @@
 'use client';
 
-import { PanelLeft } from 'lucide-react';
 import { Dialog as DialogPrimitive, Slot } from 'radix-ui';
 import { type ComponentProps, createContext, type ReactNode, use, useState } from 'react';
 
 import { cn } from '../../lib/cn';
 import { useBreakpoint } from '../../lib/use-breakpoint';
+import { RefineIconBarLeft } from '../../icons/refine-icons';
 
 interface AppShellContextValue {
   collapsed: boolean;
@@ -291,7 +291,7 @@ export const AppShellSidebarTrigger = ({ className, onClick, ...props }: Compone
       }}
       {...props}
     >
-      <PanelLeft aria-hidden className="size-4" />
+      <RefineIconBarLeft aria-hidden className="size-4" />
       <span className="sr-only">Toggle sidebar</span>
     </button>
   );

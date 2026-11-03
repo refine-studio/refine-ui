@@ -1,11 +1,16 @@
 'use client';
 
-import { CircleAlert, CircleCheck, Info, TriangleAlert } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { Toaster as SonnerToaster } from 'sonner';
 
 import { cn } from '../../lib/cn';
 import { Spinner } from '../spinner/spinner';
+import {
+  RefineIconCircleCheck,
+  RefineIconCircleWarning,
+  RefineIconInfo,
+  RefineIconTriangleWarning,
+} from '../../icons/refine-icons';
 
 export { toast } from 'sonner';
 
@@ -18,11 +23,11 @@ export const Toaster = ({ className, toastOptions, ...props }: ComponentProps<ty
       className={cn('toaster group', className)}
       gap={10}
       icons={{
-        error: <CircleAlert className="size-4 text-danger-ink" />,
-        info: <Info className="size-4 text-info-ink" />,
+        error: <RefineIconCircleWarning className="size-4 text-danger-ink" />,
+        info: <RefineIconInfo className="size-4 text-info-ink" />,
         loading: <Spinner className="text-gem-ink" />,
-        success: <CircleCheck className="size-4 text-success-ink" />,
-        warning: <TriangleAlert className="size-4 text-warning-ink" />,
+        success: <RefineIconCircleCheck className="size-4 text-success-ink" />,
+        warning: <RefineIconTriangleWarning className="size-4 text-warning-ink" />,
       }}
       position="bottom-right"
       toastOptions={{

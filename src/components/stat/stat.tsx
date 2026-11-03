@@ -1,7 +1,7 @@
-import { ArrowDownRight, ArrowUpRight, Minus } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 
 import { cn } from '../../lib/cn';
+import { RefineIconArrowDownRightSM, RefineIconArrowUpRightSM, RefineIconRemoveMinus } from '../../icons/refine-icons';
 
 const TREND_CLASS_BY_TREND = {
   down: 'bg-danger-soft text-danger-ink',
@@ -10,10 +10,10 @@ const TREND_CLASS_BY_TREND = {
 } satisfies Record<string, string>;
 
 const TREND_ICON_BY_TREND = {
-  down: ArrowDownRight,
-  flat: Minus,
-  up: ArrowUpRight,
-} satisfies Record<keyof typeof TREND_CLASS_BY_TREND, typeof Minus>;
+  down: RefineIconArrowDownRightSM,
+  flat: RefineIconRemoveMinus,
+  up: RefineIconArrowUpRightSM,
+} satisfies Record<keyof typeof TREND_CLASS_BY_TREND, typeof RefineIconRemoveMinus>;
 
 interface StatProps extends Omit<ComponentProps<'div'>, 'children'> {
   delta?: ReactNode;
