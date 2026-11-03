@@ -178,6 +178,80 @@ export const StatusSwatches = () => {
   );
 };
 
+const LIFECYCLE = [
+  {
+    bar: 'bg-status-todo',
+    base: 'bg-status-todo',
+    foreground: 'text-status-todo-foreground',
+    ink: 'text-status-todo-ink',
+    label: 'To do',
+    name: 'status-todo',
+    soft: 'bg-status-todo-soft',
+    use: 'Planned, not started. A neutral grey.',
+  },
+  {
+    bar: 'bg-status-doing in-progress',
+    base: 'bg-status-doing',
+    foreground: 'text-status-doing-foreground',
+    ink: 'text-status-doing-ink',
+    label: 'In progress',
+    name: 'status-doing',
+    soft: 'bg-status-doing-soft',
+    use: 'Being worked on. Aliases info, and its bar moves.',
+  },
+  {
+    bar: 'bg-status-done',
+    base: 'bg-status-done',
+    foreground: 'text-status-done-foreground',
+    ink: 'text-status-done-ink',
+    label: 'Done',
+    name: 'status-done',
+    soft: 'bg-status-done-soft',
+    use: 'Finished. Aliases success.',
+  },
+  {
+    bar: 'bg-status-ended',
+    base: 'bg-status-ended',
+    foreground: 'text-status-ended-foreground',
+    ink: 'text-status-ended-ink',
+    label: 'Ended',
+    name: 'status-ended',
+    soft: 'bg-status-ended-soft',
+    use: 'Maintenance, sunset or ended. Quieter than to do.',
+  },
+] as const;
+
+/**
+ * The four lifecycle families: text on the solid fill, ink on soft, and a bar in the fill.
+ */
+export const LifecycleSwatches = () => {
+  return (
+    <Specimen caption="Lifecycle colours say where a thing is in its life, never whether it is good or bad. Red stays for risk.">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {LIFECYCLE.map(({ bar, base, foreground, ink, label, name, soft, use }) => {
+          return (
+            <div className="flex flex-col gap-2" key={name}>
+              <div className={`flex h-10 items-center rounded-control px-3 text-body-sm font-medium ${base} ${foreground}`}>
+                {label} on fill
+              </div>
+              <div className={`flex h-10 items-center rounded-control px-3 text-body-sm font-medium ${soft} ${ink}`}>
+                {label} on soft
+              </div>
+              <div className={`h-2.5 overflow-hidden rounded-full ${soft}`}>
+                <div className={`h-full w-2/3 rounded-full ${bar}`} />
+              </div>
+              <Token>
+                {name} · -foreground · -soft · -ink
+              </Token>
+              <span className="text-caption text-muted-foreground">{use}</span>
+            </div>
+          );
+        })}
+      </div>
+    </Specimen>
+  );
+};
+
 /**
  * Hover, pressed and scrim overlays shown on top of a card surface.
  */
