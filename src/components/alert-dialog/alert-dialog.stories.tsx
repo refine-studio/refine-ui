@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Trash2 } from 'lucide-react';
 
 import { Button } from '../button/button';
 import {
@@ -14,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './alert-dialog';
+import { RefineIconTrashFull } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -43,14 +43,14 @@ export const Destructive: Story = {
         <AlertDialog {...args}>
           <AlertDialogTrigger asChild>
             <Button variant="danger">
-              <Trash2 />
+              <RefineIconTrashFull />
               Delete tenant
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogIcon>
-                <Trash2 />
+                <RefineIconTrashFull />
               </AlertDialogIcon>
               <AlertDialogTitle>Delete the Vela tenant?</AlertDialogTitle>
               <AlertDialogDescription>

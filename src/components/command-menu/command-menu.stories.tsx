@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Building2, Clock, Moon, Rocket, Rows3, Search, Sun, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '../button/button';
@@ -14,6 +13,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from './command-menu';
+import { RefineIconBuilding01, RefineIconClock, RefineIconMoon, RefineIconRocket, RefineIconRows, RefineIconSearchMagnifyingGlass, RefineIconSun, RefineIconUsers } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -51,7 +51,7 @@ const RefinePaletteItems = () => {
           {CUSTOMERS.map((customer) => {
             return (
               <CommandItem key={customer} value={customer}>
-                <Building2 />
+                <RefineIconBuilding01 />
                 {customer}
               </CommandItem>
             );
@@ -60,32 +60,32 @@ const RefinePaletteItems = () => {
         <CommandSeparator />
         <CommandGroup heading="Actions">
           <CommandItem>
-            <Rocket />
+            <RefineIconRocket />
             Deploy pilot-web to stage
             <CommandShortcut>⌘⇧D</CommandShortcut>
           </CommandItem>
           <CommandItem>
-            <Clock />
+            <RefineIconClock />
             Start a Tick timer
             <CommandShortcut>T</CommandShortcut>
           </CommandItem>
           <CommandItem>
-            <Users />
+            <RefineIconUsers />
             Who is on call?
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Theme">
           <CommandItem>
-            <Sun />
+            <RefineIconSun />
             Light mode
           </CommandItem>
           <CommandItem>
-            <Moon />
+            <RefineIconMoon />
             Dark mode
           </CommandItem>
           <CommandItem>
-            <Rows3 />
+            <RefineIconRows />
             Compact density
           </CommandItem>
         </CommandGroup>
@@ -122,7 +122,7 @@ export const Palette: Story = {
           }}
           variant="outline"
         >
-          <Search />
+          <RefineIconSearchMagnifyingGlass />
           Search
           <kbd className="ml-4 rounded-sm px-1.5 bg-muted font-mono text-caption text-muted-foreground">⌘K</kbd>
         </Button>

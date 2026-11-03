@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Globe, Mail } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 
 import { Button } from '../button/button';
@@ -13,6 +12,7 @@ import { Switch } from '../switch/switch';
 import { Textarea } from '../textarea/textarea';
 import { ToggleGroup, ToggleGroupItem } from '../toggle-group/toggle-group';
 import { Field, FieldDescription, FieldError, FieldLabel } from './field';
+import { RefineIconGlobe, RefineIconMail } from '../../icons/refine-icons';
 
 const meta = {
   parameters: {
@@ -67,7 +67,7 @@ const NewTenantForm = () => {
         <Field required>
           <FieldLabel>Tenant slug</FieldLabel>
           <Input
-            leading={<Globe />}
+            leading={<RefineIconGlobe />}
             onChange={(event) => {
               setSlug(event.target.value);
             }}
@@ -92,7 +92,7 @@ const NewTenantForm = () => {
         </Field>
         <Field>
           <FieldLabel>Support e-mail</FieldLabel>
-          <Input leading={<Mail />} placeholder="support@vela.example" type="email" />
+          <Input leading={<RefineIconMail />} placeholder="support@vela.example" type="email" />
           <FieldDescription>Members reach this from the help page.</FieldDescription>
         </Field>
       </div>

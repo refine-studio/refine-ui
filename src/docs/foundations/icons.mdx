@@ -1,22 +1,12 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-import { IconByName, RefineIconGallery, IconSampler, IconsInButtons, IconWeightMatch } from '../blocks/icons';
+import { IconByName, IconsInButtons, RefineIconGallery } from '../blocks/icons';
 
 <Meta title="Foundations/Icons" />
 
 # Icons
 
-Refine UI uses [lucide](https://lucide.dev/icons) — the same set as refine.studio. Import icons directly from `lucide-react`; it ships as a dependency, so there's nothing to install.
-
-```tsx
-import { Sparkles } from 'lucide-react';
-```
-
-<IconSampler />
-
-## Refine icons
-
-Refine UI also ships the Refine icon set, drawn in the shared [`@refine-studio/refine-icons`](https://www.npmjs.com/package/@refine-studio/refine-icons) package. Each icon is a React component named `RefineIcon` plus the icon's name: `Search_Magnifying_Glass` is `RefineIconSearchMagnifyingGlass`.
+Refine UI draws every icon from the Refine icon set, kept in the shared [`@refine-studio/refine-icons`](https://www.npmjs.com/package/@refine-studio/refine-icons) package. It ships as a dependency, so there's nothing to install. Each icon is a React component named `RefineIcon` plus the icon's name: `Search_Magnifying_Glass` is `RefineIconSearchMagnifyingGlass`.
 
 ```tsx
 import { RefineIconBell } from '@refine-studio/ui';
@@ -24,11 +14,9 @@ import { RefineIconBell } from '@refine-studio/ui';
 <RefineIconBell className="size-5" />;
 ```
 
-The package draws its icons at a 2px stroke, which reads heavier than lucide. Refine UI draws them at 1.75px, which matches lucide's weight. Both sets take the same `className`, `size` and `strokeWidth` props.
+The package draws its icons at a 2px stroke. Refine UI draws them at 1.75px. Every icon takes `className`, `size` and `strokeWidth`.
 
-<IconWeightMatch />
-
-### By name
+## By name
 
 When the icon is data — a menu, a setting, a content field — pass its name to `Icon`. `IconName` lists every name, so a name the set lacks fails the type check.
 
@@ -63,9 +51,9 @@ Give them a visually hidden label and a `title` for the tooltip. Never `aria-lab
 
 ```tsx
 <Button size="icon" title="Search" variant="ghost">
-  <Search />
+  <RefineIconSearchMagnifyingGlass />
   <span className="sr-only">Search</span>
 </Button>
 ```
 
-Purely decorative icons need nothing: lucide and the Refine icons both render `aria-hidden` by default.
+Purely decorative icons need nothing: every Refine icon renders `aria-hidden` by default.

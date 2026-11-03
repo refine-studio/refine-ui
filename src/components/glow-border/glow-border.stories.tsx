@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Trophy } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { GlowBorder } from './glow-border';
+import { RefineIconStar } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -22,7 +22,7 @@ export const ReleaseMoment: Story = {
       <GlowBorder {...args} className="w-[26rem]">
         <div className="gap-4 p-8 flex flex-col">
           <span className="size-12 flex items-center justify-center rounded-full bg-gem-gradient text-gem-foreground">
-            <Trophy aria-hidden className="size-6" />
+            <RefineIconStar aria-hidden className="size-6" />
           </span>
           <span className="eyebrow text-muted-foreground">Release 4.12 · shipped</span>
           <h3 className="font-black text-headline-lg">Pilot is live for Halden.</h3>

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { CalendarClock } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from './popover';
+import { RefineIconTimerAdd } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -26,7 +26,7 @@ export const Playground: Story = {
         <Popover {...args}>
           <PopoverTrigger asChild>
             <Button variant="outline">
-              <CalendarClock />
+              <RefineIconTimerAdd />
               Log time
             </Button>
           </PopoverTrigger>

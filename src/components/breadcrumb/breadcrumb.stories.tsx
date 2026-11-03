@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Slash } from 'lucide-react';
 
 import {
   Breadcrumb,
@@ -10,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from './breadcrumb';
+import { RefineIconChevronRightDuo } from '../../icons/refine-icons';
 
 const meta = {
   component: Breadcrumb,
@@ -51,19 +51,19 @@ export const Collapsed: Story = {
             <BreadcrumbLink href="#">Atlas</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
-            <Slash />
+            <RefineIconChevronRightDuo />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbEllipsis />
           </BreadcrumbItem>
           <BreadcrumbSeparator>
-            <Slash />
+            <RefineIconChevronRightDuo />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbLink href="#">Deploys</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
-            <Slash />
+            <RefineIconChevronRightDuo />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbPage>#4821</BreadcrumbPage>

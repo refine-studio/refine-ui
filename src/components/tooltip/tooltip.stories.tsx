@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Bold, Italic, Link2, Underline } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
+import { RefineIconBold, RefineIconItalic, RefineIconLink, RefineIconUnderline } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -64,22 +64,22 @@ export const WithShortcut: Story = {
 
 const TOOLBAR_ACTIONS = [
   {
-    icon: Bold,
+    icon: RefineIconBold,
     label: 'Bold',
     shortcut: '⌘B',
   },
   {
-    icon: Italic,
+    icon: RefineIconItalic,
     label: 'Italic',
     shortcut: '⌘I',
   },
   {
-    icon: Underline,
+    icon: RefineIconUnderline,
     label: 'Underline',
     shortcut: '⌘U',
   },
   {
-    icon: Link2,
+    icon: RefineIconLink,
     label: 'Link',
     shortcut: '⌘K',
   },

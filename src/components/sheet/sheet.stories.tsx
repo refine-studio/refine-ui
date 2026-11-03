@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { PanelRight } from 'lucide-react';
 
 import { Button } from '../button/button';
 import {
@@ -13,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from './sheet';
+import { RefineIconBarRight } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -53,7 +53,7 @@ const renderCustomerSheet = (side: 'bottom' | 'left' | 'right' | 'top') => {
         <Sheet {...args}>
           <SheetTrigger asChild>
             <Button variant="outline">
-              <PanelRight />
+              <RefineIconBarRight />
               Open record
             </Button>
           </SheetTrigger>

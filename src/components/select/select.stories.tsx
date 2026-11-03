@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Building2, Car, Factory, Landmark } from 'lucide-react';
 
 import { Field, FieldDescription, FieldError, FieldLabel } from '../field/field';
 import {
@@ -12,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
+import { RefineIconBuilding01, RefineIconBuilding02, RefineIconBuilding03, RefineIconCarAuto } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -39,15 +39,15 @@ const meta = {
             <SelectGroup>
               <SelectLabel>Automotive</SelectLabel>
               <SelectItem value="acme">
-                <Car />
+                <RefineIconCarAuto />
                 Acme
               </SelectItem>
               <SelectItem value="northwind">
-                <Car />
+                <RefineIconCarAuto />
                 Northwind Motors
               </SelectItem>
               <SelectItem value="fjord">
-                <Car />
+                <RefineIconCarAuto />
                 Fjord Motors
               </SelectItem>
             </SelectGroup>
@@ -55,15 +55,15 @@ const meta = {
             <SelectGroup>
               <SelectLabel>Manufacturing</SelectLabel>
               <SelectItem value="vela">
-                <Factory />
+                <RefineIconBuilding03 />
                 Vela
               </SelectItem>
               <SelectItem value="lumen">
-                <Factory />
+                <RefineIconBuilding03 />
                 Lumen
               </SelectItem>
               <SelectItem value="kestrel">
-                <Factory />
+                <RefineIconBuilding03 />
                 Kestrel
               </SelectItem>
             </SelectGroup>
@@ -71,11 +71,11 @@ const meta = {
             <SelectGroup>
               <SelectLabel>Banking</SelectLabel>
               <SelectItem value="orbit-bank">
-                <Landmark />
+                <RefineIconBuilding02 />
                 Orbit Bank
               </SelectItem>
               <SelectItem disabled value="larch-bank">
-                <Landmark />
+                <RefineIconBuilding02 />
                 Larch Bank (archived)
               </SelectItem>
             </SelectGroup>
@@ -144,11 +144,11 @@ export const States: Story = {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="product">
-                <Building2 />
+                <RefineIconBuilding01 />
                 Product
               </SelectItem>
               <SelectItem value="client">
-                <Building2 />
+                <RefineIconBuilding01 />
                 Client work
               </SelectItem>
             </SelectContent>

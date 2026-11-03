@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Clock, Plus, SearchX } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { EmptyState } from './empty-state';
+import { RefineIconAddPlus, RefineIconClock, RefineIconFileSearch } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -31,16 +31,16 @@ export const Playground: Story = {
     actions: (
       <>
         <Button variant="gem">
-          <Clock />
+          <RefineIconClock />
           Start timer
         </Button>
         <Button variant="outline">
-          <Plus />
+          <RefineIconAddPlus />
           Log manually
         </Button>
       </>
     ),
-    icon: <Clock />,
+    icon: <RefineIconClock />,
   },
 };
 
@@ -52,7 +52,7 @@ export const NoResults: Story = {
       </Button>
     ),
     description: 'No tenant matches “Globex” with status “Failed”. Try a wider filter.',
-    icon: <SearchX />,
+    icon: <RefineIconFileSearch />,
     title: 'No matching tenants',
   },
 };

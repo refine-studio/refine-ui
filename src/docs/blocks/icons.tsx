@@ -1,18 +1,3 @@
-import {
-  ArrowRight,
-  Bell,
-  Calendar,
-  Check,
-  Command,
-  Copy,
-  Diamond,
-  House,
-  Mail,
-  Plus,
-  Search,
-  Settings,
-  Sparkles,
-} from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '../../components/button/button';
@@ -21,37 +6,6 @@ import { Icon } from '../../icons/icon';
 import type { IconName } from '../../icons/refine-icon-names';
 import * as RefineIcons from '../../icons/refine-icons';
 import { Specimen, Token } from './specimen';
-
-const ICONS = [
-  ['Diamond', Diamond],
-  ['Sparkles', Sparkles],
-  ['Search', Search],
-  ['Settings', Settings],
-  ['Bell', Bell],
-  ['Command', Command],
-  ['Copy', Copy],
-  ['Check', Check],
-] as const;
-
-/**
- * A handful of lucide icons at the default stroke, to set expectations.
- */
-export const IconSampler = () => {
-  return (
-    <Specimen>
-      <div className="gap-4 sm:grid-cols-8 grid grid-cols-4">
-        {ICONS.map(([name, Icon]) => {
-          return (
-            <div className="gap-2 p-3 flex flex-col items-center rounded-control hover:bg-hover" key={name}>
-              <Icon className="size-6" />
-              <Token>{name}</Token>
-            </div>
-          );
-        })}
-      </div>
-    </Specimen>
-  );
-};
 
 /**
  * Icons inside buttons pick up their size from the button text size, so no size class is needed.
@@ -62,19 +16,19 @@ export const IconsInButtons = () => {
       <div className="gap-4 flex flex-col">
         <div className="gap-3 flex flex-wrap items-center">
           <Button size="sm">
-            <Plus />
+            <RefineIcons.RefineIconAddPlus />
             New project
           </Button>
           <Button size="lg" variant="gem">
             Deploy
-            <ArrowRight />
+            <RefineIcons.RefineIconArrowRightMD />
           </Button>
           <Button size="icon" title="Search" variant="outline">
-            <Search />
+            <RefineIcons.RefineIconSearchMagnifyingGlass />
             <span className="sr-only">Search</span>
           </Button>
           <Button size="icon" title="Settings" variant="ghost">
-            <Settings />
+            <RefineIcons.RefineIconSettings />
             <span className="sr-only">Settings</span>
           </Button>
         </div>
@@ -93,39 +47,6 @@ const REFINE_ICON_ENTRIES = Object.entries(RefineIcons).map(([name, Icon]) => {
     shortName: name.slice(REFINE_ICON_PREFIX.length),
   };
 });
-
-const WEIGHT_PAIRS = [
-  [Bell, RefineIcons.RefineIconBell],
-  [Settings, RefineIcons.RefineIconSettings],
-  [Search, RefineIcons.RefineIconSearchMagnifyingGlass],
-  [Calendar, RefineIcons.RefineIconCalendar],
-  [Mail, RefineIcons.RefineIconMail],
-  [House, RefineIcons.RefineIconHouse01],
-] as const;
-
-/**
- * Sets lucide and Refine icons side by side, so the matched stroke weight is visible.
- */
-export const IconWeightMatch = () => {
-  return (
-    <Specimen>
-      <div className="gap-4 flex flex-col">
-        <div className="gap-6 flex items-center">
-          <Token className="w-32">lucide · 2</Token>
-          {WEIGHT_PAIRS.map(([LucideIcon]) => {
-            return <LucideIcon className="size-5" key={LucideIcon.displayName} />;
-          })}
-        </div>
-        <div className="gap-6 flex items-center">
-          <Token className="w-32">Refine · 1.75</Token>
-          {WEIGHT_PAIRS.map(([, RefineIcon]) => {
-            return <RefineIcon className="size-5" key={RefineIcon.displayName} />;
-          })}
-        </div>
-      </div>
-    </Specimen>
-  );
-};
 
 const MENU_ITEMS: { icon: IconName; label: string }[] = [
   {
@@ -193,7 +114,7 @@ export const RefineIconGallery = () => {
     <Specimen caption={`Shown without the ${REFINE_ICON_PREFIX} prefix. Click a tile to copy its import name.`}>
       <div className="gap-4 flex flex-col">
         <Input
-          leading={<Search />}
+          leading={<RefineIcons.RefineIconSearchMagnifyingGlass />}
           onChange={(event) => {
             setQuery(event.target.value);
           }}

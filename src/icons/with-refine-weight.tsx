@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 import { cn } from '../lib/cn';
 
-/** The shared package draws at 2px. Refine UI draws at 1.75px, which matches lucide's weight. */
+/** The shared package draws at 2px. Refine UI draws at 1.75px. */
 const REFINE_UI_STROKE_WIDTH = 1.75;
 
 /** A Refine icon component: the package's and Refine UI's share this shape. */

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Command } from 'lucide-react';
 
 import { Kbd, KbdGroup } from './kbd';
+import { RefineIconCommand } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -25,7 +25,7 @@ export const Shortcuts: Story = {
         <dd>
           <KbdGroup>
             <Kbd>
-              <Command />
+              <RefineIconCommand />
             </Kbd>
             <Kbd>K</Kbd>
           </KbdGroup>

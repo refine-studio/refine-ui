@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { AlignLeft, Bold, CalendarDays, Columns3, Italic, LayoutGrid, List, Receipt, Underline } from 'lucide-react';
 
 import { Toggle, ToggleGroup, ToggleGroupItem } from './toggle-group';
+import { RefineIconBold, RefineIconCalendarDays, RefineIconColumns, RefineIconFileDocument, RefineIconItalic, RefineIconListUnordered, RefineIconMoreGridBig, RefineIconTextAlignLeft, RefineIconUnderline } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -50,19 +50,19 @@ export const ViewSwitcher: Story = {
           return (
             <ToggleGroup defaultValue="list" key={size} size={size} type="single">
               <ToggleGroupItem title="List view" value="list">
-                <List />
+                <RefineIconListUnordered />
                 List
               </ToggleGroupItem>
               <ToggleGroupItem title="Board view" value="board">
-                <Columns3 />
+                <RefineIconColumns />
                 Board
               </ToggleGroupItem>
               <ToggleGroupItem title="Grid view" value="grid">
-                <LayoutGrid />
+                <RefineIconMoreGridBig />
                 Grid
               </ToggleGroupItem>
               <ToggleGroupItem title="Calendar view" value="calendar">
-                <CalendarDays />
+                <RefineIconCalendarDays />
                 <span className="sr-only">Calendar</span>
               </ToggleGroupItem>
             </ToggleGroup>
@@ -79,21 +79,21 @@ export const Multiple: Story = {
       <div className="flex gap-6">
         <ToggleGroup defaultValue={['bold']} type="multiple" variant="ghost">
           <ToggleGroupItem title="Bold" value="bold">
-            <Bold />
+            <RefineIconBold />
             <span className="sr-only">Bold</span>
           </ToggleGroupItem>
           <ToggleGroupItem title="Italic" value="italic">
-            <Italic />
+            <RefineIconItalic />
             <span className="sr-only">Italic</span>
           </ToggleGroupItem>
           <ToggleGroupItem title="Underline" value="underline">
-            <Underline />
+            <RefineIconUnderline />
             <span className="sr-only">Underline</span>
           </ToggleGroupItem>
         </ToggleGroup>
         <ToggleGroup defaultValue={['left']} type="multiple" variant="outline">
           <ToggleGroupItem title="Align left" value="left">
-            <AlignLeft />
+            <RefineIconTextAlignLeft />
             <span className="sr-only">Align left</span>
           </ToggleGroupItem>
           <ToggleGroupItem value="wrap">Wrap</ToggleGroupItem>
@@ -108,7 +108,7 @@ export const SingleToggle: Story = {
     return (
       <div className="flex gap-3">
         <Toggle defaultPressed variant="outline">
-          <Receipt />
+          <RefineIconFileDocument />
           Billable only
         </Toggle>
         <Toggle variant="ghost">Show archived</Toggle>

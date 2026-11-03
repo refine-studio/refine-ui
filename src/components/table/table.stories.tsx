@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { RefreshCw, Rocket, ServerCrash } from 'lucide-react';
 
 import { PEOPLE } from '../../docs/assets/avatars';
 import { Alert, AlertDescription, AlertTitle } from '../alert/alert';
@@ -9,6 +8,7 @@ import { Button } from '../button/button';
 import { EmptyState } from '../empty-state/empty-state';
 import { Skeleton } from '../skeleton/skeleton';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from './table';
+import { RefineIconArrowsReload01, RefineIconData, RefineIconRocket } from '../../icons/refine-icons';
 
 const STATUS_BY_RESULT = {
   failed: {
@@ -247,12 +247,12 @@ export const Empty: Story = {
         <EmptyState
           actions={
             <Button size="sm" variant="gem">
-              <Rocket />
+              <RefineIconRocket />
               Trigger a deploy
             </Button>
           }
           description="Nothing has shipped in the last 24 hours. Deploys appear here as soon as a pipeline finishes."
-          icon={<Rocket />}
+          icon={<RefineIconRocket />}
           title="No deploys yet"
         />
       </div>
@@ -267,11 +267,11 @@ export const ErrorState: Story = {
         <Alert
           action={
             <Button size="sm" variant="outline">
-              <RefreshCw />
+              <RefineIconArrowsReload01 />
               Retry
             </Button>
           }
-          icon={<ServerCrash aria-hidden role="presentation" />}
+          icon={<RefineIconData aria-hidden role="presentation" />}
           variant="danger"
         >
           <AlertTitle>Couldn’t load deploys</AlertTitle>

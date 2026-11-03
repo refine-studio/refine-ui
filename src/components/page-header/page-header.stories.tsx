@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ChevronRight, Download, Plus } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { PageHeader } from './page-header';
+import { RefineIconAddPlus, RefineIconChevronRight, RefineIconDownload } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -38,11 +38,11 @@ export const Complete: Story = {
     actions: (
       <>
         <Button variant="outline">
-          <Download />
+          <RefineIconDownload />
           Export CSV
         </Button>
         <Button variant="gem">
-          <Plus />
+          <RefineIconAddPlus />
           Invite Diamond
         </Button>
       </>
@@ -52,7 +52,7 @@ export const Complete: Story = {
         <a className="rounded-sm focus-ring hover:text-foreground" href="#workspace">
           Tick
         </a>
-        <ChevronRight aria-hidden className="size-3.5" />
+        <RefineIconChevronRight aria-hidden className="size-3.5" />
         <span className="text-foreground">Diamonds</span>
       </nav>
     ),

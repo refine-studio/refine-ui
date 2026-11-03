@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { BarChart3, Bell, CalendarDays, Clock, FolderKanban, Plus, Search, Settings, Timer, Users } from 'lucide-react';
 import { useState } from 'react';
 
 import { Badge } from '../badge/badge';
@@ -20,35 +19,36 @@ import {
   SidebarSection,
   useAppShell,
 } from './app-shell';
+import { RefineIconAddPlus, RefineIconBell, RefineIconCalendarDays, RefineIconChartBarVertical01, RefineIconClock, RefineIconFolder, RefineIconSearchMagnifyingGlass, RefineIconSettings, RefineIconTimer, RefineIconUsers } from '../../icons/refine-icons';
 
 const PRIMARY_NAVIGATION = [
   {
-    icon: Timer,
+    icon: RefineIconTimer,
     label: 'Track',
   },
   {
     badge: 3,
-    icon: CalendarDays,
+    icon: RefineIconCalendarDays,
     label: 'Timesheets',
   },
   {
-    icon: BarChart3,
+    icon: RefineIconChartBarVertical01,
     label: 'Reports',
   },
 ];
 
 const WORKSPACE_NAVIGATION = [
   {
-    icon: FolderKanban,
+    icon: RefineIconFolder,
     label: 'Projects',
   },
   {
     badge: 12,
-    icon: Users,
+    icon: RefineIconUsers,
     label: 'Diamonds',
   },
   {
-    icon: Settings,
+    icon: RefineIconSettings,
     label: 'Settings',
   },
 ];
@@ -137,7 +137,7 @@ const TickShell = ({ defaultCollapsed = false }: { defaultCollapsed?: boolean })
                 />
               );
             })}
-            <SidebarItem asChild icon={<Clock />} label="Harvest import">
+            <SidebarItem asChild icon={<RefineIconClock />} label="Harvest import">
               <a href="#harvest-import" />
             </SidebarItem>
           </SidebarSection>
@@ -156,14 +156,14 @@ const TickShell = ({ defaultCollapsed = false }: { defaultCollapsed?: boolean })
         <AppShellHeader>
           <AppShellSidebarTrigger />
           <div className="max-w-sm gap-2 px-3 flex h-control-sm flex-1 items-center rounded-control border border-input bg-background/60 text-body-sm text-subtle">
-            <Search aria-hidden className="size-4" />
+            <RefineIconSearchMagnifyingGlass aria-hidden className="size-4" />
             Search entries, projects, Diamonds…
             <kbd className="rounded px-1.5 ml-auto border border-border font-mono text-caption">⌘K</kbd>
           </div>
           <div className="gap-1 ml-auto flex items-center">
             <LayoutBadge />
             <Button size="icon-sm" title="Notifications" variant="ghost">
-              <Bell />
+              <RefineIconBell />
               <span className="sr-only">Notifications</span>
             </Button>
           </div>
@@ -174,7 +174,7 @@ const TickShell = ({ defaultCollapsed = false }: { defaultCollapsed?: boolean })
               <>
                 <Button variant="outline">Export</Button>
                 <Button variant="gem">
-                  <Plus />
+                  <RefineIconAddPlus />
                   New entry
                 </Button>
               </>

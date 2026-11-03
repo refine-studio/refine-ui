@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Bug, CircleCheck, FlaskConical, Rocket, TriangleAlert } from 'lucide-react';
 import { useState } from 'react';
 
 import { Chip } from './chip';
+import { RefineIconCircleCheck, RefineIconCloseCircle, RefineIconRocket, RefineIconTestTube, RefineIconTriangleWarning } from '../../icons/refine-icons';
 
 const VARIANTS = ['neutral', 'gem', 'outline', 'success', 'warning', 'orange', 'danger', 'info', 'violet'] as const;
 
@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   args: {
-    icon: <CircleCheck />,
+    icon: <RefineIconCircleCheck />,
   },
 };
 
@@ -51,7 +51,7 @@ export const Tones: Story = {
                   return (
                     <Chip
                       {...args}
-                      icon={withIcon ? <Rocket /> : undefined}
+                      icon={withIcon ? <RefineIconRocket /> : undefined}
                       key={variant}
                       size={size}
                       variant={variant}
@@ -79,16 +79,16 @@ export const Statuses: Story = {
         <Chip variant="neutral">concept</Chip>
         <Chip variant="warning">explore</Chip>
         <Chip variant="info">building</Chip>
-        <Chip icon={<FlaskConical />} variant="violet">
+        <Chip icon={<RefineIconTestTube />} variant="violet">
           beta
         </Chip>
-        <Chip icon={<CircleCheck />} variant="success">
+        <Chip icon={<RefineIconCircleCheck />} variant="success">
           live
         </Chip>
-        <Chip icon={<TriangleAlert />} variant="orange">
+        <Chip icon={<RefineIconTriangleWarning />} variant="orange">
           at-risk
         </Chip>
-        <Chip icon={<Bug />} variant="danger">
+        <Chip icon={<RefineIconCloseCircle />} variant="danger">
           churned
         </Chip>
       </div>

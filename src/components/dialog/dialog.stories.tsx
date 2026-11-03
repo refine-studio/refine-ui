@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Rocket } from 'lucide-react';
 
 import { Button } from '../button/button';
 import {
@@ -13,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
+import { RefineIconRocket } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -46,7 +46,7 @@ const renderDeployDialog = (size: 'full' | 'lg' | 'md' | 'sm' | 'xl') => {
         <Dialog {...args}>
           <DialogTrigger asChild>
             <Button variant="outline">
-              <Rocket />
+              <RefineIconRocket />
               Deploy to stage
             </Button>
           </DialogTrigger>
@@ -69,7 +69,7 @@ const renderDeployDialog = (size: 'full' | 'lg' | 'md' | 'sm' | 'xl') => {
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
               <Button variant="gem">
-                <Rocket />
+                <RefineIconRocket />
                 Deploy
               </Button>
             </DialogFooter>

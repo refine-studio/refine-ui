@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ChevronDown, Copy, ExternalLink, GitBranch, Pencil, Rocket, Trash2, UserPlus } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '../button/button';
@@ -19,6 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './dropdown-menu';
+import { RefineIconChevronDown, RefineIconCopy, RefineIconEditPencil01, RefineIconExternalLink, RefineIconPath, RefineIconRocket, RefineIconTrashFull, RefineIconUserAdd } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -44,25 +44,25 @@ export const Playground: Story = {
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               pilot-web
-              <ChevronDown />
+              <RefineIconChevronDown />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-60">
             <DropdownMenuLabel>Repository</DropdownMenuLabel>
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Pencil />
+                <RefineIconEditPencil01 />
                 Rename
                 <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Copy />
+                <RefineIconCopy />
                 Copy clone URL
                 <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  <Rocket />
+                  <RefineIconRocket />
                   Deploy to
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
@@ -72,17 +72,17 @@ export const Playground: Story = {
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuItem>
-                <UserPlus />
+                <RefineIconUserAdd />
                 Invite a Diamond
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <ExternalLink />
+                <RefineIconExternalLink />
                 Open on GitHub
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="danger">
-              <Trash2 />
+              <RefineIconTrashFull />
               Archive repository
               <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
             </DropdownMenuItem>
@@ -104,7 +104,7 @@ export const CheckboxesAndRadios: Story = {
         <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
-              <GitBranch />
+              <RefineIconPath />
               Pull requests
             </Button>
           </DropdownMenuTrigger>
