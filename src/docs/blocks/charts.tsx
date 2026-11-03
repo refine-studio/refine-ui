@@ -16,7 +16,7 @@ const CHARTS = [
  */
 export const ChartSwatches = () => {
   return (
-    <Specimen caption="bg-chart-1 … bg-chart-8, also as fill-, stroke- and text-. Take them in order from chart-1.">
+    <Specimen caption="bg-chart-1 … bg-chart-8, also as fill-, stroke- and text-. Take them in order from chart-1: violet, raspberry and olive lead, because most charts stop at three.">
       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
         {CHARTS.map(({ label, swatch }) => {
           return (
@@ -26,6 +26,46 @@ export const ChartSwatches = () => {
             </div>
           );
         })}
+      </div>
+    </Specimen>
+  );
+};
+
+const REFERENCES = [
+  { label: 'success', swatch: 'bg-success' },
+  { label: 'warning', swatch: 'bg-warning' },
+  { label: 'danger', swatch: 'bg-danger' },
+  { label: 'info', swatch: 'bg-info' },
+  { label: 'gem', swatch: 'bg-gem' },
+] as const;
+
+/**
+ * The chart colours in one strip beside the status colours and the gem, so no chart colour can pass for one of them.
+ */
+export const ChartStatusStrip = () => {
+  return (
+    <Specimen caption="Chart colours on the left, status colours and the gem on the right. Every chart hue keeps at least 25° from every colour on the right.">
+      <div className="flex flex-wrap items-end gap-6">
+        <div className="flex gap-1">
+          {CHARTS.map(({ label, swatch }) => {
+            return (
+              <div className="flex w-12 flex-col gap-1.5" key={label}>
+                <div className={`h-10 rounded-control ${swatch}`} />
+                <Token className="truncate">{label.replace('chart-', '')}</Token>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex gap-1 border-l pl-6">
+          {REFERENCES.map(({ label, swatch }) => {
+            return (
+              <div className="flex w-14 flex-col gap-1.5" key={label}>
+                <div className={`h-10 rounded-control ${swatch}`} />
+                <Token className="truncate">{label}</Token>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Specimen>
   );

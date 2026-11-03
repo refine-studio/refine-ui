@@ -108,6 +108,18 @@ export const AnimationGallery = () => {
           <span className="text-caption text-muted-foreground">Logo strips. Tune with --marquee-duration.</span>
         </div>
         <RiseTile />
+        <div className="flex flex-col gap-3 rounded-card border p-4">
+          <div className="flex h-16 flex-col justify-center gap-2">
+            <div className="h-2.5 overflow-hidden rounded-full bg-status-doing-soft">
+              <div className="in-progress h-full w-3/5 rounded-full bg-status-doing" />
+            </div>
+            <div className="h-2.5 overflow-hidden rounded-full bg-status-done-soft">
+              <div className="h-full w-full rounded-full bg-status-done" />
+            </div>
+          </div>
+          <Token className="text-foreground">in-progress</Token>
+          <span className="text-caption text-muted-foreground">A calm stripe on an in-progress bar. Still under reduced motion.</span>
+        </div>
       </div>
     </Specimen>
   );

@@ -31,9 +31,9 @@ const clip = (value: number) => {
 };
 
 /**
- * Linear sRGB of an `oklch(L C H)` literal, through OKLab, clipped to the gamut.
+ * Linear sRGB of an `oklch(L C H)` literal, through OKLab, before any clipping, so a channel can fall outside 0–1.
  */
-export const toLinearRgb = (oklch: string) => {
+export const toUnclippedLinearRgb = (oklch: string) => {
   const match = /^oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)$/.exec(oklch);
   const [l, c, h] = [Number(match?.[1]), Number(match?.[2]), Number(match?.[3])];
   const a = c * Math.cos((h * Math.PI) / 180);
@@ -43,10 +43,19 @@ export const toLinearRgb = (oklch: string) => {
   const short = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
 
   return [
-    clip(4.0767416621 * long - 3.3077115913 * medium + 0.2309699292 * short),
-    clip(-1.2684380046 * long + 2.6097574011 * medium - 0.3413193965 * short),
-    clip(-0.0041960863 * long - 0.7034186147 * medium + 1.707614701 * short),
+    4.0767416621 * long - 3.3077115913 * medium + 0.2309699292 * short,
+    -1.2684380046 * long + 2.6097574011 * medium - 0.3413193965 * short,
+    -0.0041960863 * long - 0.7034186147 * medium + 1.707614701 * short,
   ] as const;
+};
+
+/**
+ * Linear sRGB of an `oklch(L C H)` literal, through OKLab, clipped to the gamut.
+ */
+export const toLinearRgb = (oklch: string) => {
+  const [red, green, blue] = toUnclippedLinearRgb(oklch);
+
+  return [clip(red), clip(green), clip(blue)] as const;
 };
 
 /**

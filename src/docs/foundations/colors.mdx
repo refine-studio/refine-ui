@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-import { ChartSample, ChartSwatches } from '../blocks/charts';
+import { ChartSample, ChartStatusStrip, ChartSwatches } from '../blocks/charts';
 import { DocTable } from '../blocks/doc-table';
 
-import { GemRamp, GemRoles, NeutralSwatches, OverlaySwatches, StatusSwatches } from '../blocks/swatches';
+import { GemRamp, GemRoles, LifecycleSwatches, NeutralSwatches, OverlaySwatches, StatusSwatches } from '../blocks/swatches';
 
 <Meta title="Foundations/Colors" />
 
@@ -50,13 +50,35 @@ Violet carries no severity. Use it for a state that is neither good nor bad, suc
 
 <StatusSwatches />
 
+## Lifecycle
+
+Four colours for where a thing is in its life. They alias the status tones and the zinc neutrals, and add no hue of their own. An end of life is a quiet grey, never amber or red: red stays for risk, churn and incidents.
+
+<LifecycleSwatches />
+
+<DocTable
+  head={["Token", "Means", "Built from"]}
+  rows={[
+    ["`status-todo`", "Planned, not started", "Zinc neutral"],
+    ["`status-doing`", "In progress. Pair the fill with `in-progress` for a calm moving stripe", "`info`"],
+    ["`status-done`", "Done", "`success`"],
+    ["`status-ended`", "Maintenance, sunset, ended", "Zinc neutral, quieter than to do"],
+  ]}
+/>
+
+Each family has the same four steps as a status: base, `-foreground`, `-soft` and `-ink`.
+
 ## Charts
 
-Eight colours for the series of one chart, from Tailwind's 500 step. They are the same in light and dark mode. Take them in order from `chart-1`, so a chart with three series uses the first three. Neighbours in the order stay apart for readers with protanopia, deuteranopia and tritanopia. Beyond eight series, group the smallest into **Other** in `muted-foreground`.
+Eight colours for the series of one chart. They are the same in light and dark mode. Take them in order from `chart-1`, so a chart with three series uses the first three. Beyond eight series, group the smallest into **Other** in `muted-foreground`.
 
-**Every chart carries a legend or direct labels, plus a tooltip.** The fills reach 2:1 on white, not 3:1. WCAG 1.4.11 allows that only when the colour is not the sole way to read the data.
+**A chart colour never looks like a status or like the brand.** Every chart hue keeps at least 25° in OKLCH from success, warning, danger, info and the gem teal, in both modes. Only five hues are that far away: violet, raspberry, olive, sky and magenta. Violet, olive and sky come twice, as a light and a dark step. The first three are the most distinct hues, because most charts stop at three series. Every pair stays apart for readers with protanopia, deuteranopia and tritanopia. To colour by status, use the status or lifecycle tokens, not a chart colour.
+
+**Every chart carries a legend or direct labels, plus a tooltip.** The fills reach 2:1 on every surface, not 3:1. WCAG 1.4.11 allows that only when the colour is not the sole way to read the data.
 
 <ChartSwatches />
+
+<ChartStatusStrip />
 
 <ChartSample />
 
