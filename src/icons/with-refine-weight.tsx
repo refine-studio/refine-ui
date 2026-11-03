@@ -6,7 +6,8 @@ import { cn } from '../lib/cn';
 /** The shared package draws at 2px. Refine UI draws at 1.75px, which matches lucide's weight. */
 const REFINE_UI_STROKE_WIDTH = 1.75;
 
-interface PackageIcon {
+/** A Refine icon component: the package's and Refine UI's share this shape. */
+export interface RefineIconComponent {
   (props: RefineIconProps): ReactNode;
   displayName?: string;
 }
@@ -14,7 +15,7 @@ interface PackageIcon {
 /**
  * Draws a shared-package icon at Refine UI's 1.75px line and keeps it from shrinking in a flex row. A `strokeWidth` prop still wins.
  */
-export const withRefineWeight = (PackageIcon: PackageIcon) => {
+export const withRefineWeight = (PackageIcon: RefineIconComponent): RefineIconComponent => {
   /**
    * Renders the package icon with Refine UI's defaults.
    */
