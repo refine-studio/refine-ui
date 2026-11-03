@@ -1,10 +1,10 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
 import { Collapsible as CollapsiblePrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
+import { RefineIconChevronDown } from '../../icons/refine-icons';
 
 /**
  * Holds one fold-out section: a trigger that opens and shuts the content under it.
@@ -45,7 +45,7 @@ export const CollapsibleTrigger = ({
       {...props}
     >
       {children}
-      <ChevronDown
+      <RefineIconChevronDown
         aria-hidden
         className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 ease-out-expo group-data-[state=open]/collapsible:rotate-180"
         role="presentation"

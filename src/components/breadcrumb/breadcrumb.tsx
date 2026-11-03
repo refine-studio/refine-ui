@@ -1,8 +1,8 @@
-import { ChevronRight, Ellipsis } from 'lucide-react';
 import { Slot } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
+import { RefineIconChevronRight, RefineIconMoreHorizontal } from '../../icons/refine-icons';
 
 /**
  * Marks up the trail as a navigation landmark.
@@ -67,7 +67,7 @@ export const BreadcrumbSeparator = ({ children, className, ...props }: Component
       role="presentation"
       {...props}
     >
-      {children ?? <ChevronRight />}
+      {children ?? <RefineIconChevronRight />}
     </li>
   );
 };
@@ -82,7 +82,7 @@ export const BreadcrumbEllipsis = ({ className, ...props }: ComponentProps<'span
       data-slot="breadcrumb-ellipsis"
       {...props}
     >
-      <Ellipsis aria-hidden className="size-4" role="presentation" />
+      <RefineIconMoreHorizontal aria-hidden className="size-4" role="presentation" />
       <span className="sr-only">More pages</span>
     </span>
   );

@@ -1,11 +1,18 @@
 'use client';
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { CircleAlert, CircleCheck, Info, Sparkles, TriangleAlert, X } from 'lucide-react';
 import { type ComponentProps, type ReactNode, useState } from 'react';
 
 import { cn } from '../../lib/cn';
 import { Button } from '../button/button';
+import {
+  RefineIconCircleCheck,
+  RefineIconCircleWarning,
+  RefineIconCloseMD,
+  RefineIconInfo,
+  RefineIconSparkles,
+  RefineIconTriangleWarning,
+} from '../../icons/refine-icons';
 
 export const alertVariants = cva(
   [
@@ -33,13 +40,13 @@ export const alertVariants = cva(
 type AlertVariant = NonNullable<VariantProps<typeof alertVariants>['variant']>;
 
 const ICON_BY_VARIANT = {
-  danger: CircleAlert,
-  gem: Sparkles,
-  info: Info,
-  neutral: Info,
-  success: CircleCheck,
-  warning: TriangleAlert,
-} satisfies Record<AlertVariant, typeof Info>;
+  danger: RefineIconCircleWarning,
+  gem: RefineIconSparkles,
+  info: RefineIconInfo,
+  neutral: RefineIconInfo,
+  success: RefineIconCircleCheck,
+  warning: RefineIconTriangleWarning,
+} satisfies Record<AlertVariant, typeof RefineIconInfo>;
 
 interface AlertProps extends ComponentProps<'div'>, VariantProps<typeof alertVariants> {
   action?: ReactNode;
@@ -94,7 +101,7 @@ export const Alert = ({
           variant="ghost"
           onClick={handleDismiss}
         >
-          <X />
+          <RefineIconCloseMD />
           <span className="sr-only">Dismiss</span>
         </Button>
       )}

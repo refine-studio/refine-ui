@@ -1,31 +1,31 @@
 'use client';
 
-import { Monitor, Moon, Sun } from 'lucide-react';
 import { ToggleGroup as ToggleGroupPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import type { Mode } from '../../theme/theme';
 import { useTheme } from '../../theme/theme-provider';
+import { RefineIconMonitor, RefineIconMoon, RefineIconSun } from '../../icons/refine-icons';
 
 const MODE_OPTIONS = [
   {
-    icon: Sun,
+    icon: RefineIconSun,
     label: 'Light',
     value: 'light',
   },
   {
-    icon: Moon,
+    icon: RefineIconMoon,
     label: 'Dark',
     value: 'dark',
   },
   {
-    icon: Monitor,
+    icon: RefineIconMonitor,
     label: 'System',
     value: 'system',
   },
 ] satisfies {
-  icon: typeof Sun;
+  icon: typeof RefineIconSun;
   label: string;
   value: Mode;
 }[];

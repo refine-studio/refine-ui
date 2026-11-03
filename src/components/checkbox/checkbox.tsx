@@ -1,11 +1,11 @@
 'use client';
 
-import { Check, Minus } from 'lucide-react';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import { useFieldControl } from '../field/field';
+import { RefineIconCheck, RefineIconRemoveMinus } from '../../icons/refine-icons';
 
 /**
  * Renders a checkbox with checked, unchecked and indeterminate (`checked="indeterminate"`) states.
@@ -36,8 +36,11 @@ export const Checkbox = ({ className, ...props }: ComponentProps<typeof Checkbox
       {...controlProps}
     >
       <CheckboxPrimitive.Indicator className="group/indicator flex items-center justify-center animate-in zoom-in-50 duration-150">
-        <Check className="size-3.5 group-data-[state=indeterminate]/indicator:hidden" strokeWidth={3} />
-        <Minus className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block" strokeWidth={3} />
+        <RefineIconCheck className="size-3.5 group-data-[state=indeterminate]/indicator:hidden" strokeWidth={3} />
+        <RefineIconRemoveMinus
+          className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block"
+          strokeWidth={3}
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

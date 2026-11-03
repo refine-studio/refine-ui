@@ -1,7 +1,6 @@
 'use client';
 
 import type { VariantProps } from 'class-variance-authority';
-import { Check, ChevronRight, Circle } from 'lucide-react';
 import { ContextMenu as ContextMenuPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
@@ -15,6 +14,7 @@ import {
   MENU_SHORTCUT_CLASS_NAME,
   menuItemVariants,
 } from '../dropdown-menu/menu-styles';
+import { RefineIconCheck, RefineIconChevronRight, RefineIconCircleFilled } from '../../icons/refine-icons';
 
 /**
  * Holds the open state of a menu of actions opened by right-clicking or long-pressing its trigger area.
@@ -85,7 +85,7 @@ export const ContextMenuCheckboxItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <ContextMenuPrimitive.ItemIndicator>
-          <Check className="size-4 text-gem-ink" />
+          <RefineIconCheck className="size-4 text-gem-ink" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -109,7 +109,7 @@ export const ContextMenuRadioItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <ContextMenuPrimitive.ItemIndicator>
-          <Circle className="size-2 fill-current text-gem-ink" />
+          <RefineIconCircleFilled className="size-2 fill-current text-gem-ink" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -171,7 +171,7 @@ export const ContextMenuSubTrigger = ({
       {...props}
     >
       {children}
-      <ChevronRight className="ml-auto size-4" />
+      <RefineIconChevronRight className="ml-auto size-4" />
     </ContextMenuPrimitive.SubTrigger>
   );
 };

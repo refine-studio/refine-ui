@@ -1,12 +1,12 @@
 'use client';
 
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { Select as SelectPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import { useFieldControl } from '../field/field';
 import { inputShellVariants } from '../input/input';
+import { RefineIconCheck, RefineIconChevronDown, RefineIconChevronUp } from '../../icons/refine-icons';
 
 export const Select = SelectPrimitive.Root;
 
@@ -45,7 +45,7 @@ export const SelectTrigger = ({ children, className, size, ...props }: SelectTri
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="text-muted-foreground transition-transform duration-200 group-data-[state=open]/input:rotate-180" />
+        <RefineIconChevronDown className="text-muted-foreground transition-transform duration-200 group-data-[state=open]/input:rotate-180" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -80,11 +80,11 @@ export const SelectContent = ({
         {...props}
       >
         <SelectPrimitive.ScrollUpButton className="flex h-6 items-center justify-center text-muted-foreground">
-          <ChevronUp className="size-4" />
+          <RefineIconChevronUp className="size-4" />
         </SelectPrimitive.ScrollUpButton>
         <SelectPrimitive.Viewport className="p-1">{children}</SelectPrimitive.Viewport>
         <SelectPrimitive.ScrollDownButton className="flex h-6 items-center justify-center text-muted-foreground">
-          <ChevronDown className="size-4" />
+          <RefineIconChevronDown className="size-4" />
         </SelectPrimitive.ScrollDownButton>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
@@ -131,7 +131,7 @@ export const SelectItem = ({ children, className, ...props }: ComponentProps<typ
       </SelectPrimitive.ItemText>
       <span className="absolute right-2.5 flex items-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="text-gem-ink" />
+          <RefineIconCheck className="text-gem-ink" />
         </SelectPrimitive.ItemIndicator>
       </span>
     </SelectPrimitive.Item>

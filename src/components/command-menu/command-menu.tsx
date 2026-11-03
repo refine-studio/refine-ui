@@ -1,11 +1,11 @@
 'use client';
 
 import { Command as CommandPrimitive } from 'cmdk';
-import { Search } from 'lucide-react';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../lib/cn';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../dialog/dialog';
+import { RefineIconSearchMagnifyingGlass } from '../../icons/refine-icons';
 
 /**
  * Filters and navigates a list of commands with the keyboard; use it inline or inside `CommandMenu`.
@@ -51,7 +51,11 @@ export const CommandMenu = ({
 export const CommandInput = ({ className, ...props }: ComponentProps<typeof CommandPrimitive.Input>) => {
   return (
     <div className="flex items-center gap-3 border-b px-4" data-slot="command-input-wrapper">
-      <Search aria-hidden className="size-4 shrink-0 text-muted-foreground" role="presentation" />
+      <RefineIconSearchMagnifyingGlass
+        aria-hidden
+        className="size-4 shrink-0 text-muted-foreground"
+        role="presentation"
+      />
       <CommandPrimitive.Input
         className={cn(
           'flex h-control-xl w-full bg-transparent text-body outline-none placeholder:text-subtle disabled:cursor-not-allowed disabled:opacity-45',

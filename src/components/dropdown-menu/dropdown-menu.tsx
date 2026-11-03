@@ -1,7 +1,6 @@
 'use client';
 
 import type { VariantProps } from 'class-variance-authority';
-import { Check, ChevronRight, Circle } from 'lucide-react';
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui';
 import type { ComponentProps } from 'react';
 
@@ -15,6 +14,7 @@ import {
   MENU_SHORTCUT_CLASS_NAME,
   menuItemVariants,
 } from './menu-styles';
+import { RefineIconCheck, RefineIconChevronRight, RefineIconCircleFilled } from '../../icons/refine-icons';
 
 /**
  * Holds the open state of a menu of actions opened from a trigger.
@@ -90,7 +90,7 @@ export const DropdownMenuCheckboxItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <DropdownMenuPrimitive.ItemIndicator>
-          <Check className="size-4 text-gem-ink" />
+          <RefineIconCheck className="size-4 text-gem-ink" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -114,7 +114,7 @@ export const DropdownMenuRadioItem = ({
     >
       <span className={MENU_INDICATOR_CLASS_NAME}>
         <DropdownMenuPrimitive.ItemIndicator>
-          <Circle className="size-2 fill-current text-gem-ink" />
+          <RefineIconCircleFilled className="size-2 fill-current text-gem-ink" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -176,7 +176,7 @@ export const DropdownMenuSubTrigger = ({
       {...props}
     >
       {children}
-      <ChevronRight className="ml-auto size-4" />
+      <RefineIconChevronRight className="ml-auto size-4" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 };
