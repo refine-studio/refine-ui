@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ArrowRight, Plus, Sparkles, Trash2 } from 'lucide-react';
 
 import { Button } from './button';
+import { RefineIconAddPlus, RefineIconArrowRightMD, RefineIconSparkles, RefineIconTrashFull } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -39,7 +39,7 @@ export const Variants: Story = {
           Primary
         </Button>
         <Button {...args} variant="gem">
-          <Sparkles />
+          <RefineIconSparkles />
           Gem
         </Button>
         <Button {...args} variant="secondary">
@@ -52,7 +52,7 @@ export const Variants: Story = {
           Ghost
         </Button>
         <Button {...args} variant="danger">
-          <Trash2 />
+          <RefineIconTrashFull />
           Danger
         </Button>
         <Button {...args} variant="link">
@@ -71,7 +71,7 @@ export const Sizes: Story = {
           return (
             <Button {...args} key={size} size={size}>
               Size {size}
-              <ArrowRight />
+              <RefineIconArrowRightMD />
             </Button>
           );
         })}
@@ -87,7 +87,7 @@ export const IconOnly: Story = {
         {(['icon-sm', 'icon', 'icon-lg'] as const).map((size) => {
           return (
             <Button {...args} key={size} size={size} title="Add item" variant="outline">
-              <Plus />
+              <RefineIconAddPlus />
               <span className="sr-only">Add item</span>
             </Button>
           );
@@ -122,7 +122,7 @@ export const AsLink: Story = {
       <Button {...args} asChild variant="outline">
         <a href="https://refine.studio">
           Visit refine.studio
-          <ArrowRight />
+          <RefineIconArrowRightMD />
         </a>
       </Button>
     );

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ChevronRight } from 'lucide-react';
 
 import { Button } from '../button/button';
 import { ThemeScope } from '../../theme/theme-scope';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible';
+import { RefineIconChevronRight } from '../../icons/refine-icons';
 
 const meta = {
   component: Collapsible,
@@ -76,7 +76,7 @@ export const CustomTrigger: Story = {
         <div className="flex items-center gap-2">
           <CollapsibleTrigger asChild>
             <Button className="group/caret" size="icon-sm" title="Toggle Capabilities" variant="ghost">
-              <ChevronRight className="transition-transform duration-200 ease-out-expo group-data-[state=open]/caret:rotate-90" />
+              <RefineIconChevronRight className="transition-transform duration-200 ease-out-expo group-data-[state=open]/caret:rotate-90" />
               <span className="sr-only">Toggle Capabilities</span>
             </Button>
           </CollapsibleTrigger>

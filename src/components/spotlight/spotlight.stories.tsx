@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Code2, Compass, PenTool } from 'lucide-react';
 
 import { Spotlight } from './spotlight';
+import { RefineIconCode, RefineIconCompass, RefineIconEditPencil01 } from '../../icons/refine-icons';
 
 const SERVICES = [
   {
     description: 'Workshops, roadmaps and product strategy that survive contact with reality.',
-    icon: Compass,
+    icon: RefineIconCompass,
     title: 'Strategy',
   },
   {
     description: 'Interfaces and design systems with a voice, from first sketch to pixel.',
-    icon: PenTool,
+    icon: RefineIconEditPencil01,
     title: 'Design',
   },
   {
     description: 'Next.js, Rails and the platform glue to run it for years.',
-    icon: Code2,
+    icon: RefineIconCode,
     title: 'Development',
   },
 ];

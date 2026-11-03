@@ -20,9 +20,9 @@ Refine UI is built for us first, so it is free to experiment. It has one brand a
 | Foundations | Principles, logo, colour, type, shape and spacing, elevation, motion, light and dark mode, icons |
 | Components  | About 45 building blocks: buttons, forms, dialogs, menus, tables, tabs, toasts and more          |
 | Widgets     | Composed pieces such as App Shell, Command Menu and Page Header, plus full example screens       |
-| Icons       | All of lucide, plus 463 extra icons drawn at lucide's line weight                                |
+| Icons       | The 467 Refine icons, drawn in the shared refine-icons package                                   |
 
-**Stack:** React 19 · Tailwind CSS 4 · Radix UI · class-variance-authority · lucide-react · Geist Sans and Geist Mono
+**Stack:** React 19 · Tailwind CSS 4 · Radix UI · class-variance-authority · @refine-studio/refine-icons · Geist Sans and Geist Mono
 
 ## 🚀 Install it in another repo
 

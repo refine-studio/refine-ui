@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ArrowRight, Mail } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 
 import { Button } from '../components/button/button';
@@ -9,6 +8,7 @@ import { Logo, LogoMark } from '../components/logo/logo';
 import { Separator } from '../components/separator/separator';
 import { Starfield } from '../components/starfield/starfield';
 import { ThemeScope } from '../theme/theme-scope';
+import { RefineIconArrowRightMD, RefineIconMail } from '../icons/refine-icons';
 
 const meta = {
   parameters: {
@@ -71,7 +71,7 @@ const SignInScreen = () => {
             <FieldLabel>Work e-mail</FieldLabel>
             <Input
               autoComplete="email"
-              leading={<Mail />}
+              leading={<RefineIconMail />}
               onChange={(event) => {
                 setEmail(event.target.value);
               }}
@@ -83,7 +83,7 @@ const SignInScreen = () => {
           </Field>
           <Button loading={isSending} size="lg" type="submit" variant="gem">
             Send magic link
-            <ArrowRight />
+            <RefineIconArrowRightMD />
           </Button>
           <Separator label="or" />
           <Button size="lg" variant="outline">

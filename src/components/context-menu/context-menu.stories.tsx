@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Archive, Clock, Copy, Pin, Trash2 } from 'lucide-react';
 
 import {
   ContextMenu,
@@ -13,6 +12,7 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from './context-menu';
+import { RefineIconArchive, RefineIconClock, RefineIconCopy, RefineIconPin, RefineIconTrashFull } from '../../icons/refine-icons';
 
 const meta = {
   component: ContextMenu,
@@ -36,17 +36,17 @@ export const Playground: Story = {
         <ContextMenuContent className="w-56">
           <ContextMenuLabel>Entry · 2h 15m</ContextMenuLabel>
           <ContextMenuItem>
-            <Copy />
+            <RefineIconCopy />
             Duplicate
             <ContextMenuShortcut>⌘D</ContextMenuShortcut>
           </ContextMenuItem>
           <ContextMenuItem>
-            <Pin />
+            <RefineIconPin />
             Pin to today
           </ContextMenuItem>
           <ContextMenuSub>
             <ContextMenuSubTrigger>
-              <Clock />
+              <RefineIconClock />
               Move to
             </ContextMenuSubTrigger>
             <ContextMenuSubContent>
@@ -56,12 +56,12 @@ export const Playground: Story = {
             </ContextMenuSubContent>
           </ContextMenuSub>
           <ContextMenuItem>
-            <Archive />
+            <RefineIconArchive />
             Archive
           </ContextMenuItem>
           <ContextMenuSeparator />
           <ContextMenuItem variant="danger">
-            <Trash2 />
+            <RefineIconTrashFull />
             Delete entry
           </ContextMenuItem>
         </ContextMenuContent>

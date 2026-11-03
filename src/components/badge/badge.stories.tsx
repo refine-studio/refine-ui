@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { GitBranch, Rocket } from 'lucide-react';
 
 import { Badge } from './badge';
+import { RefineIconPath, RefineIconRocket } from '../../icons/refine-icons';
 
 const VARIANTS = ['neutral', 'gem', 'outline', 'success', 'warning', 'orange', 'danger', 'info', 'violet'] as const;
 
@@ -80,11 +80,11 @@ export const WithIcon: Story = {
     return (
       <div className="gap-2 flex flex-wrap items-center">
         <Badge {...args} variant="gem">
-          <Rocket />
+          <RefineIconRocket />
           v2.14.0
         </Badge>
         <Badge {...args} variant="outline">
-          <GitBranch />
+          <RefineIconPath />
           feature/pil-1024
         </Badge>
       </div>

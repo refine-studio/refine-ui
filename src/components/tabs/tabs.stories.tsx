@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Activity, GitPullRequest, Settings } from 'lucide-react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+import { RefineIconChartLine, RefineIconPath, RefineIconSettings } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -24,15 +24,15 @@ const renderRepositoryTabs = (variant: 'pill' | 'segmented' | 'underline') => {
       <Tabs {...args} className="w-[32rem]">
         <TabsList variant={variant}>
           <TabsTrigger count={12} value="pulls">
-            <GitPullRequest />
+            <RefineIconPath />
             Pull requests
           </TabsTrigger>
           <TabsTrigger count={3} value="activity">
-            <Activity />
+            <RefineIconChartLine />
             Activity
           </TabsTrigger>
           <TabsTrigger value="settings">
-            <Settings />
+            <RefineIconSettings />
             Settings
           </TabsTrigger>
           <TabsTrigger disabled value="insights">

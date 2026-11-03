@@ -11,7 +11,7 @@ const drawnIconName = (icon: ReactElement) => {
 };
 
 describe('Refine icons', () => {
-  it('draws at the 1.75 stroke that matches lucide', () => {
+  it('draws at the 1.75 stroke', () => {
     const { container } = render(<RefineIconBell />);
     const svg = container.querySelector('svg');
 
@@ -20,7 +20,7 @@ describe('Refine icons', () => {
     expect(svg?.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('takes a stroke width override like a lucide icon', () => {
+  it('takes a stroke width override', () => {
     const { container } = render(<RefineIconBell strokeWidth={1} />);
 
     expect(container.querySelector('svg')?.getAttribute('stroke-width')).toBe('1');

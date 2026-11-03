@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Clock, Globe, Search } from 'lucide-react';
 
 import { Field, FieldDescription, FieldError, FieldLabel } from '../field/field';
 import { Input } from './input';
+import { RefineIconClock, RefineIconGlobe, RefineIconSearchMagnifyingGlass } from '../../icons/refine-icons';
 
 const meta = {
   args: {
@@ -54,12 +54,12 @@ export const Adornments: Story = {
       <div className="gap-3 grid">
         <Input
           {...args}
-          leading={<Search />}
+          leading={<RefineIconSearchMagnifyingGlass />}
           placeholder="Search tenants…"
           trailing={<kbd className="rounded px-1.5 border bg-muted font-mono text-caption">⌘K</kbd>}
         />
-        <Input {...args} inputMode="decimal" leading={<Clock />} placeholder="7.5" trailing="hours" />
-        <Input {...args} leading={<Globe />} placeholder="acme" trailing=".pilot.example.com" />
+        <Input {...args} inputMode="decimal" leading={<RefineIconClock />} placeholder="7.5" trailing="hours" />
+        <Input {...args} leading={<RefineIconGlobe />} placeholder="acme" trailing=".pilot.example.com" />
       </div>
     );
   },

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ArrowUpRight, MoreHorizontal } from 'lucide-react';
 
 import { PEOPLE } from '../../docs/assets/avatars';
 import { Avatar, AvatarGroup } from '../avatar/avatar';
@@ -16,6 +15,7 @@ import {
   CardMedia,
   CardTitle,
 } from './card';
+import { RefineIconArrowUpRightMD, RefineIconMoreHorizontal } from '../../icons/refine-icons';
 
 const DESCRIPTION_BY_VARIANT = {
   default: 'The refine.studio card: paper on canvas, a hairline and a wide, soft shadow.',
@@ -55,7 +55,7 @@ export const Playground: Story = {
           </CardDescription>
           <CardAction>
             <Button size="icon-sm" title="More actions" variant="ghost">
-              <MoreHorizontal />
+              <RefineIconMoreHorizontal />
               <span className="sr-only">More actions</span>
             </Button>
           </CardAction>
@@ -119,7 +119,7 @@ export const Interactive: Story = {
               <CardEyebrow>01 · Services</CardEyebrow>
               <CardTitle className="flex items-center justify-between">
                 Strategy
-                <ArrowUpRight className="size-5 text-muted-foreground" />
+                <RefineIconArrowUpRightMD className="size-5 text-muted-foreground" />
               </CardTitle>
               <CardDescription>
                 We turn visions into high-quality applications, step by step, with everyone involved.
@@ -133,7 +133,7 @@ export const Interactive: Story = {
               <CardEyebrow>02 · Services</CardEyebrow>
               <CardTitle className="flex items-center justify-between">
                 Design
-                <ArrowUpRight className="size-5 text-muted-foreground" />
+                <RefineIconArrowUpRightMD className="size-5 text-muted-foreground" />
               </CardTitle>
               <CardDescription>Design systems that give Diamonds room to play — Refine UI included.</CardDescription>
             </CardHeader>
