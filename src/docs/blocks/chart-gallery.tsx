@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { CHART_OTHER, ChartBar, CHARTS } from './charts';
+import { CHART_OTHER, CHART_OTHER_LINE, ChartBar, CHARTS } from './charts';
 import { Specimen } from './specimen';
 
 interface LegendItem {
@@ -70,7 +70,7 @@ const linePoint = (index: number, value: number) => {
 };
 
 /**
- * One series in chart-1 and every other series in chart-other, each named at its line end.
+ * One series in chart-1 and every other series in chart-other-line, each named at its line end.
  */
 export const LineChartSample = () => {
   const summary = LINES.map(({ name, values }) => {
@@ -79,7 +79,7 @@ export const LineChartSample = () => {
 
   return (
     <ChartFrame
-      caption="A line chart puts the one series it is about in chart-1 and every other line in chart-other. Each line carries its name at its end, so it needs no legend."
+      caption="A line chart puts the one series it is about in chart-1 and every other line in chart-other-line. Each line carries its name at its end, so it needs no legend."
       title="Active projects per client, January to August"
     >
       <svg aria-label={`Active projects per month: ${summary}`} className="h-auto w-full" role="img" viewBox="-2 -2 116 47">
@@ -111,7 +111,7 @@ export const LineChartSample = () => {
           return (
             <g key={name}>
               <polyline
-                className={isFocus ? CHARTS[0].stroke : CHART_OTHER.stroke}
+                className={isFocus ? CHARTS[0].stroke : CHART_OTHER_LINE.stroke}
                 fill="none"
                 points={points}
                 strokeLinejoin="round"

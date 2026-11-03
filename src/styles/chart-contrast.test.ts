@@ -4,7 +4,9 @@ import { contrast, CSS, MODES, toUnclippedLinearRgb } from './css.test-utils';
 
 const STEPS = ['chart-1', 'chart-2', 'chart-3', 'chart-4'] as const;
 
-const CHARTS = [...STEPS, 'chart-other'] as const;
+const NEUTRALS = ['chart-other', 'chart-other-line'] as const;
+
+const CHARTS = [...STEPS, ...NEUTRALS] as const;
 
 const SURFACES = ['canvas', 'card'] as const;
 
@@ -26,9 +28,9 @@ const LIGHTNESS_GAP = 0.08;
 const GAMUT_TOLERANCE = 0.002;
 
 /**
- * The least contrast chart-other keeps on the card, so the quietest band still shows.
+ * The least contrast the two quiet neutrals keep on card and canvas. They are exempt from 2:1 on purpose.
  */
-const OTHER_MIN_CONTRAST = 1.3;
+const NEUTRAL_MIN_CONTRAST = 1.3;
 
 /**
  * The lightness, chroma and hue of an `oklch()` literal. OKLCH lightness is OKLab lightness.
@@ -57,7 +59,7 @@ const NEIGHBOURS = STEPS.slice(1).map((step, index) => {
 });
 
 describe('chart colours', () => {
-  it.each(Object.entries(MODES))('%s mode ships exactly four steps and chart-other', (_mode, tokens) => {
+  it.each(Object.entries(MODES))('%s mode ships exactly four steps and two neutrals', (_mode, tokens) => {
     expect(
       [...tokens.keys()].filter((name) => {
         return name.startsWith('chart-');
@@ -97,11 +99,21 @@ describe('chart colours', () => {
       }
     });
 
-    it('chart-other is the quietest band but still shows on the card', () => {
-      const other = contrast(tokens.get('chart-other'), tokens.get('card'));
+    it.each(NEUTRALS)(`%s keeps ${NEUTRAL_MIN_CONTRAST}:1 on card and canvas`, (neutral) => {
+      for (const surface of SURFACES) {
+        expect(contrast(tokens.get(neutral), tokens.get(surface)), `${mode} ${surface}`).toBeGreaterThanOrEqual(
+          NEUTRAL_MIN_CONTRAST,
+        );
+      }
+    });
 
-      expect(other).toBeLessThan(contrast(tokens.get('chart-4'), tokens.get('card')));
-      expect(other, mode).toBeGreaterThanOrEqual(OTHER_MIN_CONTRAST);
+    it('chart-other is quieter than chart-4, and chart-other-line sits between them', () => {
+      const onCard = (token: string) => {
+        return contrast(tokens.get(token), tokens.get('card'));
+      };
+
+      expect(onCard('chart-other')).toBeLessThan(onCard('chart-other-line'));
+      expect(onCard('chart-other-line')).toBeLessThan(onCard('chart-4'));
     });
   });
 });

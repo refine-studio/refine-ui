@@ -39,14 +39,21 @@ export const CHART_OTHER = {
   swatch: 'bg-chart-other',
 } as const;
 
+export const CHART_OTHER_LINE = {
+  fill: 'fill-chart-other-line',
+  label: 'chart-other-line',
+  stroke: 'stroke-chart-other-line',
+  swatch: 'bg-chart-other-line',
+} as const;
+
 /**
- * The four chart steps in the order a chart takes them, then the neutral for Others.
+ * The four chart steps in the order a chart takes them, then the neutrals for Others and for context lines.
  */
 export const ChartSwatches = () => {
   return (
-    <Specimen caption="bg-chart-1 … bg-chart-4 and bg-chart-other, also as fill-, stroke- and text-. One ramp of the gem hue, strongest first. chart-1 is the default for a single series.">
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
-        {[...CHARTS, CHART_OTHER].map(({ label, swatch }) => {
+    <Specimen caption="bg-chart-1 … bg-chart-4, bg-chart-other and bg-chart-other-line, also as fill-, stroke- and text-. One ramp of the gem hue, strongest first. chart-1 is the default for a single series.">
+      <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
+        {[...CHARTS, CHART_OTHER, CHART_OTHER_LINE].map(({ label, swatch }) => {
           return (
             <div className="flex min-w-0 flex-col gap-1.5" key={label}>
               <div className={`h-14 rounded-control ${swatch}`} />

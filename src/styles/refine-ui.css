@@ -124,6 +124,7 @@
   --chart-3: oklch(0.5 0.06 182);
   --chart-4: oklch(0.42 0.035 182);
   --chart-other: oklch(0.86 0.004 286);
+  --chart-other-line: oklch(0.74 0.006 286);
 
   --shadow-color: oklch(0.141 0.005 286);
   --shadow-strength: 1;
@@ -205,6 +206,7 @@
   --chart-3: oklch(0.61 0.075 182);
   --chart-4: oklch(0.53 0.05 182);
   --chart-other: oklch(0.36 0.006 286);
+  --chart-other-line: oklch(0.46 0.006 286);
 
   --shadow-color: oklch(0 0 0);
   --shadow-strength: 4;
@@ -482,9 +484,11 @@
  * vivid and the default for a single series. Each later step loses lightness
  * contrast and chroma. Light mode steps get darker. Dark mode has its own,
  * brighter steps, so the tail stays apart from the near-black card.
- * chart-other is the quietest band, a neutral for "Others" and for context
- * series: lighter than chart-4 in light mode and dimmer in dark mode. The
- * values sit in the colour-mode blocks above.
+ * chart-other is the quietest band, a neutral for "Others": lighter than
+ * chart-4 in light mode and dimmer in dark mode.
+ * chart-other-line is a step stronger, for the context lines of a line
+ * chart, where a thin stroke needs more contrast than a band. The values
+ * sit in the colour-mode blocks above.
  */
 
 @theme inline {
@@ -493,6 +497,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-other: var(--chart-other);
+  --color-chart-other-line: var(--chart-other-line);
 }
 
 /* Utilities that carry the brand. */
