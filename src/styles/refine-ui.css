@@ -467,26 +467,20 @@
 
 /*
  * Chart colours: categorical series, used in order from chart-1.
- * No chart colour may read as a status or as the brand, so every hue keeps at
- * least 25° in OKLCH from success, warning, danger, info and the gem teal, in
- * both modes. Only five hues are left that far away: violet, raspberry,
- * olive, sky and magenta. Three of them come twice, a light and a dark step
- * apart. The first three are the most distinct, because most charts stop
- * there. Every pair stays apart under protanopia, deuteranopia and tritanopia,
- * and every value sits inside sRGB.
- * The same values serve light and dark. The fills reach 2:1 on every surface,
- * not 3:1, so every chart carries a legend or direct labels.
+ * Six Tailwind v4 500 values, the same in light and dark: violet, pink, cyan,
+ * lime, fuchsia, indigo. No chart colour may read as a status or as the
+ * brand, so every hue keeps at least 20° in OKLCH from success, warning,
+ * danger, info and the gem teal, in both modes. The fills aim for 2:1 on
+ * white, not 3:1, so every chart carries a legend or direct labels.
  */
 
 :root {
-  --chart-1: oklch(0.68 0.17 280);
-  --chart-2: oklch(0.5 0.2 354);
-  --chart-3: oklch(0.74 0.16 110);
-  --chart-4: oklch(0.74 0.12 212);
-  --chart-5: oklch(0.52 0.24 324);
-  --chart-6: oklch(0.56 0.12 110);
-  --chart-7: oklch(0.6 0.105 212);
-  --chart-8: oklch(0.54 0.26 280);
+  --chart-1: oklch(0.606 0.25 292.717);
+  --chart-2: oklch(0.656 0.241 354.308);
+  --chart-3: oklch(0.715 0.143 215.221);
+  --chart-4: oklch(0.768 0.233 130.85);
+  --chart-5: oklch(0.667 0.295 322.15);
+  --chart-6: oklch(0.585 0.233 277.117);
 }
 
 @theme inline {
@@ -496,8 +490,6 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   --color-chart-6: var(--chart-6);
-  --color-chart-7: var(--chart-7);
-  --color-chart-8: var(--chart-8);
 }
 
 /* Utilities that carry the brand. */

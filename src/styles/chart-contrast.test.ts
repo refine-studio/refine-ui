@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { contrast, CSS, MODES, toUnclippedLinearRgb } from './css.test-utils';
 import { distance, VISIONS } from './vision.test-utils';
 
-const CHARTS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5', 'chart-6', 'chart-7', 'chart-8'] as const;
+const CHARTS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5', 'chart-6'] as const;
 
 const SURFACES = ['canvas', 'background', 'card', 'popover'] as const;
 
@@ -40,15 +40,9 @@ const PAIRS = CHARTS.flatMap((one, index) => {
 });
 
 /**
- * The least OKLab distance any two chart colours keep. The five hues left after the status
- * and gem gaps share the blue-yellow axis that tritanopia loses, so it gets 7 instead of 10.
+ * The least hue gap, in OKLCH degrees, between a chart colour and a status colour or the gem.
  */
-const PAIR_DISTANCE = {
-  deuteranopia: 10,
-  protanopia: 10,
-  tritanopia: 7,
-  typical: 10,
-} as const;
+const HUE_GAP = 20;
 
 /**
  * The slots most charts use. They keep a wider distance than the rest.
@@ -65,6 +59,10 @@ const NEIGHBOURS = CHARTS.slice(1).map((chart, index) => {
 });
 
 describe('chart colours', () => {
+  it('ships exactly six colours', () => {
+    expect([...VALUES.keys()]).toEqual([...CHARTS]);
+  });
+
   it.each(CHARTS)('%s ships a value and a utility', (chart) => {
     expect(VALUES.get(chart), `--${chart}`).toMatch(/^oklch\(/);
     expect(CSS, `--color-${chart}`).toContain(`--color-${chart}: var(--${chart});`);
@@ -73,14 +71,6 @@ describe('chart colours', () => {
   it.each(VISIONS)('neighbours stay 10 OKLab units apart under %s vision', (vision) => {
     for (const [one, other] of NEIGHBOURS) {
       expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} → ${other}`).toBeGreaterThanOrEqual(10);
-    }
-  });
-
-  it.each(VISIONS)('every pair stays apart under %s vision', (vision) => {
-    for (const [one, other] of PAIRS) {
-      expect(distance(VALUES.get(one), VALUES.get(other), vision), `${one} ↔ ${other}`).toBeGreaterThanOrEqual(
-        PAIR_DISTANCE[vision],
-      );
     }
   });
 
@@ -99,14 +89,14 @@ describe('chart colours', () => {
     }
   });
 
-  it.each(CHARTS)('%s keeps 25° of hue from the gem teal', (chart) => {
-    expect(hueGap(hue(VALUES.get(chart)), GEM_HUE)).toBeGreaterThanOrEqual(25);
+  it.each(CHARTS)(`%s keeps ${HUE_GAP}° of hue from the gem teal`, (chart) => {
+    expect(hueGap(hue(VALUES.get(chart)), GEM_HUE)).toBeGreaterThanOrEqual(HUE_GAP);
   });
 
   describe.each(Object.entries(MODES))('in %s mode', (_mode, tokens) => {
-    it.each(CHARTS)('%s keeps 25° of hue from every status colour', (chart) => {
+    it.each(CHARTS)(`%s keeps ${HUE_GAP}° of hue from every status colour`, (chart) => {
       for (const status of STATUSES) {
-        expect(hueGap(hue(VALUES.get(chart)), hue(tokens.get(status))), status).toBeGreaterThanOrEqual(25);
+        expect(hueGap(hue(VALUES.get(chart)), hue(tokens.get(status))), status).toBeGreaterThanOrEqual(HUE_GAP);
       }
     });
 

@@ -1,23 +1,21 @@
 import { Specimen, Token } from './specimen';
 
-const CHARTS = [
-  { fill: 'fill-chart-1', label: 'chart-1', swatch: 'bg-chart-1' },
-  { fill: 'fill-chart-2', label: 'chart-2', swatch: 'bg-chart-2' },
-  { fill: 'fill-chart-3', label: 'chart-3', swatch: 'bg-chart-3' },
-  { fill: 'fill-chart-4', label: 'chart-4', swatch: 'bg-chart-4' },
-  { fill: 'fill-chart-5', label: 'chart-5', swatch: 'bg-chart-5' },
-  { fill: 'fill-chart-6', label: 'chart-6', swatch: 'bg-chart-6' },
-  { fill: 'fill-chart-7', label: 'chart-7', swatch: 'bg-chart-7' },
-  { fill: 'fill-chart-8', label: 'chart-8', swatch: 'bg-chart-8' },
+export const CHARTS = [
+  { fill: 'fill-chart-1', label: 'chart-1', stroke: 'stroke-chart-1', swatch: 'bg-chart-1' },
+  { fill: 'fill-chart-2', label: 'chart-2', stroke: 'stroke-chart-2', swatch: 'bg-chart-2' },
+  { fill: 'fill-chart-3', label: 'chart-3', stroke: 'stroke-chart-3', swatch: 'bg-chart-3' },
+  { fill: 'fill-chart-4', label: 'chart-4', stroke: 'stroke-chart-4', swatch: 'bg-chart-4' },
+  { fill: 'fill-chart-5', label: 'chart-5', stroke: 'stroke-chart-5', swatch: 'bg-chart-5' },
+  { fill: 'fill-chart-6', label: 'chart-6', stroke: 'stroke-chart-6', swatch: 'bg-chart-6' },
 ] as const;
 
 /**
- * The eight chart colours in the order a chart takes them.
+ * The six chart colours in the order a chart takes them.
  */
 export const ChartSwatches = () => {
   return (
-    <Specimen caption="bg-chart-1 … bg-chart-8, also as fill-, stroke- and text-. Take them in order from chart-1: violet, raspberry and olive lead, because most charts stop at three.">
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
+    <Specimen caption="bg-chart-1 … bg-chart-6, also as fill-, stroke- and text-. Tailwind 500 violet, pink, cyan, lime, fuchsia and indigo. Take them in order from chart-1.">
+      <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
         {CHARTS.map(({ label, swatch }) => {
           return (
             <div className="flex min-w-0 flex-col gap-1.5" key={label}>
@@ -44,7 +42,7 @@ const REFERENCES = [
  */
 export const ChartStatusStrip = () => {
   return (
-    <Specimen caption="Chart colours on the left, status colours and the gem on the right. Every chart hue keeps at least 25° from every colour on the right.">
+    <Specimen caption="Chart colours on the left, status colours and the gem on the right. Every chart hue keeps at least 20° from every colour on the right.">
       <div className="flex flex-wrap items-end gap-6">
         <div className="flex gap-1">
           {CHARTS.map(({ label, swatch }) => {
@@ -71,13 +69,13 @@ export const ChartStatusStrip = () => {
   );
 };
 
-const SERIES = ['Atlas', 'Beacon', 'Cobalt', 'Delta', 'Ember', 'Fjord', 'Granite', 'Harbor'] as const;
+const SERIES = ['Atlas', 'Beacon', 'Cobalt', 'Delta', 'Ember', 'Fjord'] as const;
 
 const QUARTERS = [
-  { name: 'Q1', shares: [22, 16, 14, 12, 11, 10, 8, 7] },
-  { name: 'Q2', shares: [18, 20, 12, 14, 9, 11, 9, 7] },
-  { name: 'Q3', shares: [16, 15, 17, 10, 13, 9, 12, 8] },
-  { name: 'Q4', shares: [14, 13, 15, 16, 10, 12, 9, 11] },
+  { name: 'Q1', shares: [26, 20, 17, 15, 12, 10] },
+  { name: 'Q2', shares: [22, 24, 15, 16, 11, 12] },
+  { name: 'Q3', shares: [20, 18, 21, 13, 16, 12] },
+  { name: 'Q4', shares: [18, 16, 19, 20, 13, 14] },
 ] as const;
 
 /**
