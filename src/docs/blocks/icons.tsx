@@ -147,7 +147,7 @@ const MENU_ITEMS: { icon: IconName; label: string }[] = [
 ];
 
 /**
- * Draws a menu whose icons come from data, by their sprite names.
+ * Draws a menu whose icons come from data, by their names.
  */
 export const IconByName = () => {
   return (
