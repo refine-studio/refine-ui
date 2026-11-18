@@ -573,9 +573,15 @@
   color: transparent;
 }
 
+/*
+ * One tile is exactly one period of a pointy-top honeycomb: width √3·r and
+ * height 3·r for a side r of 48.5 / 3, so 28 × 48.5. The lattice sits off
+ * the tile edges, so no line runs along a seam. Each edge that crosses a
+ * seam is drawn on both sides, and the two halves meet in the next tile.
+ */
 @utility pattern-hex {
   background-color: currentColor;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='none' stroke='black' stroke-width='1' d='M14 0.5 27.5 8.3v15.6L14 31.7 0.5 23.9V8.3zM14 31.7v16.8M0.5 8.3 0.5 0M27.5 8.3V0'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='none' stroke='black' stroke-width='1' stroke-linecap='round' d='M-7 8.08 7 16.17 21 8.08 35 16.17M7 16.17V32.33M-7 40.42 7 32.33 21 40.42 35 32.33M21-8.08V8.08M21 40.42V56.58'/%3E%3C/svg%3E");
   mask-size: 28px 48.5px;
 }
 
